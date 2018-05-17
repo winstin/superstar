@@ -1,0 +1,33 @@
+<view class='container'>
+
+  <image src='/img/banner.png' class='banner'></image>
+  <view class='box'>
+    <navigator url='{{payUrl}}' class='one_box'>
+      <image src='/img/pay.png'></image>
+      <text>快捷支付</text>
+    </navigator>
+    <view class='one_box' bindtap='scanCode'>
+      <image src='/img/get.png'></image>
+      <text >扫码收款</text>
+    </view>
+    <!-- <button open-type="share">1111</button> -->
+    <navigator class='one_box' >
+      <image src='/img/share.png'></image>
+      <text>分享好友</text>
+    </navigator>
+  </view>
+  <view class='box'>
+    <navigator url='/pages/work/work' class='one_box'>
+      <image src='/img/work.png'></image>
+      <text>商务合作</text>
+    </navigator>
+    <navigator  url='/pages/about/about' class='one_box'>
+      <image src='/img/about.png'></image>
+      <text>关于我们</text>
+    </navigator>
+    <navigator class='one_box'>
+      <image src='/img/sm.png'></image>
+      <text>使用说明</text>
+    </navigator>
+  </view>
+</view>

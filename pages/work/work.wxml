@@ -1,0 +1,4 @@
+<!--pages/work/work.wxml-->
+<view class='container'>
+  <image src='/img/work.jpg'></image>
+</view>

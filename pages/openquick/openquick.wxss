@@ -1,0 +1,61 @@
+/* pages/openquick/openquick.wxss */
+/* pages/credit/credit.wxss */
+
+.title{
+  font-size: 30rpx;
+  color: #999;
+  line-height: 100rpx;
+  height: 100rpx;
+  margin-left: 68rpx;
+}
+.backgorud {
+  width: 690rpx;
+  height: 310rpx;
+}
+
+
+
+.bank_name {
+  font-size: 36rpx;
+}
+
+.debit {
+  margin-top: 5rpx;
+  font-size: 26rpx;
+}
+
+.card_num {
+  font-size: 40rpx;
+  margin-top: 40rpx;
+}
+
+.info {
+  width: 610rpx;
+  margin-bottom: 10rpx;
+}
+
+.info_ {
+  margin-top: 10rpx;
+}
+
+.info label {
+  color: #4c83e0;
+  font-size: 30rpx;
+}
+
+.info input {
+  border-bottom: 1rpx rgba(230, 230, 230, 0.7) solid;
+}
+
+.button button {
+  margin-top: 25rpx;
+  width: 90%;
+}
+
+.edit {
+  border: 1rpx solid #4a83da;
+  background-color: #4a83da;
+  color: #eee;
+}
+
+

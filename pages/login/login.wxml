@@ -1,0 +1,33 @@
+<!--pages/login/login.wxml-->
+
+<view class='container'>
+  <image class='top' src='/img/backgroud.png'></image>
+
+  <view class='logoDiv'>
+      <image class='logo' src='/img/logo.png'></image>
+  </view>
+  <view class='input'>
+    <image src='/img/user.png' class='user'></image>
+    <input type='number' placeholder='手机号码' placeholder-class='placeholder' bindinput='numberInput'></input>
+  </view>
+  <view class='input margin_top'>
+    <image src='/img/password.png' class='password'></image>
+    <input password='true' placeholder='密码' placeholder-class='placeholder' bindinput='passwordInput'></input>
+  </view>
+
+  <view class='text'>
+    <text class='register' bindtap='toRegister'>新用户注册</text>
+    <text class='forget_password'>忘记密码</text>
+  </view>
+  <view class='dialog' hidden='{{hidden}}'>
+    <text>用户名或密码不正确</text>
+  </view>
+  <button bindtap='loginClickEvent'>登 录</button>
+
+  <view class='line_box'>
+    <view class='line'></view>
+    <text class='line_text'>其他登录方式</text>
+  </view>
+
+  <image class='wx_login' bindtap='wxClickEvent' src='/img/wx.png' bindtap='toMain'></image>
+</view>

@@ -1,0 +1,14 @@
+<!--pages/pay_type/pay_type.wxml-->
+
+<radio-group bindchange="radioChange">
+
+  <view class='card' wx:for="{{items}}" wx:key="value">
+    <image src='/img/my_card.png'></image>
+    <text>{{item.name}}</text>
+    <radio value="{{item.value}}" checked='{{item.checked}}'/>
+  </view>
+</radio-group>
+  <view class='button'>
+    <button class='select' bindtap='selectCard'>确定</button>
+    <button class='add' bindtap='addCard'>添加信用卡</button>
+  </view>

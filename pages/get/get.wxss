@@ -1,0 +1,64 @@
+/* pages/get/get.wxss */
+.container{
+  height: 100vh;
+  background-color: #4984d9;
+}
+
+.main{
+  width: 670rpx;
+  height: 830rpx;
+  margin: 80rpx 40rpx 50rpx 40rpx;
+  background-color: #fff;
+  border-radius: 12rpx;
+}
+
+.title{
+  padding-left: 30rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  background-color: #e1e1e1;
+  border-radius: 12rpx 12rpx 0 0;
+}
+
+.title text{
+  font-size: 30rpx;
+}
+
+.mid{
+  margin-top: 35rpx;
+  text-align: center;
+}
+
+.name{
+  font-size: 40rpx;
+  font-weight: 600;
+}
+
+.qrcode{
+  width: 400rpx;
+  height: 400rpx;
+  margin: 40rpx 0 40rpx 0;
+}
+
+.amount{
+  font-size: 55rpx;
+}
+
+.btn{
+  margin-top: 25rpx;
+  text-align: center;
+}
+
+.btn text{
+  font-size: 34rpx;
+  color: #4984d9;
+}
+
+.btn_mid{
+  margin: 0 50rpx 0 50rpx;
+}
+
+.bom{
+  margin-bottom: 130rpx;
+  color: #fff;
+}

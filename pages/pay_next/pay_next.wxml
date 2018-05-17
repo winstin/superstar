@@ -1,0 +1,29 @@
+<!--pages/pay_next/pay_next.wxml-->
+<view class='container'>
+  <view class='info'>
+      <view class='info_'>
+        <label>姓名</label>
+        <text>{{name}}</text>
+      </view>
+      <view class='info_'>
+        <label>手机号</label>
+        <text>{{tel}}</text>
+      </view>
+      <view class='info_'>
+        <label>信用卡</label>
+        <text>{{cardNumber}}</text>
+      </view>
+      <view class='info_'>
+        <label>交易金额</label>
+         <text>{{amount}}</text>
+      </view>
+      <view class='info_'>
+        <label>验证码</label>
+        <input placeholder-class='placeholder' type='number' maxlength='8' placeholder='请输入短信验证码' bindinput='codeInput'></input>
+      </view>
+    </view>
+</view>
+
+<view class='button'>
+  <button bindtap='submit'>确 认</button>
+</view>

@@ -1,0 +1,38 @@
+<!--pages/bill/bill.wxml-->
+<wxs module="filters" src="../../calc.wxs"></wxs>
+<view class='container'>
+
+  <view class='amount'>
+    <text>{{filters.toFix(amount)}}</text>
+  </view>
+  <view class='status'>
+    <text wx:if="{{status == 'A'}}">支付中</text>
+    <text wx:elif="{{status == 'B'}}">支付失败</text>
+    <text wx:elif="{{status == 'C'}}">已支付</text>
+    <text wx:elif="{{status == 'D'}}">结算中</text>
+    <text wx:elif="{{status == 'E'}}">结算成功</text>
+    <text wx:elif="{{status == 'F'}}">预支付</text>
+  </view>
+  <view class='info'>
+    <view class='info_'>
+      <text class='key'>订单号</text>
+      <text class='value'>{{orderNo}}</text>
+    </view>
+    <view class='info_'>
+      <text class='key'>收款方式</text>
+      <text class='value'>{{bankName}}</text>
+    </view>
+    <view class='info_' wx:if="{{status == 'B'}}">
+      <text class='key'>交易失败原因</text>
+      <text class='value '>{{stateMsg}}</text>
+    </view>
+    <view class='info_' wx:if="{{status == 'D'}}">
+      <text class='key'>结算失败原因</text>
+      <text class='value '>{{settleStatusMsg}}</text>
+    </view>
+  </view>
+  <view class='time'>
+    <text class='key'>创建时间</text>
+    <text class='value '>{{createTime}}</text>
+  </view>
+</view>

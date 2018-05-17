@@ -1,0 +1,48 @@
+<!--pages/credit_edit/credit_edit.wxml-->
+
+<view class='container'>
+
+  <view class='card'>
+    <image src='/img/card.png' class='backgorud'></image>
+    <view class='card_info'>
+      <view class='card_icon'>
+        <image src='/img/wx.png'></image>
+      </view>
+      <view class='card_text'>
+        <view class='bank_name'>
+          <text>中国工商银行</text>
+        </view>
+        <view class='debit'>
+          <text>信用卡</text>
+        </view>
+        <view class='card_num'>
+          <text>****　****　****　0110</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class='info'>
+    <view class='info_'>
+      <label>姓名</label>
+      <input value='Kimo'></input>
+    </view>
+    <view class='info_'>
+      <label>身份证</label>
+      <input type='idcard' maxlength='18' value='320323199908080808'></input>
+    </view>
+    <view class='info_'>
+      <label>手机号</label>
+      <input type='number' maxlength='11' value='13888888888'></input>
+    </view>
+    <view class='info_'>
+      <label>信用卡</label>
+      <input type='number' value='3203 2319 9908 0808'></input>
+    </view>
+  </view>
+
+</view>
+
+<view class='button'>
+  <button>保 存</button>
+</view>

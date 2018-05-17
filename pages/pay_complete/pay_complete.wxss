@@ -1,0 +1,29 @@
+/* pages/pay_complete/pay_complete.wxss */
+
+page {
+  background-color: #fff;  
+}  
+
+.container .icon {
+  margin-top: 100rpx;
+  justify-content: center;
+}
+
+.container .result {
+  margin-top: 30rpx;
+  color: green;
+}
+.container .money{
+  margin-top: 100rpx;
+  font-size: 80rpx;
+}
+
+.button-sp-area{
+  margin: 0 auto;
+  width: 60%;
+}
+
+button{
+  margin-top: 250rpx;
+  margin-bottom: 30rpx;
+}

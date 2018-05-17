@@ -1,0 +1,54 @@
+/* pages/bill/bill.wxss */
+
+.container{
+  background-color: #f3f3f3;
+}
+
+.head{
+  margin-top: 50rpx;
+  display: flex;
+  align-items: center;
+}
+
+.head image{
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 20rpx;
+}
+
+.amount{
+  margin: 30rpx 0 30rpx 0;
+  font-size: 70rpx;
+}
+
+.status{
+  font-size: 32rpx;
+  color: #999;
+}
+
+.info{
+  width: 650rpx;
+  margin: 40rpx 0 40rpx 0;
+  border-top: 1rpx rgba(224,224,224,.7) solid;
+  border-bottom: 1rpx rgba(224,224,224,.7) solid;
+}
+
+.info_{
+  height: 90rpx;
+  line-height: 90rpx;
+}
+
+.key{
+  font-size: 30rpx;
+  color: #999;
+}
+
+.value{
+  float: right;
+  font-size: 22rpx;
+}
+
+.time{
+  height: 90rpx;
+  width: 650rpx;
+}

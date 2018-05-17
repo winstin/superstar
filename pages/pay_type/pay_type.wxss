@@ -1,0 +1,36 @@
+/* pages/pay_type/pay_type.wxss */
+
+.card{
+  width: 660rpx;
+  height: 110rpx;
+  margin: 30rpx 45rpx 0 45rpx;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  border-radius: 10rpx;
+}
+
+.card image{
+  width: 50rpx;
+  height: 50rpx;
+  margin: 0 30rpx 0 40rpx;
+}
+
+.card radio{
+  margin-left: 80rpx;
+}
+
+.button button {
+  margin-top: 25rpx;
+  width: 90%;
+}
+
+.select{
+  background-color: #4a83da;
+  border: 0;
+  color: #eee;
+}
+.add{
+  border: 1rpx;
+  color: #4a83da;
+}

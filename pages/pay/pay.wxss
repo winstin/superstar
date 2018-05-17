@@ -1,0 +1,82 @@
+/* pages/pay/pay.wxss */
+
+.container{
+  width: 670rpx;
+  height: 640rpx;
+  margin: 20rpx 40rpx 0 40rpx;
+  border-radius: 10rpx;
+}
+
+.main{
+  width: 670rpx;
+  
+}
+
+.title{
+  margin: 50rpx 0 40rpx 40rpx;
+  font-size: 32rpx;
+}
+
+.amount{
+  width: 580rpx;
+  height: 100rpx;
+  border-bottom: 1px solid rgba(230,230,230,.7);
+  margin: 0 auto;
+}
+
+.amount text{
+  font-size: 80rpx;
+}
+
+.amount input{
+  width: 480rpx;
+  font-size: 90rpx;
+  height: 90rpx;
+  display: inline-block;
+}
+
+.button{
+  width: 610rpx;
+  margin: 0 auto;
+  margin-top: 60rpx;
+}
+
+.card{
+  width: 630rpx;
+  height: 90rpx;
+  margin-top: 30rpx;
+}
+
+.img{
+  margin-top: 20rpx;
+  height: 90rpx;
+  width: 120rpx;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.img image{
+  width: 50rpx;
+  height: 50rpx;
+  margin-left: 50rpx;
+}
+
+.name{
+  height: 90rpx;
+  width: 510rpx;
+  display: inline-block;
+}
+
+.name image{
+  width: 30rpx;
+  height: 60rpx;
+  float: right;
+}
+
+.tips{
+  font-size: 30rpx;
+  color: #999;
+}
+.picker{
+  margin-top: 20rpx;
+}

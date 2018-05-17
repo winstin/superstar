@@ -1,0 +1,33 @@
+<!--pages/get/get.wxml-->
+<view class='container'>
+  <view class='main'>
+    <view class='title'>
+      <text>扫一扫向我付钱</text>
+    </view>
+
+    <view class='mid'>
+      <view>
+        <text class='name'>收款方：KIMO</text>
+      </view>
+
+      <view>
+        <image src='/img/qrcode.jpg' class='qrcode'></image>
+      </view>
+
+      <view>
+        <text class='amount'>￥99.99</text>
+      </view>
+
+      <view class='btn'>
+        <text>清除金额</text>
+        <text class='btn_mid'>|</text>
+        <text>保存图片</text>
+      </view>
+    </view>
+  </view>
+
+  <view class='bom'>
+    <navigator url=''>收款记录</navigator>
+  </view>
+
+</view>

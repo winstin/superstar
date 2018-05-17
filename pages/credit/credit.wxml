@@ -1,0 +1,64 @@
+<!--pages/credit/credit.wxml-->
+
+<view class='container'>
+
+  <view class='card'>
+    <swiper scroll-x="true" style=" white-space: nowrap; display: flex;" bindchange='swiperEvent'>
+      <block wx:for="{{items}}" wx:key="{{item.id}}">
+        <swiper-item>
+          <view style="margin-right:10rpx;">
+            <view class='card_info'>
+              <view class='card_icon'>
+                <image src='/img/wx.png'></image>
+              </view>
+              <view class='card_text'>
+                <view class='bank_name'>
+                  <text>{{item.bankName}}</text>
+                </view>
+                <view class='debit'>
+                  <text>信用卡</text>
+                </view>
+                <view class='card_num'>
+                  <text>{{item.cardNumber}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+
+  <view class='info'>
+    <view class='info_'>
+      <label>姓名</label>
+      <input value='{{name}}' bindinput='nameInput' disabled='true'></input>
+    </view>
+    <view class='info_'>
+      <label>身份证</label>
+      <input type='idcard' maxlength='18' value='{{idCard}}' bindinput='idcardInput' disabled='true'></input>
+    </view>
+    <view class='info_'>
+      <label>手机号</label>
+      <input type='number' maxlength='11' value='{{tel}}' bindinput='telInput'></input>
+    </view>
+    <view class='info_'>
+      <label>信用卡</label>
+      <input type='number' value='{{cardNumber}}' bindinput='cardNumberInput'></input>
+    </view>
+    <view class='info_'>
+      <label>安全码后三位</label>
+      <input type='number' maxlength='3' value='{{cvn}}' bindinput='cvnInput'></input>
+    </view>
+    <view class='info_'>
+      <label>卡有效期</label>
+      <input type='number' maxlength='4' value='{{date}}' bindinput='dateInput'></input>
+    </view>
+  </view>
+</view>
+
+<view class='button'>
+  <button class='edit' disabled='{{btndisable}}' bindtap='updateCredit'>修改信息</button>
+  <button class='del' bindtap='addCredit'>添加信用卡</button>
+  <!-- <button class='del'>解除绑定</button> -->
+</view>

@@ -1,0 +1,11 @@
+<!--pages/pay_complete/pay_complete.wxml-->
+<view>
+  <view class='container'>
+    <icon class='icon' type="{{iconType}}" size='100'></icon>
+    <text class='result'>{{message}}</text>
+    <text class='money'>￥{{amount}}</text>
+  </view>
+  <view class="button-sp-area">
+    <button type="primary" plain="true" bindtap='complete'>完成</button>
+  </view>
+</view>

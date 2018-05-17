@@ -1,0 +1,19 @@
+/**app.wxss**/
+page{
+  background-color: #f3f3f3;
+}
+.container {
+  width: 750rpx;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex: 1;
+} 
+.dialog{
+  color: #b00;
+  font-size: 30rpx;
+  text-align: center;
+}

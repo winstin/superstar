@@ -1,0 +1,77 @@
+<!--pages/log/log.wxml-->
+<wxs module="filters" src="../../calc.wxs"></wxs>
+<view class='container'>
+  <view class='topheader'>
+    <view class='normaltext1'>
+        <text>结算成功交易总额：</text>
+        <text class="ok">{{allMoney}}</text>
+    </view>
+  </view>
+  <view class='top'>
+    <view class="topleft">
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+          <view class="normaltext">当前状态：{{array[index]}}</view>
+        </picker>
+    </view>
+    <view class='topimg' bindtap="serachData">
+      <button type="primary" size="mini"
+        > 查询 </button>
+    </view>
+  </view>
+  <view class='topgery'>
+    <view class="topleft">
+        <picker mode="date" value="{{date1}}"  bindchange="bindDateChange1" bindcancel="bindCancel1">
+          <view class="normaltext">开始时间：{{date1}}</view>
+        </picker>
+    </view>
+    <view class="topimg">
+      <picker mode="date" value="{{date2}}"  bindchange="bindDateChange2" bindcancel="bindCancel2">
+        <view class="normaltext">结束时间：{{date2}}</view>
+      </picker>
+    </view>
+    <!-- <view class='topimg'> -->
+      <!-- <image src='/img/my_card.png'></image> -->
+      
+   <!--  </view> -->
+  </view>
+  <view wx:if="{{items.length > 0}}">
+      <view id="{{item.outTradeNo}}" class='info' wx:for="{{items}}" wx:key="{{item.outTradeNo}}" bindtap='orderDetail'>
+        <view class='headimg'>
+          <image src='/img/my_card.png'></image>
+        </view>
+        <view class='log'>
+          <text>快捷支付-{{item.bankName}}</text>
+          <text class='amount'>￥{{filters.toFix(item.totalFee)}}</text>
+        </view>
+        <view class='time'>
+          <text>{{item.createTime}}</text>
+        </view>
+        <view class="status">
+          <view wx:if="{{item.orderState == 'A'}}">
+            <icon class='icon' type="info" size="14"></icon>
+            <text class="ok">支付中</text>
+          </view>
+          <view wx:elif="{{item.orderState == 'B'}}">
+            <icon class='icon' type="warn" size="14"></icon>
+            <text class="no">支付失败</text>
+          </view>
+          <view wx:if="{{item.orderState == 'C'}}">
+            <icon class='icon' type="success" size="14"></icon>
+            <text class="ok">已支付</text>
+          </view>
+          <view wx:elif="{{item.orderState == 'D'}}">
+            <icon class='icon' type="success" size="14"></icon>
+            <text class="ok">结算中</text>
+          </view>
+          <view wx:elif="{{item.orderState == 'E'}}">
+            <icon class='icon' type="success" size="14"></icon>
+            <text class="ok">结算成功</text>
+          </view>
+        </view>
+      </view>
+  </view>
+  <view wx:else class="norecord"> 
+      <image src='/img/norecords.png' class="recrods"></image> 
+      <text class='normaltext'>没有符合条件的记录！</text>
+  </view>
+</view>

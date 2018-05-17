@@ -1,0 +1,42 @@
+/* pages/set_amount/set_amount.wxss */
+
+.container{
+  width: 670rpx;
+  height: 560rpx;
+  margin: 20rpx 40rpx 0 40rpx;
+  border-radius: 10rpx;
+}
+
+.main{
+  width: 670rpx;
+  
+}
+
+.title{
+  margin: 50rpx 0 40rpx 40rpx;
+  font-size: 32rpx;
+}
+
+.amount{
+  width: 580rpx;
+  height: 100rpx;
+  border-bottom: 1px solid rgba(230,230,230,.7);
+  margin: 0 auto;
+}
+
+.amount text{
+  font-size: 80rpx;
+}
+
+.amount input{
+  width: 480rpx;
+  font-size: 90rpx;
+  height: 90rpx;
+  display: inline-block;
+}
+
+.button{
+  width: 610rpx;
+  margin: 0 auto;
+  margin-top: 170rpx;
+}

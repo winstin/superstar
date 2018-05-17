@@ -1,0 +1,48 @@
+/* pages/pay_next/pay_next.wxss */
+
+.title {
+  font-size: 30rpx;
+  color: #999;
+  margin-left: 68rpx;
+}
+
+.info {
+  width: 610rpx;
+  margin-bottom: 20rpx;
+}
+
+.info_ {
+  margin-top: 20rpx;
+}
+
+.info label {
+  color: #4c83e0;
+  font-size: 30rpx;
+}
+
+.info text {
+  border-bottom: 1rpx rgba(230, 230, 230, 0.7) solid;
+  font-size: 40rpx;
+  color: #999;
+}
+
+.info input {
+  border-bottom: 1rpx rgba(230, 230, 230, 0.7) solid;
+  font-size: 40rpx;
+  color: #999;
+}
+
+.button {
+  width: 670rpx;
+  margin: 40rpx 40rpx 0 40rpx;
+}
+
+.button button {
+  background-color: #4a83da;
+  border: 0;
+  color: #eee;
+}
+
+.placeholder {
+  font-size: 30rpx;
+}

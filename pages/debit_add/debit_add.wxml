@@ -1,0 +1,38 @@
+<!--pages/debit_add/debit_add.wxml-->
+
+<view class='title'>
+  <text>绑定您的个人借记卡用于收款</text>
+</view>
+
+<view class='container'>
+  <view class='info'>
+      <view class='info_'>
+        <label>姓名</label>
+        <input placeholder='请输入姓名' bindinput='nameInput'></input>
+      </view>
+      <view class='info_'>
+        <label>身份证</label>
+        <input type='idcard' maxlength='18' placeholder='请输入身份证号码' bindinput='idCardInput'></input>
+      </view>
+      <view class='info_'>
+        <label>详细地址</label>
+        <input placeholder='请输入详细地址' bindinput='merchAddrInput'></input>
+      </view>
+      <view class='info_'>
+        <label>借记卡</label>
+        <input type='number' placeholder='请输入借记卡号' bindinput='cardNumberInput'></input>
+      </view>
+      <view class='info_'>
+        <label>手机号</label>
+        <input type='number' maxlength='11' placeholder='请输入借记卡预留手机号' bindinput='telInput'></input>
+      </view>
+    </view>
+</view>
+
+<view class='button'>
+  <button bindtap='submit'>确 认</button>
+</view>
+
+<view class='tips'>
+  <text>请仔细核对您的信息</text>
+</view>

@@ -1,0 +1,26 @@
+<!--pages/register_next/register_next.wxml-->
+
+<view class='container'>
+
+  <view class='info'>
+    <view class='input'>
+      <input type='password' placeholder='请设置登陆密码' bindinput='passwordInput'></input>
+    </view>
+    <view class='input'>
+      <input type='password' placeholder='请设再次输入密码' bindinput='passwordConfirmInput'></input>
+    </view>
+
+    <view class='dialog' hidden='{{hidden}}'>
+      <text>两次密码输入不一致，请重新输入</text>
+    </view>
+    
+    <view class='button'>
+      <button bindtap='registerEvent'>完成注册</button>
+    </view>
+
+    <view class='tips'>
+      <text>务必妥善保管并牢记登陆密码</text>
+    </view>
+  </view>
+
+</view>

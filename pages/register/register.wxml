@@ -1,0 +1,30 @@
+<!--pages/register/register.wxml-->
+<view class='title'>
+  <text>注册新用户或绑定已有用户</text>
+</view>
+<view class='container'>
+
+  <view class='info'>
+    <view class='input'>
+      <input class='phone' type='number' maxlength='11' placeholder='请输入手机号' bindinput="phoneInput"></input>
+    </view>
+    <view class='input'>
+      <input class='code' name="code" type='number' placeholder='请输入验证码' bindinput="codeInput"></input>
+      <button bindtap="getCode" size="mini" style="margin-right:23rpx;  background-color: #4a83da;color: #eee;" disabled='{{messageDisable}}'>{{message}}</button>  
+    </view>
+
+    <view class='dialog' hidden='{{hidden}}'>
+      <text>验证码不正确</text>
+    </view>
+
+    <view class='button'>
+      <button id='nextBtn' disabled="{{disabled}}" bindtap='nextRegister'>下一步</button>
+    </view>
+
+    <view class='tips'>
+      <text>已阅读并同意</text>
+      <text class='blue'>《千星钱包用户注册协议》</text>
+    </view>
+  </view>
+
+</view>

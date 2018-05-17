@@ -1,0 +1,58 @@
+/* pages/register/register.wxss */
+
+.container{
+  height: 100vh;
+}
+
+.info{
+  margin-top: 170rpx;
+}
+
+.input{
+  height: 120rpx;
+  line-height: 120rpx;
+  display: flex;
+  align-items: center;
+}
+
+.input .code{
+  width: 380rpx;
+}
+
+.input .button{
+  width: 200rpx;
+  height: 60rpx;
+}
+
+.input input{
+  width: 610rpx;
+  border-bottom: 1rpx rgba(230,230,230,.7) solid;
+}
+
+.input text{
+  margin-left: 50rpx;
+  font-size: 34rpx;
+  color: #4c84db;
+}
+
+.button button{
+  background-color: #4a83da;
+  border: 0;
+  color: #eee;
+  margin: 100rpx 0 35rpx 0;
+}
+
+.tips{
+  color: #999;
+  font-size: 30rpx;
+}
+
+.blue{
+  color: #4c84db;
+}
+
+.dialog{
+  color: #b00;
+  font-size: 30rpx;
+  text-align: center;
+}

@@ -1,0 +1,43 @@
+<!--pages/buiness_register/buiness_register.wxml-->
+
+<view class='title'>
+  <text>填写以下信息，方便商户收款</text>
+</view>
+
+<view class='container'>
+  <view class='info'>
+      <view class='info_'>
+        <label>姓名</label>
+        <input value='Kimo'></input>
+      </view>
+      <view class='info_'>
+        <label>身份证</label>
+        <input type='idcard' maxlength='18' value='320323199908080808'></input>
+      </view>
+      <view class='info_'>
+        <label>手机号</label>
+        <input type='number' maxlength='11' placeholder='请输入手机号'></input>
+      </view>
+      <view class='info_'>
+        <label>借记卡</label>
+        <input type='number' placeholder='请输入借记卡号'></input>
+      </view>
+    </view>
+
+    <view class='line'></view>
+
+    <view class='upload'>
+      <image src='/img/upload.png' bindtap='choseImg'></image>
+    </view>
+
+    <view class='button'>
+      <button>确 认</button>
+    </view>
+
+    <view class='tips'>
+      <text>请仔细核对您的信息</text>
+    </view>
+</view>
+
+
+

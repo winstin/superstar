@@ -1,0 +1,47 @@
+<!--pages/pay/pay.wxml-->
+
+<view class='container'>
+
+  <view class='main'>
+    <view class='title'>
+      <text>付款金额</text>
+    </view>
+
+    <view class='amount'>
+      <text>￥</text>
+      <input type='number' placeholder='输入金额' bindinput='amountInput' value='{{amount}}'></input>
+    </view>
+
+    <view class='card' bindtap='selectCredit'>
+      <view class='img'>
+        <image src='/img/my_card.png'></image>
+      </view>
+      <view class='name'>
+        <text>{{cardInfo}}</text>
+        <image src='/img/my_right.png'></image>
+        <view class='tips'>
+          <text>优先使用此方法付款</text>
+        </view>
+      </view>
+    </view>
+
+    <view class='card'>
+      <view class='img'>
+        <image src='/img/my_card.png'></image>
+      </view>
+      <view class='name'>
+        <picker bindchange="bindPickerChange" value="{{pickerindex}}" range="{{array}}">
+          <view class="picker">
+            交易通道选择：{{array[pickerindex]}}
+          </view>
+        </picker>
+      </view>
+    </view>
+
+
+    <view class='button'>
+      <button type='primary' bindtap='submitPay'>确认付款</button>
+    </view>
+  </view>
+
+</view>

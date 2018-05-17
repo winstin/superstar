@@ -1,0 +1,20 @@
+<!--pages/set_amount/set_amount.wxml-->
+
+<view class='container'>
+
+  <view class='main'>
+    <view class='title'>
+      <text>收款金额</text>
+    </view>
+  
+    <view class='amount'>
+      <text>￥</text>
+      <input type='number' value='88888'></input>
+    </view>
+
+    <view class='button' >
+      <button type='primary'>确 认</button>
+    </view>
+  </view>
+
+</view>
