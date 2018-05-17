@@ -49,11 +49,12 @@ Page({
     this.serachData();
   },
 
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    
   },
 
   /**
@@ -108,9 +109,12 @@ Page({
 
 
   bindPickerChange: function(e) {
+
     this.setData({
       index: e.detail.value
     })
+
+    this.serachData();
   },
 
   checkState:function(e){
@@ -194,8 +198,20 @@ Page({
         }
       })
       
-
   },
+
+
+  // onPullDownRefresh: function(){
+  //     console.log("下拉刷新")
+  //     // wx.startPullDownRefresh({
+  //     //   success:function(e){
+  //     //     console.log(e)
+  //     //   }
+  //     // })
+  //     // setTimeout(function(){wx.stopPullDownRefresh()},1000)
+      
+  // },
+
 
   /**
    * 生命周期函数--监听页面隐藏

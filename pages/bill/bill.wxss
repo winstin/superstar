@@ -27,25 +27,35 @@
 }
 
 .info{
-  width: 650rpx;
+  width: 750rpx;
   margin: 40rpx 0 40rpx 0;
   border-top: 1rpx rgba(224,224,224,.7) solid;
-  border-bottom: 1rpx rgba(224,224,224,.7) solid;
+  /*border-bottom: 1rpx rgba(224,224,224,.7) solid;*/
 }
 
 .info_{
   height: 90rpx;
   line-height: 90rpx;
+  border-bottom: 1rpx rgba(224,224,224,.7) solid;
 }
 
 .key{
   font-size: 30rpx;
   color: #999;
+  padding-left: 20px
 }
 
 .value{
   float: right;
-  font-size: 22rpx;
+  font-size: 26rpx;
+  padding-right: 20px
+}
+
+.warnvalue{
+  float: right;
+  font-size: 26rpx;
+  padding-right: 20px;
+  color: red
 }
 
 .time{
