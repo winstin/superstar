@@ -4,16 +4,78 @@ page{
 }
 .container {
   width: 750rpx;
-  background-color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
   flex: 1;
+  background-color: #fff;
 } 
 .dialog{
   color: #b00;
   font-size: 30rpx;
   text-align: center;
+}
+/*农业银行*/
+.card_info1 {
+  height: 230rpx;
+  width: 100%;
+  background: linear-gradient(to right, #37bfa5 , #37b7a5);
+  border-radius: 10px;
+  display: flex
+}
+
+/*建设银行*/
+.card_info2 {
+  height: 230rpx;
+  width: 100%;
+  background: linear-gradient(to right, #009bB3 , #0066B3);
+  border-radius: 10px;
+  display: flex
+}
+
+/*华夏银行*/
+.card_info3 {
+  height: 230rpx;
+  width: 100%;
+  background: linear-gradient(to right, #cc6600 , #cc0000);
+  border-radius: 10px;
+  display: flex
+}
+
+/*平安银行*/
+.card_info4 {
+  height: 230rpx;
+  width: 100%;
+  background: linear-gradient(to right, #e99f00 , #e96b00);
+  border-radius: 10px;
+  display: flex
+}
+
+/*民生银行*/
+.card_info5 {
+  height: 230rpx;
+  width: 100%;
+  background: linear-gradient(to right, #00aabc , #0072bc);
+  border-radius: 10px;
+  display: flex
+}
+
+/*上海银行*/
+.card_info6 {
+  height: 230rpx;
+  width: 100%;
+  background: linear-gradient(to right, #009f98 , #004098);
+  border-radius: 10px;
+  display: flex
+}
+
+/*邮储银行*/
+.card_info7 {
+  height: 230rpx;
+  width: 100%;
+  background: linear-gradient(to right, #23af38 , #23ac38);
+  border-radius: 10px;
+  display: flex
 }

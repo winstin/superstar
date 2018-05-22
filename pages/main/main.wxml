@@ -1,33 +1,52 @@
 <view class='container'>
-
-  <image src='/img/banner.png' class='banner'></image>
-  <view class='box'>
-    <navigator url='{{payUrl}}' class='one_box'>
-      <image src='/img/pay.png'></image>
-      <text>快捷支付</text>
-    </navigator>
-    <view class='one_box' bindtap='scanCode'>
-      <image src='/img/get.png'></image>
-      <text >扫码收款</text>
+  
+  <view wx:if="{{canIUse}}">
+    <image src='/img/logo.png' class='logo'></image>
+    <button  class='indexPage' type="primary" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+  </view>
+  <view wx:else>
+    <image src='/img/banner.png' class='banner'></image>
+      <view class='box'>
+        <navigator url='{{payUrl}}' class='one_box'>
+          <image src='/img/pay.png'></image>
+          <text>快捷支付</text>
+        </navigator>
+        <view class='one_box' bindtap='scanCode'>
+          <image src='/img/get.png'></image>
+          <text >扫码收款</text>
+        </view>
+        <!-- <button open-type="share">1111</button> -->
+        <navigator class='one_box' >
+          <image src='/img/share.png'></image>
+          <text>分享好友</text>
+        </navigator>
+      </view>
+      <view class='box'>
+        <navigator url='/pages/work/work' class='one_box'>
+          <image src='/img/work.png'></image>
+          <text>商务合作</text>
+        </navigator>
+        <navigator  url='/pages/about/about' class='one_box'>
+          <image src='/img/about.png'></image>
+          <text>关于我们</text>
+        </navigator>
+        <navigator class='one_box'  >
+          <image src='/img/sm.png'></image>
+          <text>联系客服</text>
+        </navigator>
+        <button class="hide" open-type="contact">1111</button>
     </view>
-    <!-- <button open-type="share">1111</button> -->
-    <navigator class='one_box' >
-      <image src='/img/share.png'></image>
-      <text>分享好友</text>
-    </navigator>
   </view>
-  <view class='box'>
-    <navigator url='/pages/work/work' class='one_box'>
-      <image src='/img/work.png'></image>
-      <text>商务合作</text>
-    </navigator>
-    <navigator  url='/pages/about/about' class='one_box'>
-      <image src='/img/about.png'></image>
-      <text>关于我们</text>
-    </navigator>
-    <navigator class='one_box'>
-      <image src='/img/sm.png'></image>
-      <text>使用说明</text>
-    </navigator>
-  </view>
+
+ <!--  <view wx:if="{{isPhoneNum}}" class="container-mask">
+    <view class="isPhoneNum">
+      <view class="tips">温馨提示</view>
+      <view class="content">获取微信绑定手机号</view>
+      <view class="bottom">
+        <button class="bottom-btn-right" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">获取手机号</button>
+      </view>
+    </view>
+  </view> -->
+<!--   <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">获取手机号</button>
+ -->
 </view>

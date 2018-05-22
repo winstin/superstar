@@ -35,7 +35,7 @@
   width: 100%
 }
 
-/*button{
+.hide{
   background-color: #fff;
   opacity: 0;
   border-radius: 0px;
@@ -45,4 +45,78 @@
   width: 33%;
   height: 110px;
   right: 0px
+}
+
+.indexPage{
+  position: absolute;
+  width: 690rpx;
+  left: 30rpx;
+
+}
+.logo{
+  margin-top: 150px;
+  width: 100px;
+  height: 100px
+}
+
+.bottom{
+  display: flex;
+  margin-top: 10px;
+  border-top: 1px solid #eee
+}
+.isPhoneNum{
+  position: absolute;
+  background: #fff;
+  padding-top: 10px;
+  top:150px;
+  /*padding-right: 10px;
+  padding-left: 10px;*/
+  /*border: 1px solid #e5e5e5*/
+  /*background: red*/
+}
+
+.bottom-btn-right{
+  border: 0px;
+  border-radius: 0px;
+  width: 300px;
+  background: #fff;
+  position: inherit;
+  color: #1aad19
+}
+
+/*.bottom-btn-left{
+  border: 0px;
+  border-radius: 0px;
+  width: 150px;
+  background: #fff;
+  position: inherit;
+  border-right: 1px solid #eee;
 }*/
+
+.tips{
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  /*border-bottom: 1px solid #f3f3f3*/
+}
+
+.content{
+  padding-left: 10px;
+  padding-right: 10px;
+  line-height: 50px;
+  display: flex;
+  justify-content:center;
+
+}
+
+.container-mask{
+    width: 750rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    flex: 1;
+    background-color: #fff;
+}
+

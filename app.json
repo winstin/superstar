@@ -12,6 +12,7 @@
     "pages/debit_add/debit_add",
     "pages/credit/credit",
     "pages/credit_edit/credit_edit",
+    "pages/credit_update/credit_update",
     "pages/credit_add/credit_add",
     "pages/log/log",
     "pages/bill/bill",

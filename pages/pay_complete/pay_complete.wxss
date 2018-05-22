@@ -3,7 +3,9 @@
 page {
   background-color: #fff;  
 }  
-
+.indexPage{
+  
+}
 .container .icon {
   margin-top: 100rpx;
   justify-content: center;

@@ -19,7 +19,7 @@ Page({
     items: null,
     x: 0,
     originCardNumber: '',
-    style:'card_info_blue'
+    id:'',
   },
 
   telInput: function (e) {
@@ -54,7 +54,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+      this.setData({
+        id: options.id
+      })
   },
 
   /**
@@ -80,42 +82,18 @@ Page({
       success(res) {
         if (res.data.isSuccess) {
           let cardData = res.data.data;
-          // cardData = cardData.concat(cardData);
-
-          let cardImg = app.globalData.banklogo;
-          for(let i in cardData){
-              cardData[i].cardNum = cardData[i].cardNumber.substr(cardData[i].cardNumber.length-4,cardData[i].cardNumber.length-1)
-              for(let j in cardImg){
-                  if(cardImg[j].name==cardData[i].bankName){
-                      cardData[i].url = cardImg[j].url;
-                      cardData[i].style = cardImg[j].style;
-                  }
-              }
-              if(cardData[i].url == undefined){
-                  cardData[i].url = "/img/logo/default.png";
-              }
-              if(cardData[i].style == undefined){
-                  cardData[i].style = 'card_info2';
-              }
-          }
           that.setData({
             items: cardData
           })
         }
-        if (that.data.items == null) {
+        if (that.data.items == null || that.id == "") {
           wx.showToast({
             title: '未绑定信用卡',
             icon: 'none',
             duration: 3000
           })
-          setTimeout(function () {
-            wx.switchTab({
-              url: '../my/my',
-            })
-          }, 2000)
-
         } else {
-          that.findCredit(0)
+          that.findCredit(that.id)
         }
       }
     })
@@ -161,15 +139,21 @@ Page({
   },
 
   findCredit: function (index) {
-    this.setData({
-      bankCardId: this.data.items[index].id,
-      bankName: this.data.items[index].bankName,
-      cardNumber: this.data.items[index].cardNumber,
-      cvn: this.data.items[index].cvn,
-      date: this.data.items[index].date,
-      tel: this.data.items[index].tel,
-      originCardNumber: this.data.items[index].cardNumber
-    })
+    for(let index in this.data.items){
+      if(this.data.items[index].id == this.data.id){
+
+          this.setData({
+            bankCardId: this.data.items[index].id,
+            bankName: this.data.items[index].bankName,
+            cardNumber: this.data.items[index].cardNumber,
+            cvn: this.data.items[index].cvn,
+            date: this.data.items[index].date,
+            tel: this.data.items[index].tel,
+            originCardNumber: this.data.items[index].cardNumber
+          })
+      }
+    }
+    
   },
   updateCredit: function () {
     var that = this
@@ -227,11 +211,27 @@ Page({
   },
 
   orderDetail: function(e){
-      let id = e.currentTarget.id;
-      console.log(id)
-      wx.navigateTo({
-        url: '../credit_update/credit_update?id=' + id,
-      })
+      console.log(this.data.items)
+  },
+
+
+  delCredit:function(){
+    let self = this;
+    wx.showModal({
+      title: '提示',
+      content: '是否确定删除该信用卡。',
+      success: function(res) {
+        if (res.confirm) {
+          self.delete();
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+
+  delete:function(){
+    
   }
 
  

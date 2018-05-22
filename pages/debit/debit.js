@@ -14,7 +14,9 @@ Page({
     name: '',
     idcard: '',
     tel: '',
-    originCardNumber: ''
+    originCardNumber: '',
+    style:'',
+    url:''
   },
 
   telInput: function (e) {
@@ -57,12 +59,30 @@ Page({
       },
       success(res) {
         if (res.data.isSuccess) {
+          let cardData = res.data.data;
+          let cardImg = app.globalData.banklogo;
+          cardData.cardNum = cardData.cardNumber.substr(cardData.cardNumber.length-4,cardData.cardNumber.length-1)
+          for(let j in cardImg){
+              if(cardImg[j].name==cardData.bankName){
+                  cardData.url = cardImg[j].url;
+                  cardData.style = cardImg[j].style;
+              }
+          }
+          if(cardData.url == undefined){
+              cardData.url = "/img/logo/default.png";
+          }
+          if(cardData.style == undefined){
+              cardData.style = 'card_info2';
+          }
+          
           that.setData({
-            bankCardId: res.data.data.id,
-            bankName: res.data.data.bankName,
-            cardNumber: res.data.data.cardNumber,
-            tel: res.data.data.tel,
-            originCardNumber: res.data.data.cardNumber
+            bankCardId: cardData.id,
+            bankName: cardData.bankName,
+            cardNumber: cardData.cardNum,
+            tel: cardData.tel,
+            originCardNumber: cardData.cardNumber,
+            style:cardData.style,
+            url:cardData.url
           })
         } else {
           wx.showToast({

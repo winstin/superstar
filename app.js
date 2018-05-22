@@ -8,34 +8,166 @@ App({
     // 登录
     wx.login({
       success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId 
+        // var code = res.code; //返回code
+        // console.log(code);
+        // var appId = 'wx8c6f42443cd0a870';
+        // var secret = '30fa8f082badce3f5f532a1b321f7351';
+        // wx.request({
+        //   url:'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' + appId + '&secret=' + secret,
+        //   // url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appId + '&secret=' + secret + '&js_code=' + code + '&grant_type=authorization_code',
+        //   data: {},
+
+        //   header: {
+        //     'content-type': 'json'
+        //   },
+        //   success: function (res) {
+        //     console.log(res)
+        //     var access_token = res.data.access_token //access_token
+        //     console.log(access_token)
+        //     wx.request({
+        //       url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appId + '&secret=' + secret + '&js_code=' + code + '&grant_type=authorization_code',
+        //       data: {},
+        //       header: {
+        //         'content-type': 'json'
+        //       },
+        //       success: function (res) {
+        //         console.log(res)
+        //         var openid = res.data.openid //返回openid
+        //         console.log('openid为' + openid);
+        //         wx.request({
+        //           url: 'https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='+access_token,
+        //           method: "POST",
+        //           data: {
+        //               "touser":openid,
+        //               "msgtype":"text",
+        //               "text":
+        //               {
+        //                    "content":"Hello World"
+        //               }
+        //           },
+        //           header: {
+        //             'content-type': 'json'
+        //           },
+        //           success: function (res) {
+        //             console.log(res)
+        //             // var openid = res.data.openid //返回openid
+        //             // console.log('openid为' + openid);
+
+
+                    
+        //           }
+        //         })
+        //       }
+        //     })
+        //   }
+        // })
       }
     })
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              // 可以将 res 发送给后台解码出 unionId
-              this.globalData.userInfo = res.userInfo
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              if (this.userInfoReadyCallback) {
-                this.userInfoReadyCallback(res)
-              }
-            }
-          })
-        }
-      }
-    })
+   
   },
   globalData: {
     userInfo: null,
     server: "https://www.51xjbuy.com",
     token:'',
-    appId:'11058973'
+    appId:'11058973',
+    banklogo:[
+      {
+        name:"招商银行",
+        url:"/img/logo/zsyh.png",
+        style:"card_info3"
+      },
+      {
+        name:"浦发银行",
+        url:"/img/logo/pfyh.png",
+        style:"card_info2"
+      },
+      {
+        name:"民生银行",
+        url:"/img/logo/msyh.png",
+        style:"card_info5"
+      },
+      {
+        name:"交通银行",
+        url:"/img/logo/jtyh.png",
+        style:"card_info2"
+      },
+
+      {
+        name:"平安银行",
+        url:"/img/logo/payh.png",
+        style:"card_info4"
+      },
+
+      {
+        name:"邮储银行",
+        url:"/img/logo/yzyh.png",
+        style:"card_info7"
+      },
+
+      {
+        name:"中信银行",
+        url:"/img/logo/zxyh.png",
+        style:"card_info3"
+      },
+
+      {
+        name:"光大银行",
+        url:"/img/logo/gdyh.png",
+        style:"card_info3"
+      },
+
+      {
+        name:"华夏银行",
+        url:"/img/logo/hxyh.png",
+        style:"card_info3"
+      },
+
+      {
+        name:"上海银行",
+        url:"/img/logo/shyh.png",
+        style:"card_info6"
+      },
+      {
+        name:"广发银行",
+        url:"/img/logo/gfyh.png",
+        style:"card_info3"
+      },
+      {
+        name:"工商银行",
+        url:"/img/logo/gsyh.png",
+        style:"card_info3"
+      },
+      {
+        name:"中国银行",
+        url:"/img/logo/zgyh.png",
+        style:"card_info3"
+      },
+
+      {
+        name:"农业银行",
+        url:"/img/logo/nyyh.png",
+        style:"card_info1"
+      },
+
+      {
+        name:"建设银行",
+        url:"/img/logo/jsyh.png",
+        style:'card_info2'
+      },
+
+      {
+        name:"兴业银行",
+        url:"/img/logo/xyyh.png",
+        style:'card_info2'
+      },
+
+      {
+        name:"北京银行",
+        url:"/img/logo/bjyh.png",
+        style:"card_info3"
+      },
+    ]
   },
   getNowFormatDate:function() {
         var date = new Date();

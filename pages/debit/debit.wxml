@@ -2,7 +2,7 @@
 
 <view class='container'>
 
-  <view class='card'>
+  <!-- <view class='card'>
     <image src='/img/card.png' class='backgorud'></image>
     <view class='card_info'>
       <view class='card_icon'>
@@ -20,7 +20,31 @@
         </view>
       </view>
     </view>
+  </view> -->
+  <view  class='info' >
+      <view >
+        <view class="{{style}}" >
+          <view class='card_icon'>
+            <image class='card_img' src="{{url}}"></image>
+          </view>
+          <view class='card_text'>
+            <view class='bank_name'>
+              <text>{{bankName}}</text>
+            </view>
+            <view class='debit'>
+              <text>借记卡</text>
+            </view>
+            <view class='card_num'>
+              <text class='card_text_1'>****</text>
+              <text class='card_text_1'>****</text>
+              <text class='card_text_1'>****</text>
+              <text> {{cardNumber}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
   </view>
+
 
   <view class='info'>
     <view class='info_'>

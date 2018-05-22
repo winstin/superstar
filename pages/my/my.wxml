@@ -2,9 +2,11 @@
 
 <view class='container'>
   <view class='header'>
-    <image class='headimg' src='/img/wx.png'></image>
+    <open-data type="userAvatarUrl" class="userinfo-avatar"></open-data>
+    <!-- <image class='headimg' src='/img/wx.png'></image> -->
     <view>
-      <text>欢迎您，{{name}}</text>
+      <text>欢迎您，</text>
+      <open-data type="userNickName" class="userinfo-name"></open-data>
     </view>
   </view>
 
