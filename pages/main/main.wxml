@@ -16,19 +16,19 @@
           <text >扫码收款</text>
         </view>
         <!-- <button open-type="share">1111</button> -->
-        <navigator class='one_box' >
+        <navigator class='one_box' url='/pages/share/share' >
           <image src='/img/share.png'></image>
-          <text>分享好友</text>
+          <text>省钱宝典</text>
         </navigator>
       </view>
       <view class='box'>
         <navigator url='/pages/work/work' class='one_box'>
           <image src='/img/work.png'></image>
-          <text>商务合作</text>
+          <text>赚钱宝典</text>
         </navigator>
         <navigator  url='/pages/about/about' class='one_box'>
           <image src='/img/about.png'></image>
-          <text>关于我们</text>
+          <text>至尊宝典</text>
         </navigator>
         <navigator class='one_box'  >
           <image src='/img/sm.png'></image>
@@ -36,6 +36,7 @@
         </navigator>
         <button class="hide" open-type="contact">1111</button>
     </view>
+    <!-- <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">获取手机号</button> -->
   </view>
 
  <!--  <view wx:if="{{isPhoneNum}}" class="container-mask">

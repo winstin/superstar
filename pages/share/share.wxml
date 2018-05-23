@@ -1,0 +1,27 @@
+<!--pages/login/login.wxml-->
+
+<view class='container'>
+
+  <view class="tips">
+    <text class="little">温馨提示：</text>
+  </view>
+  <view class="tips">
+    <text class="content">1.分享100个用户可以降一定费率！（用户点开链接才有效）</text>
+  </view>
+  <view class="tips">
+    <text class="content">2.可以自定义分享标题。</text>
+  </view>
+  <!-- <view class="tips">
+    <text class="content">3.</text>
+  </view> -->
+  <image class='top' src='/img/share.jpeg'></image>
+
+
+  <view class='tips'>
+    <text class="little custom">自定义标题：</text>
+    <input value='' placeholder="请输入分享标题" class="little" bindinput='textInput'></input>
+  </view>
+  
+  <button class="share-btn" type="primary" open-type="share">转发</button>
+
+</view>

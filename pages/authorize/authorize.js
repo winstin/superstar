@@ -31,10 +31,10 @@ Page({
    */
   onLoad: function (options) {
       let username = wx.getStorageSync('username');
-      // console.log(username)
-      if(username!=undefined && username!=""){
-        this.setData({isPhoneNum:false})
-      }
+      console.log(username)
+      // if(username!=undefined && username!=""){
+      //   this.setData({isPhoneNum:false})
+      // }
 
   },
 
@@ -221,7 +221,7 @@ Page({
 
     if(e.detail.encryptedData != undefined){//用户允许获取手机号
         wx.showToast({
-          title: '获取手机号成功！',
+          title: '获取成功！',
           icon: 'success',
           duration: 2500
         })

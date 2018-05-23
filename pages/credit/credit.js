@@ -108,11 +108,11 @@ Page({
             icon: 'none',
             duration: 3000
           })
-          setTimeout(function () {
+          /*setTimeout(function () {
             wx.switchTab({
               url: '../my/my',
             })
-          }, 2000)
+          }, 2000)*/
 
         } else {
           that.findCredit(0)

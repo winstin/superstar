@@ -1,6 +1,5 @@
 {
   "pages": [
-   
     "pages/main/main",
     "pages/my/my",
     "pages/login/login",
@@ -25,7 +24,8 @@
     "pages/pay_next/pay_next",
     "pages/pay_complete/pay_complete",
     "pages/openquick/openquick",
-    "pages/gunsIndex/gunsIndex"
+    "pages/share/share",
+    "pages/authorize/authorize"
   ],
   "window": {
     "backgroundTextStyle": "light",

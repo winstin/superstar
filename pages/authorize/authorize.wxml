@@ -1,0 +1,44 @@
+<!--pages/login/login.wxml-->
+
+<view class='authorize'>
+  <!-- <image class='top' src='/img/backgroud.png'></image> -->
+
+  <view class='logoDiv'>
+      <image class='logo' src='/img/logo.png'></image>
+      <view class="tips">
+        <text class="little">千星钱包</text>
+      </view>
+  </view>
+  
+  <view wx:if="{{isPhoneNum}}">
+
+    <view class="info">
+        <text class="little">登录前应用将获得以下权限</text>
+
+    </view>
+    <view class="info-down">
+        <view class="label-2__icon">
+          <view class="label-2__icon-checked" ></view>
+        </view>
+        <text class='greytext'>获取用户的绑定手机号</text>
+    </view>
+
+    <button type="primary" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">获取绑定手机号</button>
+  </view>
+  <view wx:else>
+
+    <view class="info">
+        <text class="little">登录后应用将获得以下权限</text>
+
+    </view>
+    <view class="info-down">
+        <view class="label-2__icon">
+          <view class="label-2__icon-checked" ></view>
+        </view>
+        <text class='greytext'>获取用户信息(用户头像，昵称等)</text>
+    </view>
+
+
+    <button type="primary" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+  </view>
+</view>

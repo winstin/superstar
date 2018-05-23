@@ -72,17 +72,12 @@
 }
 
 
-.userinfo-avatar {
-  width: 170rpx;
-  height: 170rpx;
-  border-radius: 50%;
-  margin-top: 40rpx;
-  display: block;
-  overflow: hidden;
-  margin-left: auto;
-  margin-right: auto;
-}
+
 
 .userinfo-name{
   color: #fff
+}
+.little{
+  color: #fff;
+  font-size: 12px
 }

@@ -28,6 +28,12 @@
     <view class='line'></view>
     <text class='line_text'>其他登录方式</text>
   </view>
-
-  <image class='wx_login' bindtap='wxClickEvent' src='/img/wx.png' bindtap='toMain'></image>
+  <view wx:if="{{isPhoneNum}}">
+    <image class='wx_login' src='/img/wx.png' ></image>
+    <button class="hide" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">获取手机号</button>
+  </view>
+  <view wx:else>
+    <image class='wx_login' src='/img/wx.png' ></image>
+    <button class="hide" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+  </view>
 </view>

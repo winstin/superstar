@@ -8,6 +8,13 @@ page{
 
 }
 
+.blueback{
+   background: blue;
+   width: 750rpx;
+   height: 100px
+}
+
+
 .logo{
   width: 230rpx;
   height: 230rpx;
@@ -75,7 +82,7 @@ button{
   width: 600rpx;
   color: #fff;
   background-color: #4984d9;
-  border-radius: 50rpx;
+  /*border-radius: 50rpx;*/
 }
 
 .line_box{
@@ -107,4 +114,18 @@ button{
   margin-top: 30rpx;
   width: 70rpx;
   height: 70rpx;
+}
+
+
+.hide{
+  background-color: #fff;
+  opacity: 0;
+  border-radius:0px;
+  padding:0px;
+  margin:0px;
+  width:80rpx;
+  height:80rpx;
+  right:0px;
+  margin-top:-80rpx;
+
 }

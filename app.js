@@ -17,7 +17,6 @@ App({
         //   url:'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' + appId + '&secret=' + secret,
         //   // url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appId + '&secret=' + secret + '&js_code=' + code + '&grant_type=authorization_code',
         //   data: {},
-
         //   header: {
         //     'content-type': 'json'
         //   },
@@ -53,9 +52,6 @@ App({
         //             console.log(res)
         //             // var openid = res.data.openid //返回openid
         //             // console.log('openid为' + openid);
-
-
-                    
         //           }
         //         })
         //       }
@@ -67,7 +63,8 @@ App({
    
   },
   globalData: {
-    userInfo: null,
+    version:'00001',//小程序版本号
+    userInfo: null,//用户信息
     server: "https://www.51xjbuy.com",
     token:'',
     appId:'11058973',

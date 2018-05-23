@@ -207,6 +207,8 @@ Page({
               items:newData,
               allMoney:allMoney
             })
+          }else{
+            wx.hideLoading();
           }
         }
       })

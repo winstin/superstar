@@ -8,6 +8,10 @@
       <text>欢迎您，</text>
       <open-data type="userNickName" class="userinfo-name"></open-data>
     </view>
+
+    <view>
+      <text class="little">版本号：{{version}}</text>
+    </view>
   </view>
 
   <view class='list'>

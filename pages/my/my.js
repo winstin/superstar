@@ -10,7 +10,8 @@ Page({
     name: '',
     creditCount: 0,
     orderCount: 0,
-    orderData: []
+    orderData: [],
+    version:getApp().globalData.version
   },
 
   /**
@@ -98,7 +99,7 @@ Page({
 
   },
   exit: function () {
-    wx.clearStorage()
+    // wx.clearStorage()
     wx.redirectTo({
       url: '../login/login',
     })

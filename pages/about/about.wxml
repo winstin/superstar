@@ -1,4 +1,33 @@
 <!--pages/about/about.wxml-->
-<view class='container'>
-  <image src='/img/about.jpg'></image>
+<image src='/img/banner.png' class='banner'></image>
+<view class='title'>
+  <text>申请O单商</text>
 </view>
+
+<view class='container'>
+
+  <view class='info'>
+      <view class='info_'>
+        <label>公司名称</label>
+        <input placeholder='请正确输入姓名' bindinput='nameInput'></input>
+      </view>
+      <view class='info_'>
+        <label>身份证</label>
+        <input type='idcard' maxlength='18' placeholder='请输入身份证号码' bindinput='idCardInput'></input>
+      </view>
+      
+      <view class='info_'>
+        <label>邮箱</label>
+        <input type='number' placeholder='请输入信用卡号' bindinput='cardNumberInput'></input>
+      </view>
+      
+    </view>
+</view>
+
+<view class='button'>
+  <button bindtap='submit'>确 认</button>
+</view>
+
+<!-- <view class='tips'>
+  <text>请仔细核对您的信息</text>
+</view> -->

@@ -1,6 +1,10 @@
 /**app.wxss**/
+
 page{
   background-color: #f3f3f3;
+  /*display: flex;
+  flex: 1;*/
+  height:100%
 }
 .container {
   width: 750rpx;
@@ -78,4 +82,16 @@ page{
   background: linear-gradient(to right, #23af38 , #23ac38);
   border-radius: 10px;
   display: flex
+}
+
+
+.userinfo-avatar {
+  width: 170rpx;
+  height: 170rpx;
+  border-radius: 50%;
+  margin-top: 40rpx;
+  display: block;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
 }

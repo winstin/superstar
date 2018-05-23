@@ -39,11 +39,30 @@ Page({
           //     }
           //   }
           // })
+          
+          // wx.redirectTo({
+          //   url: '../login/login',
+          // })
+          // return
         }else{
-          this.setData({canIUse:true})
+          wx.redirectTo({
+            url: '../authorize/authorize',
+          })
+          return
         }
       }
     })
+
+
+    /*wx.getSystemInfo({
+      success: res => {
+        console.log(res)
+        this.setData({
+          scrollheight: res.windowHeight - heightAll
+        })
+        
+      }
+    })*/
   },
 
   /**
