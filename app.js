@@ -1,6 +1,7 @@
 //app.js
 App({
-  onLaunch: function () {
+  onLaunch: function (info) {
+    console.log(info);
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -63,7 +64,7 @@ App({
    
   },
   globalData: {
-    version:'00001',//小程序版本号
+    version:'00002',//小程序版本号
     userInfo: null,//用户信息
     server: "https://www.51xjbuy.com",
     token:'',

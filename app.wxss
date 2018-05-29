@@ -1,9 +1,7 @@
 /**app.wxss**/
-
+@import './utils/iconfont.wxss'; 
 page{
   background-color: #f3f3f3;
-  /*display: flex;
-  flex: 1;*/
   height:100%
 }
 .container {

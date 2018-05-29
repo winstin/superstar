@@ -1,19 +1,34 @@
 <!--pages/about/about.wxml-->
-<image src='/img/banner.png' class='banner'></image>
+<image src='/img/background.jpg' class='banner'></image>
 <view class='title'>
   <text>申请O单商</text>
+</view>
+
+<view class="tips">
+  <text class="content">1.最优质的团队提供最优质的服务。</text>
+</view>
+<view class="tips">
+  <text class="content">2.稳定的支付通道。</text>
+</view>
+
+<view class="tips">
+  <text class="content">3.人性化的软件设计。</text>
+</view>
+
+<view class="tips">
+  <text class="content">3.如需帮助请联系客服。</text>
 </view>
 
 <view class='container'>
 
   <view class='info'>
       <view class='info_'>
-        <label>公司名称</label>
+        <label>姓名</label>
         <input placeholder='请正确输入姓名' bindinput='nameInput'></input>
       </view>
       <view class='info_'>
-        <label>身份证</label>
-        <input type='idcard' maxlength='18' placeholder='请输入身份证号码' bindinput='idCardInput'></input>
+        <label>公司名称</label>
+        <input type='idcard' maxlength='18' placeholder='请正确输入公司名称' bindinput='idCardInput'></input>
       </view>
       
       <view class='info_'>
@@ -21,11 +36,11 @@
         <input type='number' placeholder='请输入信用卡号' bindinput='cardNumberInput'></input>
       </view>
       
-    </view>
+  </view>
 </view>
 
 <view class='button'>
-  <button bindtap='submit'>确 认</button>
+  <button bindtap=''>确 认</button>
 </view>
 
 <!-- <view class='tips'>

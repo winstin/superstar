@@ -1,5 +1,5 @@
 <!--pages/work/work.wxml-->
-<image src='/img/banner.png' class='banner'></image>
+<image src='/img/background.jpg' class='banner'></image>
 <view class='title'>
   <text>申请服务商</text>
 </view>
@@ -7,12 +7,12 @@
 <view class='container'>
   <view class='info'>
       <view class='info_'>
-        <label>公司名称</label>
+        <label>姓名</label>
         <input placeholder='请正确输入姓名' bindinput='nameInput'></input>
       </view>
       <view class='info_'>
-        <label>身份证</label>
-        <input type='idcard' maxlength='18' placeholder='请输入身份证号码' bindinput='idCardInput'></input>
+        <label>公司名称</label>
+        <input type='idcard' maxlength='18' placeholder='请正确输入公司名称' bindinput='idCardInput'></input>
       </view>
       
       <view class='info_'>
@@ -24,7 +24,7 @@
 </view>
 
 <view class='button'>
-  <button bindtap='submit'>确 认</button>
+  <button bindtap=''>确 认</button>
 </view>
 
 <!-- <view class='tips'>

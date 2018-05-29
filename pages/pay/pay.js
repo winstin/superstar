@@ -23,6 +23,8 @@ Page({
     Value:"",        //输入的内容  
     ispassword:false, //是否密文显示 true为密文， false为明文。 
     data:"",
+    isNoCard:false,
+    isNoCards:true
   },
 
   amountInput: function (e) {
@@ -86,7 +88,7 @@ Page({
         phoneNumber: getApp().globalData.userInfo.tel
       },
       success(res) {
-        console.log(res);
+        // console.log(res);
         if (res.data.isSuccess) {
           var card = res.data.data[that.data.index]
           var info = card.bankName + card.bankCardType + '(' + card.cardNumberLast4 + ')';
@@ -114,9 +116,10 @@ Page({
             items:cardData
           })
         } else {
-          wx.redirectTo({
-            url: '../credit_add/credit_add',
-          })
+          that.setData({isNoCard:true})
+          // wx.redirectTo({
+          //   url: '../credit_add/credit_add',
+          // })
         }
       }
     })
@@ -245,9 +248,16 @@ Page({
       })
       return
     }
-    this.setData({  
-       hiddenmodalput: !this.data.hiddenmodalput  
-    })  
+    if(this.data.isNoCard){
+      this.setData({  
+         isNoCards: false 
+      })  
+    }else{
+      this.setData({  
+         hiddenmodalput: !this.data.hiddenmodalput  
+      })  
+    }
+   
   },  
   //确认  
   confirm: function(){  
@@ -261,7 +271,17 @@ Page({
   cancel:function(){
       this.setData({  
           hiddenmodalput: true,
+          isNoCards:true
       })  
+  },
+
+  addCards:function(){
+      this.setData({  
+          isNoCards:true
+      });
+      wx.switchTab({
+        url: '../my/my',
+      }) 
   },
 
   handle:function(){

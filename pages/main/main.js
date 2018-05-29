@@ -15,8 +15,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
-
     if(options.openId){//分享用户进首页处理
 
     }
@@ -24,7 +22,7 @@ Page({
     // 获取用户信息
     wx.getSetting({
       success: res => {
-        console.log(res)
+        console.log(res);
         if (res.authSetting['scope.userInfo']) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           // wx.getUserInfo({
@@ -39,11 +37,6 @@ Page({
           //     }
           //   }
           // })
-          
-          // wx.redirectTo({
-          //   url: '../login/login',
-          // })
-          // return
         }else{
           wx.redirectTo({
             url: '../authorize/authorize',
@@ -111,12 +104,15 @@ Page({
                     success(res) {
                       var url = ''
                       if (res.data.data == 'debit') {
-                        url = '../debit_add/debit_add'
+                        // url = '../debit_add/debit_add'
+                        url = '../pay/pay?type=debit'
                       } else if (res.data.data == 'credit') {
-                        url = '../credit_add/credit_add'
+                        url = '../pay/pay?type=credit'
+                        // url = '../credit_add/credit_add'
                       } else if (res.data.data == 'order') {
                         url = '../pay/pay'
                       }
+
                       that.setData({
                         payUrl: url
                       })
@@ -148,9 +144,11 @@ Page({
         success(res) {
           var url = ''
           if (res.data.data == 'debit') {
-            url = '../debit_add/debit_add'
+            // url = '../debit_add/debit_add'
+            url = '../pay/pay?type=debit'
           } else if (res.data.data == 'credit') {
-            url = '../credit_add/credit_add'
+            url = '../pay/pay?type=credit'
+            // url = '../credit_add/credit_add'
           } else if (res.data.data == 'order') {
             url = '../pay/pay'
           }

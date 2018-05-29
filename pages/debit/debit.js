@@ -16,7 +16,8 @@ Page({
     tel: '',
     originCardNumber: '',
     style:'',
-    url:''
+    url:'',
+    isHasCard:true
   },
 
   telInput: function (e) {
@@ -59,41 +60,42 @@ Page({
       },
       success(res) {
         if (res.data.isSuccess) {
-          let cardData = res.data.data;
-          let cardImg = app.globalData.banklogo;
-          cardData.cardNum = cardData.cardNumber.substr(cardData.cardNumber.length-4,cardData.cardNumber.length-1)
-          for(let j in cardImg){
-              if(cardImg[j].name==cardData.bankName){
-                  cardData.url = cardImg[j].url;
-                  cardData.style = cardImg[j].style;
-              }
-          }
-          if(cardData.url == undefined){
-              cardData.url = "/img/logo/default.png";
-          }
-          if(cardData.style == undefined){
-              cardData.style = 'card_info2';
+            let cardData = res.data.data;
+            let cardImg = app.globalData.banklogo;
+            cardData.cardNum = cardData.cardNumber.substr(cardData.cardNumber.length-4,cardData.cardNumber.length-1)
+            for(let j in cardImg){
+                if(cardImg[j].name==cardData.bankName){
+                    cardData.url = cardImg[j].url;
+                    cardData.style = cardImg[j].style;
+                }
+            }
+            if(cardData.url == undefined){
+                cardData.url = "/img/logo/default.png";
+            }
+            if(cardData.style == undefined){
+                cardData.style = 'card_info2';
+            }
+
+            that.setData({
+              bankCardId: cardData.id,
+              bankName: cardData.bankName,
+              cardNumber: cardData.cardNum,
+              tel: cardData.tel,
+              originCardNumber: cardData.cardNumber,
+              style:cardData.style,
+              url:cardData.url
+            })
+
+        } else {
+          if(res.data.message == "尚未绑定借记卡"){
+              that.setData({isHasCard:false})
+          }else{
+              wx.showToast({
+                title: res.data.message,
+                icon: 'none'
+              })
           }
           
-          that.setData({
-            bankCardId: cardData.id,
-            bankName: cardData.bankName,
-            cardNumber: cardData.cardNum,
-            tel: cardData.tel,
-            originCardNumber: cardData.cardNumber,
-            style:cardData.style,
-            url:cardData.url
-          })
-        } else {
-          wx.showToast({
-            title: res.data.message,
-            icon: 'none'
-          })
-          setTimeout(function () {
-            wx.switchTab({
-              url: '../my/my',
-            })
-          }, 2000)
         }
       }
 
@@ -186,5 +188,11 @@ Page({
         }
       }
     })
+  },
+
+  addCredit:function () {
+      wx.redirectTo({
+        url: '../debit_add/debit_add',
+      })
   }
 })

@@ -103,11 +103,11 @@ Page({
           })
         }
         if (that.data.items == null) {
-          wx.showToast({
+          /*wx.showToast({
             title: '未绑定信用卡',
             icon: 'none',
-            duration: 3000
-          })
+            duration: 1000
+          })*/
           /*setTimeout(function () {
             wx.switchTab({
               url: '../my/my',

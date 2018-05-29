@@ -1,0 +1,5 @@
+<!--pages/login/login.wxml-->
+
+<canvas canvas-id="mycanvas" class='canvas' id="mycanvas" />
+
+
