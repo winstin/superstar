@@ -64,7 +64,7 @@ App({
    
   },
   globalData: {
-    version:'00003',//小程序版本号
+    version:'00004',//小程序版本号
     userInfo: null,//用户信息
     server: "https://www.51xjbuy.com",
     newserver:"https://api.xjpay.cc",
