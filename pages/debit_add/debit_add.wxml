@@ -14,10 +14,10 @@
         <label>身份证</label>
         <input type='idcard' maxlength='18' placeholder='请输入身份证号码' bindinput='idCardInput'></input>
       </view>
-      <view class='info_'>
+      <!--  <view class='info_'>
         <label>详细地址</label>
         <input placeholder='请输入详细地址' bindinput='merchAddrInput'></input>
-      </view>
+      </view> -->
       <view class='info_'>
         <label>借记卡</label>
         <input type='number' placeholder='请输入借记卡号' bindinput='cardNumberInput'></input>

@@ -6,33 +6,20 @@ Page({
    */
   data: {
     name: '',
-    idCard: '',
-    tel: '',
-    cardNumber: '',
-    cvn: '',
-    date: ''
+    email: '',
   },
 
-  telInput: function (e) {
+  nameInput: function (e) {
     this.setData({
-      tel: e.detail.value
+      name: e.detail.value
     })
   },
-  cardNumberInput: function (e) {
+  emailInput: function (e) {
     this.setData({
-      cardNumber: e.detail.value
+      email: e.detail.value
     })
   },
-  cvnInput: function (e) {
-    this.setData({
-      cvn: e.detail.value
-    })
-  },
-  dateInput: function (e) {
-    this.setData({
-      date: e.detail.value
-    })
-  },
+  
   /**
    * 生命周期函数--监听页面加载
    */

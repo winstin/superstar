@@ -1,6 +1,8 @@
 // pages/my/my.js
-var app = getApp()
-var baseUrl = app.globalData.server
+var app = getApp();
+var baseUrl = app.globalData.server;
+var Tools = require('../../utils/util.js');
+
 Page({
 
   /**
@@ -33,35 +35,46 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var bankCards = getApp().globalData.userInfo.bankCards
+    // var bankCards = getApp().globalData.userInfo.bankCards
     const that = this
-    var count = 0
-    for (var i = 0; i < bankCards.length; i++) {
-      if (bankCards[i].bankCardType == '贷记卡') {
-        count += 1
-      }
-    }
-    this.setData({
-      name: getApp().globalData.userInfo.nickName,
-      creditCount: count
-    })
-    wx.request({
-      url: baseUrl + '/mini/findOrder',
-      data: {
-        phoneNumber: app.globalData.userInfo.tel,
-        type: '0'
-      },
-      header: {
-        'Authorization': app.globalData.token
-      },
-      success(res) {
-        if (res.data.isSuccess) {
-          that.setData({
-            orderCount: res.data.data
-          })
+    var count = 0;
+
+    Tools.fetch({
+        url: '/creditBankCard',
+        method: 'GET',
+        isLogin:false,
+        callback(res) {
+          if (res.data.isSuccess) {
+            let cardData = res.data.data;
+            for (var i = 0; i < cardData.length; i++) {
+              count += 1
+            }
+            that.setData({
+              name: getApp().globalData.userInfos.nickName,
+              creditCount: count
+            })
+          }
         }
-      }
     })
+
+
+    // wx.request({
+    //   url: baseUrl + '/mini/findOrder',
+    //   data: {
+    //     phoneNumber: app.globalData.userInfo.tel,
+    //     type: '0'
+    //   },
+    //   header: {
+    //     'Authorization': app.globalData.token
+    //   },
+    //   success(res) {
+    //     if (res.data.isSuccess) {
+    //       that.setData({
+    //         orderCount: res.data.data
+    //       })
+    //     }
+    //   }
+    // })
   },
 
   /**
@@ -99,10 +112,10 @@ Page({
 
   },
   exit: function () {
-    // wx.clearStorage()
-    wx.redirectTo({
-      url: '../login/login',
-    })
+    wx.clearStorage()
+    // wx.redirectTo({
+    //   url: '../login/login',
+    // })
 
   }
 })

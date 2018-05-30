@@ -1,6 +1,9 @@
 // pages/credit/credit.js
-const app = getApp()
-var baseUrl = app.globalData.server
+const app = getApp();
+var baseUrl = app.globalData.server;
+var Tools = require('../../utils/util.js');
+
+
 Page({
 
   /**
@@ -70,33 +73,55 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var that = this
-    wx.request({
-      url: baseUrl + '/mini/findCredit',
-      header: {
-        'Authorization': app.globalData.token
-      },
-      data: {
-        phoneNumber: app.globalData.userInfo.tel
-      },
-      success(res) {
-        if (res.data.isSuccess) {
-          let cardData = res.data.data;
-          that.setData({
-            items: cardData
-          })
+    var that = this;
+    Tools.fetch({
+        url: '/creditBankCard',
+        method: 'GET',
+        isLogin:false,
+        callback(res) {
+          if (res.data.isSuccess) {
+            let cardData = res.data.data;
+            that.setData({
+              items: cardData
+            })
+          }
+          if (that.data.items == null || that.id == "") {
+            wx.showToast({
+              title: '未绑定信用卡',
+              icon: 'none',
+              duration: 3000
+            })
+          } else {
+            that.findCredit(that.id)
+          }
         }
-        if (that.data.items == null || that.id == "") {
-          wx.showToast({
-            title: '未绑定信用卡',
-            icon: 'none',
-            duration: 3000
-          })
-        } else {
-          that.findCredit(that.id)
-        }
-      }
     })
+    // wx.request({
+    //   url: baseUrl + '/mini/findCredit',
+    //   header: {
+    //     'Authorization': app.globalData.token
+    //   },
+    //   data: {
+    //     phoneNumber: app.globalData.userInfo.tel
+    //   },
+    //   success(res) {
+    //     if (res.data.isSuccess) {
+    //       let cardData = res.data.data;
+    //       that.setData({
+    //         items: cardData
+    //       })
+    //     }
+    //     if (that.data.items == null || that.id == "") {
+    //       wx.showToast({
+    //         title: '未绑定信用卡',
+    //         icon: 'none',
+    //         duration: 3000
+    //       })
+    //     } else {
+    //       that.findCredit(that.id)
+    //     }
+    //   }
+    // })
     this.setData({
       name: app.globalData.userInfo.name,
       idCard: app.globalData.userInfo.idCard,
@@ -153,7 +178,6 @@ Page({
           })
       }
     }
-    
   },
   updateCredit: function () {
     var that = this
@@ -161,47 +185,82 @@ Page({
       title: '修改中请稍候',
       mask: true,
     })
-    wx.request({
-      url: baseUrl + '/mini/updateCredit',
-      method: 'POST',
-      header: {
-        'Authorization': app.globalData.token
-      },
-      data: {
-        id: that.data.bankCardId,
-        tel: that.data.tel,
-        cardNumber: that.data.cardNumber,
-        cvn: that.data.cvn,
-        date: that.data.date
-      },
-      success(res) {
-        setTimeout(function () {
-          wx.hideLoading()
-        }, 2000)
-        if (res.data.isSuccess) {
-          that.setData({
-            bankName: res.data.data.bankName
-          })
-          wx.showToast({
-            title: '修改成功',
-          })
-          that.setData({
-            btndisable: true
-          })
-        } else {
-          that.setData({
-            cardNumber: that.data.originCardNumber,
-            btndisable: true
-          })
-          wx.showToast({
-            title: res.data.message,
-            icon: 'none',
-            duration: 2000
-          })
-          return
+
+    Tools.fetch({
+        url: '/creditBankCard/'+that.data.bankCardId,
+        method: 'PUT',
+        data: {
+          "cardNumber": this.data.cardNumber,
+          "cvn": this.data.cvn,
+          "date": this.data.date,
+          "tel": this.data.tel
+        },
+        isLogin:false,
+        callback:(res)=> {
+            wx.hideLoading()
+            if (res.data.isSuccess) {
+              wx.showToast({
+                title: '修改成功',
+              })
+              that.setData({
+                bankName: res.data.data.bankName,
+                btndisable: true
+              })
+            } else {
+              that.setData({
+                cardNumber: that.data.originCardNumber,
+                btndisable: true
+              })
+              wx.showToast({
+                title: res.data.message,
+                icon: 'none',
+                duration: 2000
+              })
+              return
+            }
         }
-      }
     })
+    // wx.request({
+    //   url: baseUrl + '/mini/updateCredit',
+    //   method: 'POST',
+    //   header: {
+    //     'Authorization': app.globalData.token
+    //   },
+    //   data: {
+    //     id: that.data.bankCardId,
+    //     tel: that.data.tel,
+    //     cardNumber: that.data.cardNumber,
+    //     cvn: that.data.cvn,
+    //     date: that.data.date
+    //   },
+    //   success(res) {
+    //     setTimeout(function () {
+    //       wx.hideLoading()
+    //     }, 2000)
+    //     if (res.data.isSuccess) {
+    //       that.setData({
+    //         bankName: res.data.data.bankName
+    //       })
+    //       wx.showToast({
+    //         title: '修改成功',
+    //       })
+    //       that.setData({
+    //         btndisable: true
+    //       })
+    //     } else {
+    //       that.setData({
+    //         cardNumber: that.data.originCardNumber,
+    //         btndisable: true
+    //       })
+    //       wx.showToast({
+    //         title: res.data.message,
+    //         icon: 'none',
+    //         duration: 2000
+    //       })
+    //       return
+    //     }
+    //   }
+    // })
 
   },
   addCredit: function () {
@@ -222,6 +281,7 @@ Page({
       content: '是否确定删除该信用卡。',
       success: function(res) {
         if (res.confirm) {
+          console.log("1")
           self.delete();
         } else if (res.cancel) {
           console.log('用户点击取消')
@@ -231,7 +291,23 @@ Page({
   },
 
   delete:function(){
-    
+
+    Tools.fetch({
+        url: '/creditBankCard/'+this.data.bankCardId,
+        method: 'DELETE',
+        isLogin:false,
+        callback:(res)=> {
+            wx.hideLoading()
+            if (res.data.isSuccess) {
+                wx.showToast({
+                  title: '删除成功',
+                })
+                wx.navigateTo({
+                  url: '../credit/credit',
+                })
+            }
+        }
+    })
   }
 
  

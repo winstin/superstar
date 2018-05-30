@@ -28,16 +28,15 @@
   <view class='info'>
       <view class='info_'>
         <label>姓名</label>
-        <input placeholder='请正确输入姓名' bindinput='nameInput'></input>
+        <input placeholder='请输入姓名' bindinput='nameInput'></input>
       </view>
       <view class='info_'>
         <label>公司名称</label>
-        <input type='idcard' maxlength='18' placeholder='请正确输入公司名称' bindinput='idCardInput'></input>
+        <input type='idcard' maxlength='18' placeholder='请输入公司名称' bindinput='idCardInput'></input>
       </view>
-      
       <view class='info_'>
         <label>邮箱</label>
-        <input type='number' placeholder='请输入信用卡号' bindinput='cardNumberInput'></input>
+        <input type='number' placeholder='请输入邮箱地址' bindinput='cardNumberInput'></input>
       </view>
       
   </view>

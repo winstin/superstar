@@ -39,7 +39,7 @@
                   <text class='card_text_1'>****</text>
                   <text class='card_text_1'>****</text>
                   <text class='card_text_1'>****</text>
-                  <text> {{cardNumber}}</text>
+                  <text> {{cardNum}}</text>
                 </view>
               </view>
             </view>
@@ -50,11 +50,11 @@
       <view class='info'>
         <view class='info_'>
           <label>姓名</label>
-          <input value='{{name}}' disabled='true'></input>
+          <input value='{{name}}' bindinput='nameInput'></input>
         </view>
         <view class='info_'>
           <label>身份证</label>
-          <input type='idcard' maxlength='18' value='{{idCard}}' disabled='true'>></input>
+          <input type='idcard' maxlength='18' value='{{idCard}}' bindinput='idCardInput'></input>
         </view>
         <view class='info_'>
           <label>手机号</label>

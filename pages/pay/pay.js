@@ -1,5 +1,6 @@
 // pages/pay/pay.js
-var baseUrl = getApp().globalData.server
+var baseUrl = getApp().globalData.server;
+var Tools = require('../../utils/util.js');
 
 Page({
 
@@ -28,7 +29,6 @@ Page({
   },
 
   amountInput: function (e) {
-
     this.setData({
       amount: e.detail.value
     })
@@ -52,7 +52,6 @@ Page({
       },
       data: { appId: getApp().globalData.appId },
       success(res) {
-        console.log(res);
         if (res.data.isSuccess) {
           var a = [];
           var oa = [];
@@ -78,50 +77,45 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    const that = this
-    wx.request({
-      url: baseUrl + '/mini/findCredit',
-      header: {
-        'Authorization': getApp().globalData.token
-      },
-      data: {
-        phoneNumber: getApp().globalData.userInfo.tel
-      },
-      success(res) {
-        // console.log(res);
-        if (res.data.isSuccess) {
-          var card = res.data.data[that.data.index]
-          var info = card.bankName + card.bankCardType + '(' + card.cardNumberLast4 + ')';
+    const that = this;
 
-          let cardImg = getApp().globalData.banklogo;
-          let cardData = res.data.data;
-          for(let i in cardData){
-              for(let j in cardImg){
-                  if(cardImg[j].name==cardData[i].bankName){
-                      cardData[i].url = cardImg[j].url;
-                      cardData[i].style = cardImg[j].style;
+    //获取借记卡数据
+    Tools.fetch({
+        url: '/creditBankCard',
+        method: 'GET',
+        isLogin:false,
+        callback:(res)=> {
+            if (res.data.isSuccess) {
+              var card = res.data.data[that.data.index];
+              let  last4 = card.cardNumber.substr(card.cardNumber.length-4,card.cardNumber.length-1);
+              var info = card.bankName + card.bankCardType + '(' + last4 + ')';
+              let cardImg = getApp().globalData.banklogo;
+              let cardData = res.data.data;
+              for(let i in cardData){
+                  cardData[i].cardNumberLast4 = cardData[i].cardNumber.substr(cardData[i].cardNumber.length-4,cardData[i].cardNumber.length-1);
+                  for(let j in cardImg){
+                      if(cardImg[j].name==cardData[i].bankName){
+                          cardData[i].url = cardImg[j].url;
+                          cardData[i].style = cardImg[j].style;
+                      }
+                  }
+                  if(cardData[i].url == undefined){
+                      cardData[i].url = "/img/logo/default.png";
+                  }
+                  if(cardData[i].style == undefined){
+                      cardData[i].style = 'card_info2';
                   }
               }
-              if(cardData[i].url == undefined){
-                  cardData[i].url = "/img/logo/default.png";
-              }
-              if(cardData[i].style == undefined){
-                  cardData[i].style = 'card_info2';
-              }
-          }
-          cardData[that.data.index].checked = true;
-          that.setData({
-            cardId: card.id,
-            cardInfo: info,
-            items:cardData
-          })
-        } else {
-          that.setData({isNoCard:true})
-          // wx.redirectTo({
-          //   url: '../credit_add/credit_add',
-          // })
+              cardData[that.data.index].checked = true;
+              that.setData({
+                cardId: card.id,
+                cardInfo: info,
+                items:cardData
+              })
+            } else {
+              that.setData({isNoCard:true})
+            }
         }
-      }
     })
   },
 

@@ -12,21 +12,9 @@ App({
     // 登录
     wx.login({
       success: res => {
+        console.log(res)
         // 发送 res.code 到后台换取 openId, sessionKey, unionId 
         var code = res.code; //返回code
-        // console.log(code);
-        // var appId = 'wx8c6f42443cd0a870';
-        // var secret = '30fa8f082badce3f5f532a1b321f7351';
-        // wx.request({
-        //   url: getApp().globalData.server + '/mini/wxLogin',
-        //   data: {
-        //     code: code
-        //   },
-        //   success: function (data) {
-        //     console.log(data)
-        //   }
-        // })
-        // https://api.xjpay.cc/wx-mini-app/api/v1.0/wechat/user/login?agentAppId=xxxxx&code=xxxxx
         Tools.request({
             url: '/wx-mini-app/api/v1.0/wechat/user/login',
             method: 'GET',
@@ -36,36 +24,21 @@ App({
             },
             isLogin:true,
             callback:(res)=> {
-              // console.log(res);
+              console.log(res);
               if(res.data){
                   wx.setStorageSync("openid", res.data.openid);
                   wx.setStorageSync("sessionKey", res.data.sessionKey)
               }
             }
         })
-        // wx.request({
-        //   url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appId + '&secret=' + secret + '&js_code=' + code + '&grant_type=authorization_code',
-        //   data: {},
-        //   header: {
-        //     'content-type': 'json'
-        //   },
-        //   success: function (res) {
-        //     console.log(res);
-        //     var openid = res.data.openid; //返回openid
-        //     wx.setStorageSync("openid", res.data.openid);
-        //     wx.setStorageSync("session_key", res.data.session_key)
-        //     console.log('openid为' + openid);
-            
-        //   }
-        // })
-          
       }
     })
    
   },
   globalData: {
-    version:'00003',//小程序版本号
-    userInfo: null,//用户信息
+    version:'00004',//小程序版本号
+    userInfo: {},//用户信息
+    userInfos:{},
     server: "https://www.51xjbuy.com",
     newserver:"https://api.xjpay.cc",
     token:'',

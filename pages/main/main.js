@@ -19,13 +19,17 @@ Page({
 
     }
 
-    // let weixin_token = wx.getStorageSync("token");
-    // if(weixin_token == undefined || weixin_token == ""){
-    //     wx.redirectTo({
-    //       url: '../authorize/authorize',
-    //     })
-    //     return
-    // }
+    let weixin_token = wx.getStorageSync("token");
+    let userInfo = wx.getStorageSync("userInfo");
+    if(weixin_token == undefined || weixin_token == "" ||userInfo == undefined || userInfo == "" ){
+        wx.redirectTo({
+          url: '../authorize/authorize',
+        })
+        return
+    }else{
+       getApp().globalData.tokens = weixin_token;
+       getApp().globalData.userInfos = userInfo;
+    }
 
 
     
@@ -73,102 +77,102 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    const that = this
-    var username = wx.getStorageSync('username')
-    var password = wx.getStorageSync('password')
-    if (getApp().globalData.userInfo == null) {
-      if (username == '' || password == '') {
-        wx.redirectTo({
-          url: '../login/login',
-        })
-        return
-      } else {
-        wx.request({
-          url: baseUrl + '/login',
-          method: 'POST',
-          header: {
-            'content-type': 'application/x-www-form-urlencoded'
-          },
-          data: {
-            username: username,
-            password: password
-          },
-          success(res) {
-            if (res.data.isSuccess) {
-              getApp().globalData.token = res.header.Authorization
-              wx.request({
-                url: baseUrl + '/mini/getUserInfo',
-                header: {
-                  'Authorization': getApp().globalData.token
-                },
-                data: { id: res.data.data },
-                success(res) {
-                  getApp().globalData.userInfo = res.data.data;
-                  wx.request({
-                    url: baseUrl + '/mini/hasBindCard',
-                    header: {
-                      'Authorization': getApp().globalData.token
-                    },
-                    data: {
-                      phoneNumber: getApp().globalData.userInfo.tel,
-                    },
-                    success(res) {
-                      var url = ''
-                      if (res.data.data == 'debit') {
-                        // url = '../debit_add/debit_add'
-                        url = '../pay/pay?type=debit'
-                      } else if (res.data.data == 'credit') {
-                        url = '../pay/pay?type=credit'
-                        // url = '../credit_add/credit_add'
-                      } else if (res.data.data == 'order') {
-                        url = '../pay/pay'
-                      }
+    // const that = this
+    // var username = wx.getStorageSync('username')
+    // var password = wx.getStorageSync('password')
+    // if (getApp().globalData.userInfo == null) {
+    //   if (username == '' || password == '') {
+    //     wx.redirectTo({
+    //       url: '../login/login',
+    //     })
+    //     return
+    //   } else {
+    //     wx.request({
+    //       url: baseUrl + '/login',
+    //       method: 'POST',
+    //       header: {
+    //         'content-type': 'application/x-www-form-urlencoded'
+    //       },
+    //       data: {
+    //         username: username,
+    //         password: password
+    //       },
+    //       success(res) {
+    //         if (res.data.isSuccess) {
+    //           getApp().globalData.token = res.header.Authorization
+    //           wx.request({
+    //             url: baseUrl + '/mini/getUserInfo',
+    //             header: {
+    //               'Authorization': getApp().globalData.token
+    //             },
+    //             data: { id: res.data.data },
+    //             success(res) {
+    //               getApp().globalData.userInfo = res.data.data;
+    //               wx.request({
+    //                 url: baseUrl + '/mini/hasBindCard',
+    //                 header: {
+    //                   'Authorization': getApp().globalData.token
+    //                 },
+    //                 data: {
+    //                   phoneNumber: getApp().globalData.userInfo.tel,
+    //                 },
+    //                 success(res) {
+    //                   var url = ''
+    //                   if (res.data.data == 'debit') {
+    //                     // url = '../debit_add/debit_add'
+    //                     url = '../pay/pay?type=debit'
+    //                   } else if (res.data.data == 'credit') {
+    //                     url = '../pay/pay?type=credit'
+    //                     // url = '../credit_add/credit_add'
+    //                   } else if (res.data.data == 'order') {
+    //                     url = '../pay/pay'
+    //                   }
 
-                      that.setData({
-                        payUrl: url
-                      })
-                    }
-                  })
-                }
-              })
-            }
-          }
-        })
-      }
-    }
+    //                   that.setData({
+    //                     payUrl: url
+    //                   })
+    //                 }
+    //               })
+    //             }
+    //           })
+    //         }
+    //       }
+    //     })
+    //   }
+    // }
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    const that = this
-    if (getApp().globalData.userInfo != null) {
-      wx.request({
-        url: baseUrl + '/mini/hasBindCard',
-        header: {
-          'Authorization': getApp().globalData.token
-        },
-        data: {
-          phoneNumber: getApp().globalData.userInfo.tel,
-        },
-        success(res) {
-          var url = ''
-          if (res.data.data == 'debit') {
-            // url = '../debit_add/debit_add'
-            url = '../pay/pay?type=debit'
-          } else if (res.data.data == 'credit') {
-            url = '../pay/pay?type=credit'
-            // url = '../credit_add/credit_add'
-          } else if (res.data.data == 'order') {
-            url = '../pay/pay'
-          }
-          that.setData({
-            payUrl: url
-          })
-        }
-      })
-    }
+    // const that = this
+    // if (getApp().globalData.userInfo != null) {
+    //   wx.request({
+    //     url: baseUrl + '/mini/hasBindCard',
+    //     header: {
+    //       'Authorization': getApp().globalData.token
+    //     },
+    //     data: {
+    //       phoneNumber: getApp().globalData.userInfo.tel,
+    //     },
+    //     success(res) {
+    //       var url = ''
+    //       if (res.data.data == 'debit') {
+    //         // url = '../debit_add/debit_add'
+    //         url = '../pay/pay?type=debit'
+    //       } else if (res.data.data == 'credit') {
+    //         url = '../pay/pay?type=credit'
+    //         // url = '../credit_add/credit_add'
+    //       } else if (res.data.data == 'order') {
+    //         url = '../pay/pay'
+    //       }
+    //       that.setData({
+    //         payUrl: url
+    //       })
+    //     }
+    //   })
+    // }
   },
 
   /**

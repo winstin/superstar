@@ -1,4 +1,7 @@
 // pages/credit_add/credit_add.js
+
+var Tools = require('../../utils/util.js');
+
 Page({
 
   /**
@@ -31,6 +34,18 @@ Page({
   dateInput: function (e) {
     this.setData({
       date: e.detail.value
+    })
+  },
+
+  nameInput: function (e) {
+    this.setData({
+      name: e.detail.value
+    })
+  },
+
+  idCardInput: function (e) {
+    this.setData({
+      idCard: e.detail.value
     })
   },
   /**
@@ -91,31 +106,53 @@ Page({
 
   submit: function () {
     var baseUrl = getApp().globalData.server;
-    wx.request({
-      url: baseUrl + '/mini/addCredit',
-      method: 'POST',
-      header: {
-        'Authorization': getApp().globalData.token
-      },
-      data: {
-        userPhone: getApp().globalData.userInfo.tel,
-        cardNumber: this.data.cardNumber,
-        tel: this.data.tel,
-        cvn: this.data.cvn,
-        date: this.data.date
-      },
-      success(res) {
-        if (res.data.isSuccess) {
-          wx.navigateTo({
-            url: '../pay/pay',
-          })
-        } else {
-          wx.showToast({
-            title: res.data.message,
-            icon: 'none'
-          })
+    Tools.request({
+        url: '/mini-api/api/v1.0/creditBankCard',
+        method: 'POST',
+        data: {
+          "cardNumber": this.data.cardNumber,
+          "cvn": this.data.cvn,
+          "date": this.data.date,
+          "idCard": this.data.idCard,
+          "name": this.data.name,
+          "tel": this.data.tel
+        },
+        isLogin:false,
+        callback:(res)=> {
+            if (res.data.isSuccess) {
+                wx.navigateTo({
+                  url: '../pay/pay',
+                })
+            }
+            // console.log('添加卡')
+            // console.log(res);
         }
-      }
     })
+    // wx.request({
+    //   url: baseUrl + '/mini/addCredit',
+    //   method: 'POST',
+    //   header: {
+    //     'Authorization': getApp().globalData.token
+    //   },
+    //   data: {
+    //     userPhone: getApp().globalData.userInfo.tel,
+    //     cardNumber: this.data.cardNumber,
+    //     tel: this.data.tel,
+    //     cvn: this.data.cvn,
+    //     date: this.data.date
+    //   },
+    //   success(res) {
+    //     if (res.data.isSuccess) {
+    //       wx.navigateTo({
+    //         url: '../pay/pay',
+    //       })
+    //     } else {
+    //       wx.showToast({
+    //         title: res.data.message,
+    //         icon: 'none'
+    //       })
+    //     }
+    //   }
+    // })
   }
   })

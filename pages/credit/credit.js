@@ -1,6 +1,8 @@
 // pages/credit/credit.js
-const app = getApp()
-var baseUrl = app.globalData.server
+const app = getApp();
+var baseUrl = app.globalData.server;
+var Tools = require('../../utils/util.js');
+
 Page({
 
   /**
@@ -69,60 +71,45 @@ Page({
    */
   onShow: function () {
     var that = this
-    wx.request({
-      url: baseUrl + '/mini/findCredit',
-      header: {
-        'Authorization': app.globalData.token
-      },
-      data: {
-        phoneNumber: app.globalData.userInfo.tel
-      },
-      success(res) {
-        if (res.data.isSuccess) {
-          let cardData = res.data.data;
-          // cardData = cardData.concat(cardData);
 
-          let cardImg = app.globalData.banklogo;
-          for(let i in cardData){
-              cardData[i].cardNum = cardData[i].cardNumber.substr(cardData[i].cardNumber.length-4,cardData[i].cardNumber.length-1)
-              for(let j in cardImg){
-                  if(cardImg[j].name==cardData[i].bankName){
-                      cardData[i].url = cardImg[j].url;
-                      cardData[i].style = cardImg[j].style;
-                  }
-              }
-              if(cardData[i].url == undefined){
-                  cardData[i].url = "/img/logo/default.png";
-              }
-              if(cardData[i].style == undefined){
-                  cardData[i].style = 'card_info2';
-              }
-          }
-          that.setData({
-            items: cardData
-          })
-        }
-        if (that.data.items == null) {
-          /*wx.showToast({
-            title: '未绑定信用卡',
-            icon: 'none',
-            duration: 1000
-          })*/
-          /*setTimeout(function () {
-            wx.switchTab({
-              url: '../my/my',
+
+    Tools.fetch({
+        url: '/creditBankCard',
+        method: 'GET',
+        isLogin:false,
+        callback:(res)=> {
+            if (res.data.isSuccess) {
+            let cardData = res.data.data;
+            // cardData = cardData.concat(cardData);
+
+            let cardImg = app.globalData.banklogo;
+            for(let i in cardData){
+                cardData[i].cardNum = cardData[i].cardNumber.substr(cardData[i].cardNumber.length-4,cardData[i].cardNumber.length-1)
+                for(let j in cardImg){
+                    if(cardImg[j].name==cardData[i].bankName){
+                        cardData[i].url = cardImg[j].url;
+                        cardData[i].style = cardImg[j].style;
+                    }
+                }
+                if(cardData[i].url == undefined){
+                    cardData[i].url = "/img/logo/default.png";
+                }
+                if(cardData[i].style == undefined){
+                    cardData[i].style = 'card_info2';
+                }
+            }
+            that.setData({
+              items: cardData
             })
-          }, 2000)*/
-
-        } else {
-          that.findCredit(0)
+          }
+          if (that.data.items == null) {
+            
+          } else {
+            that.findCredit(0)
+          }
         }
-      }
     })
-    this.setData({
-      name: app.globalData.userInfo.name,
-      idCard: app.globalData.userInfo.idCard,
-    })
+    
   },
 
   /**
@@ -161,64 +148,17 @@ Page({
   },
 
   findCredit: function (index) {
-    this.setData({
-      bankCardId: this.data.items[index].id,
-      bankName: this.data.items[index].bankName,
-      cardNumber: this.data.items[index].cardNumber,
-      cvn: this.data.items[index].cvn,
-      date: this.data.items[index].date,
-      tel: this.data.items[index].tel,
-      originCardNumber: this.data.items[index].cardNumber
-    })
-  },
-  updateCredit: function () {
-    var that = this
-    wx.showLoading({
-      title: '修改中请稍候',
-      mask: true,
-    })
-    wx.request({
-      url: baseUrl + '/mini/updateCredit',
-      method: 'POST',
-      header: {
-        'Authorization': app.globalData.token
-      },
-      data: {
-        id: that.data.bankCardId,
-        tel: that.data.tel,
-        cardNumber: that.data.cardNumber,
-        cvn: that.data.cvn,
-        date: that.data.date
-      },
-      success(res) {
-        setTimeout(function () {
-          wx.hideLoading()
-        }, 2000)
-        if (res.data.isSuccess) {
-          that.setData({
-            bankName: res.data.data.bankName
-          })
-          wx.showToast({
-            title: '修改成功',
-          })
-          that.setData({
-            btndisable: true
-          })
-        } else {
-          that.setData({
-            cardNumber: that.data.originCardNumber,
-            btndisable: true
-          })
-          wx.showToast({
-            title: res.data.message,
-            icon: 'none',
-            duration: 2000
-          })
-          return
-        }
-      }
-    })
-
+    if(this.data.items[index]){
+      this.setData({
+        bankCardId: this.data.items[index].id,
+        bankName: this.data.items[index].bankName,
+        cardNumber: this.data.items[index].cardNumber,
+        cvn: this.data.items[index].cvn,
+        date: this.data.items[index].date,
+        tel: this.data.items[index].tel,
+        originCardNumber: this.data.items[index].cardNumber
+      })
+    }
   },
   addCredit: function () {
     wx.navigateTo({

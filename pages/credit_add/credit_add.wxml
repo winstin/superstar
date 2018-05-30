@@ -6,14 +6,14 @@
 
 <view class='container'>
   <view class='info'>
-      <!-- <view class='info_'>
+      <view class='info_'>
         <label>姓名</label>
         <input placeholder='请正确输入姓名' bindinput='nameInput'></input>
       </view>
       <view class='info_'>
         <label>身份证</label>
         <input type='idcard' maxlength='18' placeholder='请输入身份证号码' bindinput='idCardInput'></input>
-      </view> -->
+      </view>
       <view class='info_'>
         <label>信用卡</label>
         <input type='number' placeholder='请输入信用卡号' bindinput='cardNumberInput'></input>

@@ -99,51 +99,33 @@ Page({
         data: jsonData,
         isLogin:true,
         callback:(res)=> {
+          if(res.data){
+              getApp().globalData.userInfo = res.data.data;
+              wx.setStorageSync("userInfo",res.data);
+          }
           Tools.request({
               url: '/wxuser/auth',
               method: 'POST',
               data: res.data,
               isLogin:true,
               callback:(res)=> {
-                  console.log(res);
                   wx.setStorageSync("token", res.data);
                   getApp().globalData.tokens = res.data;
-                  Tools.request({
-                      url: '/mini-api/api/v1.0/creditBankCard',
-                      method: 'POST',
-                      data: {
-                        "cardNumber": "6259690013016095",
-                        "cvn": "123",
-                        "date": "2312",
-                        "idCard": "32120219781002273X",
-                        "name": "陈晓峰",
-                        "tel": "13365203333"
-                      },
-                      isLogin:false,
-                      callback:(res)=> {
-                          console.log('添加卡')
-                          console.log(res);
+                  // 获取用户信息
+                  wx.getSetting({
+                    success: res => {
+                      if (res.authSetting['scope.userInfo']) {
+                          wx.switchTab({
+                            url: '../main/main',
+                          })
                       }
+                    }
                   })
               }
           })
-          if(res.data){
-              getApp().globalData.userInfo = res.data.data;
-              // wx.setStorageSync("userInfo",res.data);
-          }
-          
         }
     })
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-            wx.switchTab({
-              url: '../main/main',
-            })
-        }
-      }
-    })
+    
 
   },
 

@@ -1,5 +1,7 @@
 // pages/debit_add/debit_add.js
 var isIdcard = new RegExp(/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/, 'g')
+var Tools = require('../../utils/util.js');
+
 Page({
 
   /**
@@ -10,7 +12,7 @@ Page({
     idCard: '',
     merchAddr: '',
     tel: '',
-    cardNumber: ''
+    cardNumber: '',
   },
   nameInput: function (e) {
     this.setData({
@@ -35,6 +37,17 @@ Page({
   cardNumberInput: function (e) {
     this.setData({
       cardNumber: e.detail.value
+    })
+  },
+
+  cvnInput: function (e) {
+    this.setData({
+      cvn: e.detail.value
+    })
+  },
+  dateInput: function (e) {
+    this.setData({
+      date: e.detail.value
     })
   },
   /**
@@ -107,44 +120,63 @@ Page({
       })
       return
     }
-    wx.request({
-      url: baseUrl + "/api/debit",
-      method: 'POST',
-      header: {
-        'Authorization': getApp().globalData.token
-      },
-      data: {
-        appId: getApp().globalData.appId,
-        cardNumber: this.data.cardNumber,
-        name: this.data.name,
-        idCard: this.data.idCard,
-        tel: this.data.tel,
-        merchAddr: this.data.merchAddr,
-        userId: getApp().globalData.userInfo.id
-      },
-      success(res) {
-        console.log(res)
-        if (res.data.isSuccess) {
-          wx.request({
-            url: baseUrl + '/mini/getUserInfo',
-            header: {
-              'Authorization': getApp().globalData.token
-            },
-            data: { id: getApp().globalData.userInfo.id },
-            success(res) {
-              getApp().globalData.userInfo = res.data.data;
-            }
-          })
-          wx.navigateTo({
-            url: '../credit_add/credit_add',
-          })
-        } else {
-          wx.showToast({
-            title: res.data.message,
-            icon: 'none'
-          })
+    Tools.fetch({
+        url: '/settleBankCard',
+        method: 'POST',
+        data: {
+          "cardNumber": this.data.cardNumber,
+          "idCard": this.data.idCard,
+          "name": this.data.name,
+          "tel": this.data.tel
+        },
+        callback(res) {
+          // console.log(res)
+          if (res.data.isSuccess) {
+              wx.navigateTo({
+                url: '../debit/debit',
+              })
+          }
         }
-      }
     })
+
+    // wx.request({
+    //   url: baseUrl + "/api/debit",
+    //   method: 'POST',
+    //   header: {
+    //     'Authorization': getApp().globalData.token
+    //   },
+    //   data: {
+    //     appId: getApp().globalData.appId,
+    //     cardNumber: this.data.cardNumber,
+    //     name: this.data.name,
+    //     idCard: this.data.idCard,
+    //     tel: this.data.tel,
+    //     merchAddr: this.data.merchAddr,
+    //     userId: getApp().globalData.userInfo.id
+    //   },
+    //   success(res) {
+    //     console.log(res)
+    //     if (res.data.isSuccess) {
+    //       wx.request({
+    //         url: baseUrl + '/mini/getUserInfo',
+    //         header: {
+    //           'Authorization': getApp().globalData.token
+    //         },
+    //         data: { id: getApp().globalData.userInfo.id },
+    //         success(res) {
+    //           getApp().globalData.userInfo = res.data.data;
+    //         }
+    //       })
+    //       wx.navigateTo({
+    //         url: '../credit_add/credit_add',
+    //       })
+    //     } else {
+    //       wx.showToast({
+    //         title: res.data.message,
+    //         icon: 'none'
+    //       })
+    //     }
+    //   }
+    // })
   }
 })

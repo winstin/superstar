@@ -77,14 +77,12 @@ const api = function({url,method='GET',data='',isLogin=false,callback,errCallbac
 
 
 const request = function({url,method='GET',data='',isLogin=false,callback,errCallback = undefined}){
-
     let headers = {} ;
     if(!isLogin){
         headers = {
           'Authorization': "Bearer "+getApp().globalData.tokens
         }
     }
-
     if(method=='GET'){
         data = buildStr(data);
         if(data!=''){
@@ -98,10 +96,78 @@ const request = function({url,method='GET',data='',isLogin=false,callback,errCal
       header: headers,
       data: data,
       success(res) {
-        callback(res)
+          if(res.data.message == "Unauthorized"){//token失效重新登录
+              wx.redirectTo({
+                url: '../authorize/authorize',
+              })
+              return;
+          }
+
+          if(res.data.isSuccess || res.data.isSuccess==undefined){
+              callback(res);
+          }else{
+              if(res.data.message){
+                  wx.showModal({
+                    content: res.data.message,
+                    showCancel: false
+                  })
+              }
+              
+          }
       },
       error(err){
-        errCallback(err)
+        wx.showModal({
+          content: JSON.stringify(err),
+          showCancel: false
+        })
+      }
+    })
+}
+
+
+const fetch = function({url,method='GET',data='',isLogin=false,callback,errCallback = undefined}){
+    let headers = {} ;
+    headers = {
+      'Authorization': "Bearer "+getApp().globalData.tokens
+    }
+    if(method=='GET'){
+        data = buildStr(data);
+        if(data!=''){
+            data = '?'+data;
+        }
+        url = url+data;
+    }
+    wx.request({
+      url: getApp().globalData.newserver+"/mini-api/api/v1.0"+ url,
+      method: method,
+      header: headers,
+      data: data,
+      success(res) {
+          if(res.data.message == "Unauthorized"){//token失效重新登录
+              wx.redirectTo({
+                url: '../authorize/authorize',
+              })
+              return;
+          }
+
+          if(res.data.isSuccess || res.data.isSuccess==undefined){
+              callback(res);
+          }else{
+              wx.hideLoading();
+              if(res.data.message){
+                  wx.showModal({
+                    content: res.data.message,
+                    showCancel: false
+                  })
+              }
+              
+          }
+      },
+      error(err){
+        wx.showModal({
+          content: JSON.stringify(err),
+          showCancel: false
+        })
       }
     })
 }
@@ -109,5 +175,6 @@ const request = function({url,method='GET',data='',isLogin=false,callback,errCal
 module.exports = {
   formatTime: formatTime,
   api:api,
-  request:request
+  request:request,
+  fetch:fetch
 }
