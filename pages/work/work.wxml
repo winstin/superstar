@@ -1,7 +1,14 @@
 <!--pages/work/work.wxml-->
-<image src='/img/background.jpg' class='banner'></image>
+<image src='/img/Service.jpeg' class='banner'></image>
 <view class='title'>
   <text>申请服务商</text>
+</view>
+
+<view class="tips">
+  <text class="content">1.50万年薪，等你来挑战</text>
+</view>
+<view class="tips">
+  <text class="content">2.适用对象：个人，兼职，支付爱好者，团队，公司</text>
 </view>
 
 <view class='container'>
@@ -9,10 +16,6 @@
       <view class='info_'>
         <label>姓名</label>
         <input placeholder='请正确输入姓名' bindinput='nameInput'></input>
-      </view>
-      <view class='info_'>
-        <label>公司名称</label>
-        <input type='idcard' maxlength='18' placeholder='请正确输入公司名称' bindinput='idCardInput'></input>
       </view>
       
       <view class='info_'>

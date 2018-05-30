@@ -2,9 +2,7 @@
 .title{
   font-size: 30rpx;
   color: #999;
-  line-height: 100rpx;
-  height: 100rpx;
-  margin-left: 68rpx;
+  margin-left: 28rpx;
 }
 
 .info{
@@ -37,13 +35,20 @@
 }
 
 .tips{
-  margin-top: 20rpx;
-  font-size: 30rpx;
-  color: #ef4524;
-  line-height: 80rpx;
-  height: 80rpx;
-  text-align: center;
+  width: 750rpx;
 }
+
+.little{
+  margin-left:10px;
+  margin-right:10px;
+}
+
+.content{
+  font-size: 12px;
+  padding-left: 30px;
+  color:#999
+}
+
 
 .banner{
   width: 750rpx;

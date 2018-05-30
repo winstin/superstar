@@ -1,74 +1,76 @@
+var Tools = require('./utils/util.js');
+
+
 //app.js
+
 App({
   onLaunch: function (info) {
-    console.log(info);
+    // console.log(info);
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
-
     // 登录
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId 
-        // var code = res.code; //返回code
+        var code = res.code; //返回code
         // console.log(code);
         // var appId = 'wx8c6f42443cd0a870';
         // var secret = '30fa8f082badce3f5f532a1b321f7351';
         // wx.request({
-        //   url:'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' + appId + '&secret=' + secret,
-        //   // url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appId + '&secret=' + secret + '&js_code=' + code + '&grant_type=authorization_code',
+        //   url: getApp().globalData.server + '/mini/wxLogin',
+        //   data: {
+        //     code: code
+        //   },
+        //   success: function (data) {
+        //     console.log(data)
+        //   }
+        // })
+        // https://api.xjpay.cc/wx-mini-app/api/v1.0/wechat/user/login?agentAppId=xxxxx&code=xxxxx
+        Tools.request({
+            url: '/wx-mini-app/api/v1.0/wechat/user/login',
+            method: 'GET',
+            data: {
+              agentAppId: getApp().globalData.appId,
+              code: code
+            },
+            isLogin:true,
+            callback:(res)=> {
+              // console.log(res);
+              if(res.data){
+                  wx.setStorageSync("openid", res.data.openid);
+                  wx.setStorageSync("sessionKey", res.data.sessionKey)
+              }
+            }
+        })
+        // wx.request({
+        //   url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appId + '&secret=' + secret + '&js_code=' + code + '&grant_type=authorization_code',
         //   data: {},
         //   header: {
         //     'content-type': 'json'
         //   },
         //   success: function (res) {
-        //     console.log(res)
-        //     var access_token = res.data.access_token //access_token
-        //     console.log(access_token)
-        //     wx.request({
-        //       url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appId + '&secret=' + secret + '&js_code=' + code + '&grant_type=authorization_code',
-        //       data: {},
-        //       header: {
-        //         'content-type': 'json'
-        //       },
-        //       success: function (res) {
-        //         console.log(res)
-        //         var openid = res.data.openid //返回openid
-        //         console.log('openid为' + openid);
-        //         wx.request({
-        //           url: 'https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='+access_token,
-        //           method: "POST",
-        //           data: {
-        //               "touser":openid,
-        //               "msgtype":"text",
-        //               "text":
-        //               {
-        //                    "content":"Hello World"
-        //               }
-        //           },
-        //           header: {
-        //             'content-type': 'json'
-        //           },
-        //           success: function (res) {
-        //             console.log(res)
-        //             // var openid = res.data.openid //返回openid
-        //             // console.log('openid为' + openid);
-        //           }
-        //         })
-        //       }
-        //     })
+        //     console.log(res);
+        //     var openid = res.data.openid; //返回openid
+        //     wx.setStorageSync("openid", res.data.openid);
+        //     wx.setStorageSync("session_key", res.data.session_key)
+        //     console.log('openid为' + openid);
+            
         //   }
         // })
+          
       }
     })
    
   },
   globalData: {
-    version:'00002',//小程序版本号
+    version:'00003',//小程序版本号
     userInfo: null,//用户信息
     server: "https://www.51xjbuy.com",
+    newserver:"https://api.xjpay.cc",
     token:'',
     appId:'11058973',
+    tokens:'',
     banklogo:[
       {
         name:"招商银行",

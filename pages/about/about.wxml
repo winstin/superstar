@@ -1,22 +1,26 @@
 <!--pages/about/about.wxml-->
 <image src='/img/background.jpg' class='banner'></image>
 <view class='title'>
-  <text>申请O单商</text>
+  <text>申请品牌服务单商</text>
 </view>
 
 <view class="tips">
-  <text class="content">1.最优质的团队提供最优质的服务。</text>
+  <text class="content">1.我们有够大的平台，我们有专业的团队，我们为你承载梦想</text>
 </view>
 <view class="tips">
-  <text class="content">2.稳定的支付通道。</text>
-</view>
-
-<view class="tips">
-  <text class="content">3.人性化的软件设计。</text>
+  <text class="content">2.稳定的支付业务</text>
 </view>
 
 <view class="tips">
-  <text class="content">3.如需帮助请联系客服。</text>
+  <text class="content">3.适用对象：企业 2年以上的从业经验 有团队</text>
+</view>
+
+<view class="tips">
+  <text class="content">4.新的万亿市场，等你挑战</text>
+</view>
+
+<view class="tips">
+  <text class="content">5.如需帮助可联系客服。</text>
 </view>
 
 <view class='container'>

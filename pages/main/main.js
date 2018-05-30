@@ -19,6 +19,17 @@ Page({
 
     }
 
+    // let weixin_token = wx.getStorageSync("token");
+    // if(weixin_token == undefined || weixin_token == ""){
+    //     wx.redirectTo({
+    //       url: '../authorize/authorize',
+    //     })
+    //     return
+    // }
+
+
+    
+
     // 获取用户信息
     wx.getSetting({
       success: res => {
