@@ -144,6 +144,10 @@ const fetch = function({url,method='GET',data='',isLogin=false,callback,errCallb
       data: data,
       success(res) {
           if(res.data.message == "Unauthorized"){//token失效重新登录
+              /*wx.showModal({
+                content: JSON.stringify(res)+"|||"+JSON.stringify(getApp().globalData.tokens),
+                showCancel: false
+              })*/
               wx.redirectTo({
                 url: '../authorize/authorize',
               })

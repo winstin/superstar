@@ -1,12 +1,18 @@
-
+.container{
+  /*margin-top: 10px*/
+}
 .title{
-  font-size: 30rpx;
-  color: #999;
-  margin-left: 28rpx;
+  font-size:40rpx;
+  color:#333;
+  /*padding:28rpx;*/
+  background:#fff;
+  text-align:center;
+  padding-top: 20rpx
+
 }
 
 .info{
-  width: 610rpx;
+  width: 690rpx;
   margin-bottom: 20rpx;
 }
 
@@ -24,14 +30,18 @@
 }
 
 .button{
-  width: 670rpx;
-  margin: 40rpx 40rpx 0 40rpx;
+  width: 750rpx;
+  /*margin: 40rpx 40rpx 0 40rpx;*/
+  position: fixed;
+  bottom: 0px
 }
+
 
 .button button{
   background-color: #4a83da;
   border: 0;
   color: #eee;
+  border-radius: 0px
 }
 
 .tips{
@@ -45,7 +55,7 @@
 
 .content{
   font-size: 12px;
-  padding-left: 30px;
+  padding-left: 30rpx;
   color:#999
 }
 

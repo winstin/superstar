@@ -8,13 +8,11 @@ App({
     // console.log(info);
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    // 登录
+    logs.unshift(Date.now())    
     wx.login({
-      success: res => {
-        console.log(res)
+      success: result => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId 
-        var code = res.code; //返回code
+        var code = result.code; //返回code
         Tools.request({
             url: '/wx-mini-app/api/v1.0/wechat/user/login',
             method: 'GET',
@@ -24,17 +22,44 @@ App({
             },
             isLogin:true,
             callback:(res)=> {
-              console.log(res);
-              if(res.data){
-                  wx.setStorageSync("openid", res.data.openid);
-                  wx.setStorageSync("sessionKey", res.data.sessionKey)
-              }
+                wx.checkSession({
+                    success: function(e){
+                        if(res.data){
+                            wx.setStorageSync("openid", res.data.openid);
+                            wx.setStorageSync("sessionKey", res.data.sessionKey);
+                        }
+                    },
+                    fail: function(err){
+                        wx.login({
+                          success: result => {
+                            // 发送 res.code 到后台换取 openId, sessionKey, unionId 
+                            var code = result.code; //返回code
+                            Tools.request({
+                                url: '/wx-mini-app/api/v1.0/wechat/user/login',
+                                method: 'GET',
+                                data: {
+                                  agentAppId: getApp().globalData.appId,
+                                  code: code
+                                },
+                                isLogin:true,
+                                callback:(res)=> {
+                                    if(res.data){
+                                        wx.setStorageSync("openid", res.data.openid);
+                                        wx.setStorageSync("sessionKey", res.data.sessionKey);
+                                    }
+                                }
+                            })
+                          }
+                        })
+                    }
+                })
+                
             }
         })
       }
     })
-   
   },
+
   globalData: {
     version:'00004',//小程序版本号
     userInfo: {},//用户信息

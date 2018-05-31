@@ -30,8 +30,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-      let userInfo = wx.getStorageSync('userInfo');
-      console.log(userInfo);
+     
   },
 
   /**
@@ -91,8 +90,13 @@ Page({
 
   bindGetUserInfo:function(e){
     let jsonData = e.detail;
+    let self = this;
     jsonData.sessionKey = wx.getStorageSync("sessionKey");
     jsonData.agentAppId = getApp().globalData.appId;
+
+    wx.showLoading({
+      title:'登录中'
+    })
     Tools.request({
         url: '/wx-mini-app/api/v1.0/wechat/user/info',
         method: 'GET',
@@ -109,25 +113,24 @@ Page({
               data: res.data,
               isLogin:true,
               callback:(res)=> {
+                  wx.hideLoading();
                   wx.setStorageSync("token", res.data);
                   getApp().globalData.tokens = res.data;
                   // 获取用户信息
-                  wx.getSetting({
-                    success: res => {
-                      if (res.authSetting['scope.userInfo']) {
-                          wx.switchTab({
-                            url: '../main/main',
-                          })
-                      }
-                    }
+                  wx.switchTab({
+                    url: '../main/main',
                   })
+                                                    
               }
           })
         }
     })
-    
-
+              
+   
   },
+
+
+
 
 
 
