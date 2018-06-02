@@ -1,6 +1,8 @@
 // pages/log/log.js
-var app = getApp()
-var baseUrl = app.globalData.server
+var app = getApp();
+var baseUrl = app.globalData.server;
+var Tools = require('../../utils/util.js');
+
 Page({
 
   /**
@@ -11,6 +13,7 @@ Page({
     date1: getApp().getNowFormatDate(),
     date2: getApp().getNowFormatDate(),
     array: ['全部', '支付中', '支付失败', '已支付', '结算中', '结算成功'],
+    arrayFalg: ['','A', 'B', 'C', 'D', 'E'],
     index: 5,
     dateFalg:true,
     allMoney:0
@@ -33,32 +36,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // const that = this;
-    
-    // wx.request({
-    //   url: baseUrl + '/mini/findOrder',
-    //   data: {
-    //     phoneNumber: app.globalData.userInfo.tel,
-    //   },
-    //   header: {
-    //     'Authorization': app.globalData.token
-    //   },
-    //   success(res) {
-    //     if (res.data.isSuccess) {
-    //         let allMoney = 0;
-    //         for(let i in res.data.data){
-    //             allMoney=allMoney+res.data.data[i].totalFee;
-    //         }
-    //         allMoney = (allMoney/100).toFixed(2);
-    //         that.setData({
-    //           items: res.data.data,
-    //           date1:getApp().getNowFormatDate(),
-    //           date2:getApp().getNowFormatDate(),
-    //           allMoney:allMoney
-    //         })
-    //     }
-    //   }
-    // })
     this.serachData();
   },
 
@@ -165,53 +142,103 @@ Page({
       let eRDate = new Date(eArr[0], eArr[1], eArr[2]);
       let days = (sRDate-eRDate)/(24*60*60*1000);
       return days;
-      
   },
-
+  newDate:function (UnixTime) { 
+      if(UnixTime== undefined){
+          return;
+      }
+      var a = UnixTime.replace("/Date(", "").replace(")/", "");  
+      var date = new Date(parseInt(a));  
+      var y = date.getFullYear();  
+      var m = date.getMonth() + 1;  
+      m = m < 10 ? ('0' + m) : m;  
+      var d = date.getDate();  
+      d = d < 10 ? ('0' + d) : d;  
+      var h = date.getHours();  
+      h = h < 10 ? ('0' + h) : h;  
+      var minute = date.getMinutes();  
+      var second = date.getSeconds();  
+      minute = minute < 10 ? ('0' + minute) : minute;  
+      second = second < 10 ? ('0' + second) : second;  
+      return y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second;  
+  },
   serachData:function(){
       let self = this;
       wx.showLoading({
         title:'加载中...'
       })
-      wx.request({
-        url: baseUrl + '/mini/findOrder',
-        data: {
-          phoneNumber: app.globalData.userInfo.tel,
-        },
-        header: {
-          'Authorization': app.globalData.token
-        },
-        success(res) {
-          if (res.data.isSuccess){
-            let allMoney = 0;
-            let itemData = res.data.data;
-            let newData = [];
-            if(self.data.dateFalg){
+
+      Tools.fetch({
+          url: '/order',
+          method: 'GET',
+          data:{
+            orderStatus:this.data.arrayFalg[this.data.index],
+            startDate:this.data.date1,
+            endDate:this.data.date2,
+          },
+          callback(res) {
+              wx.hideLoading();
+
+              let itemData = res.data.data.data;
               for(let i in itemData){
-                  if(self.checkDate(itemData[i].createTime,self.data.date1)<=0 && self.checkDate(itemData[i].createTime,self.data.date2)>=0 && self.checkState(itemData[i].orderState)){
-                      newData.push(itemData[i]);
-                      allMoney=allMoney+itemData[i].totalFee;
-                  }
+                  itemData[i].createTime = self.newDate((itemData[i].createTime+''))
               }
-            }else{
-              for(let i in itemData){
-                  if(self.checkState(itemData[i].orderState)){
-                      allMoney=allMoney+itemData[i].totalFee;
-                      newData.push(itemData[i]);
-                  }
-              }
-            }
-            wx.hideLoading();
-            allMoney = (allMoney/100).toFixed(2);
-            self.setData({
-              items:newData,
-              allMoney:allMoney
-            })
-          }else{
-            wx.hideLoading();
+
+              
+              self.setData({
+                allMoney:res.data.data.totalMoney,
+                items:itemData
+              })
           }
-        }
+
       })
+
+
+
+      // Tools.fetch({
+      //     url: '/order',
+      //     method: 'GET',
+      //     data:{
+      //       orderStatus:"B"
+      //     },
+      //     callback(res) {
+      //         // console.log(res);
+      //         if (res.data.isSuccess){
+      //           let allMoney = 0;
+      //           let itemData = res.data.data.data;
+
+      //           for(let i in itemData){
+      //               itemData[i].createTime = self.newDate((itemData[i].createTime+''))
+      //           }
+
+      //           let newData = [];
+      //           if(self.data.dateFalg){
+      //             for(let i in itemData){
+      //                 if(self.checkDate(itemData[i].createTime,self.data.date1)<=0 && self.checkDate(itemData[i].createTime,self.data.date2)>=0 && self.checkState(itemData[i].orderState)){
+      //                     newData.push(itemData[i]);
+      //                     allMoney=allMoney+itemData[i].totalFee;
+      //                 }
+      //             }
+      //           }else{
+      //             for(let i in itemData){
+      //                 if(self.checkState(itemData[i].orderState)){
+      //                     allMoney=allMoney+itemData[i].totalFee;
+      //                     newData.push(itemData[i]);
+      //                 }
+      //             }
+      //           }
+      //           wx.hideLoading();
+      //           allMoney = (allMoney/100).toFixed(2);
+      //           self.setData({
+      //             items:newData,
+      //             allMoney:allMoney
+      //           })
+      //         }else{
+      //           wx.hideLoading();
+      //         }
+      //     }
+
+      // })
       
   },
 

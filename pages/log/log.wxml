@@ -35,7 +35,7 @@
    <!--  </view> -->
   </view>
   <view wx:if="{{items.length > 0}}">
-      <view id="{{item.outTradeNo}}" class='info' wx:for="{{items}}" wx:key="{{item.outTradeNo}}" bindtap='orderDetail'>
+      <view id="{{item.agentOrderNo}}" class='info' wx:for="{{items}}" wx:key="{{item.agentOrderNo}}" bindtap='orderDetail'>
         <view class='headimg'>
           <image src='/img/my_card.png'></image>
         </view>

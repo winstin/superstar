@@ -35,7 +35,7 @@
       <text class='num'>{{orderCount}}条 </text>
     </navigator>
   </view>
-  <view class='button'>
+  <!-- <view class='button'>
     <button class='exit' bindtap='exit'>退出登录</button>
-  </view>
+  </view> -->
 </view>

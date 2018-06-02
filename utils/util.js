@@ -158,6 +158,10 @@ const fetch = function({url,method='GET',data='',isLogin=false,callback,errCallb
               callback(res);
           }else{
               wx.hideLoading();
+              if(url=='/order'){
+                callback(res);
+                return
+              }
               if(res.data.message){
                   wx.showModal({
                     content: res.data.message,

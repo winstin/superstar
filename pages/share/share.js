@@ -71,9 +71,10 @@ Page({
       // 来自页面内转发按钮
       console.log(res.target)
     }
+    let openid = wx.getStorageSync("openid");
     return {
       title: this.data.textInput,
-      path: 'pages/main/main?openId=123'
+      path: 'pages/main/main?openId='+openid
     }
   },
 

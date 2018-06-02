@@ -16,7 +16,10 @@ Page({
    */
   onLoad: function (options) {
     if(options.openId){//分享用户进首页处理
-
+        wx.showModal({
+          content: options.openId,
+          showCancel: false
+        })
     }
 
     let weixin_token = wx.getStorageSync("token");

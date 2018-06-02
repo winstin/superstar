@@ -39,42 +39,53 @@ Page({
     const that = this
     var count = 0;
 
-    Tools.fetch({
-        url: '/creditBankCard',
-        method: 'GET',
-        isLogin:false,
-        callback(res) {
-          if (res.data.isSuccess) {
-            let cardData = res.data.data;
-            for (var i = 0; i < cardData.length; i++) {
-              count += 1
-            }
-            that.setData({
-              name: getApp().globalData.userInfos.nickName,
-              creditCount: count
-            })
-          }
-        }
+    
+    let a = new Promise(function(resolve,reject){
+          Tools.fetch({
+              url: '/creditBankCard',
+              method: 'GET',
+              isLogin:false,
+              callback(res) {
+                if (res.data.isSuccess) {
+                  let cardData = res.data.data;
+                  for (var i = 0; i < cardData.length; i++) {
+                    count += 1
+                  }
+                  resolve(count);
+                }
+              }
+          })
     })
 
+    let b = new Promise(function(resolve,reject){
+          Tools.fetch({
+              url: '/order',
+              method: 'GET',
+              data:{},
+              callback(res) {
+                  if (res.data.isSuccess){
+                    resolve(res.data.data.total);
+                  }else{
+                  }
+              }
 
-    // wx.request({
-    //   url: baseUrl + '/mini/findOrder',
-    //   data: {
-    //     phoneNumber: app.globalData.userInfo.tel,
-    //     type: '0'
-    //   },
-    //   header: {
-    //     'Authorization': app.globalData.token
-    //   },
-    //   success(res) {
-    //     if (res.data.isSuccess) {
-    //       that.setData({
-    //         orderCount: res.data.data
-    //       })
-    //     }
-    //   }
-    // })
+          })
+    })
+
+    Promise
+    .all([a,b])
+    .then(function(results){
+        // console.log(results)
+        that.setData({
+          name: getApp().globalData.userInfos.nickName,
+          creditCount: results[0],
+          orderCount: results[1]
+        })
+    });
+    
+    
+
+    
   },
 
   /**

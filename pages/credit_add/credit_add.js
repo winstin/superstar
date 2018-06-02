@@ -120,12 +120,11 @@ Page({
         isLogin:false,
         callback:(res)=> {
             if (res.data.isSuccess) {
-                wx.navigateTo({
-                  url: '../pay/pay',
-                })
+                wx.navigateBack({ changed: true })
+                // wx.navigateTo({
+                //   url: '../pay/pay',
+                // })
             }
-            // console.log('添加卡')
-            // console.log(res);
         }
     })
     // wx.request({

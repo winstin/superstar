@@ -161,6 +161,7 @@ Page({
     }
   },
   addCredit: function () {
+    
     wx.navigateTo({
       url: '../credit_add/credit_add',
     })
