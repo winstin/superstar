@@ -3,13 +3,13 @@
 <view class='container'>
 
 
-  <view wx:if="{{items.length > 0}}" class='marginTop'>
+  <view wx:if="{{items.length > 0}}">
       <view id="{{item.agentOrderNo}}" class='info' wx:for="{{items}}" wx:key="{{item.agentOrderNo}}">
         <view class='headimg'>
           <image src="{{item.url}}"></image>
         </view>
         <view class='log'>
-          <text>快捷支付-{{item.bankName}}</text>
+          <text>服务费缴纳-{{item.bankName}}</text>
           <text class='amount'>￥{{filters.toFix(item.totalFee)}}</text>
         </view>
         <view class='time'>

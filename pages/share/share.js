@@ -73,7 +73,7 @@ Page({
     }
     let userInfo = wx.getStorageSync("userInfo");
     return {
-      title: '千星钱包',
+      title: this.data.textInput,
       path: 'pages/main/main?userId='+userInfo.id
     }
   },

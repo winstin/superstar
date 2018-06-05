@@ -62,7 +62,7 @@ App({
   },
 
   globalData: {
-    version:'00007',//小程序版本号
+    version:'10007',//小程序版本号
     userInfo: {},//用户信息
     userInfos:{},
     server: "https://www.51xjbuy.com",

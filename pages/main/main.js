@@ -17,8 +17,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
-
     // wx.checkIsSupportSoterAuthentication({
     //     success: res => {
     //         wx.showModal({
@@ -48,10 +46,10 @@ Page({
     }
 
     if(options.userId){//分享用户进首页处理
-        wx.showModal({
-          content: options.userId,
-          showCancel: false
-        });
+        // wx.showModal({
+        //   content: options.userId,
+        //   showCancel: false
+        // });
         let JsonData= wx.getStorageSync("userInfo");
         JsonData.parentId = '1';
         Tools.request({
