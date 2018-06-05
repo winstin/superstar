@@ -5,7 +5,7 @@
   /*height: 640rpx;*/
   margin: 20rpx 40rpx 0 40rpx;
   border-radius: 10rpx;
-  padding-bottom: 40rpx
+  /*padding-bottom: 40rpx*/
 }
 
 .main{
@@ -19,6 +19,17 @@
   display: flex;
   align-items: center;
 }
+
+.titles{
+  /*margin: 50rpx 0 40rpx 40rpx;*/
+  font-size: 32rpx;
+  display: flex;
+  align-items: center;
+  background: #f3f3f3;
+  height:50rpx;
+
+}
+
 
 .amount{
   width: 580rpx;
@@ -41,11 +52,11 @@
   display: inline-block;
 }
 
-.button{
+/*.button{
   width: 610rpx;
   margin: 0 auto;
   margin-top: 60rpx;
-}
+}*/
 
 .card{
   width: 630rpx;
@@ -215,5 +226,22 @@
   background: #fff;
   width: 80%
 }
+.button{
+  width: 750rpx;
+  /*margin: 40rpx 40rpx 0 40rpx;*/
+  position: fixed;
+  bottom: 0px
+}
 
+.button button{
+  /*background-color: #4a83da;*/
+  border: 0;
+  color: #eee;
+  border-radius: 0px
+}
+
+.radio{
+  position:absolute;
+  right:50rpx;
+}
 

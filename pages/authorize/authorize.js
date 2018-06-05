@@ -120,7 +120,7 @@ Page({
               callback:(res)=> {
                   wx.hideLoading();
                   wx.setStorageSync("token", res.data.token);
-                  getApp().globalData.tokens = res.data;
+                  getApp().globalData.tokens = res.data.token;
                   // 获取用户信息
                   wx.switchTab({
                     url: '../main/main',

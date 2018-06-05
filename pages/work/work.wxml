@@ -14,12 +14,12 @@
             <input placeholder='请输入姓名' bindinput='nameInput'></input>
           </view>
           <view class='info_'>
-            <label>公司名称</label>
-            <input maxlength='18' placeholder='请输入公司名称' bindinput='idCardInput'></input>
+            <label>手机号</label>
+            <input type="number" maxlength='18' placeholder='请输入手机号' bindinput='telInput'></input>
           </view>
           <view class='info_'>
             <label>邮箱</label>
-            <input placeholder='请输入邮箱地址' bindinput='cardNumberInput'></input>
+            <input placeholder='请输入邮箱地址' bindinput='emailInput'></input>
           </view>
       </view>
     </view>
@@ -31,7 +31,7 @@
     </view>
 </scroll-view>
 <view class='button'>
-  <button bindtap=''>确 认</button>
+  <button bindtap='submit'>提 交</button>
 </view>
 </view>
 

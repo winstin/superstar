@@ -1,4 +1,6 @@
-// pages/credit_add/credit_add.js
+// 申请O单服务商页面
+var Tools = require('../../utils/util.js');
+
 Page({
 
   /**
@@ -8,8 +10,8 @@ Page({
     name: '',
     idCard: '',
     tel: '',
-    cardNumber: '',
-    cvn: '',
+    companyName: '',
+    email: '',
     date: ''
   },
 
@@ -18,19 +20,19 @@ Page({
       tel: e.detail.value
     })
   },
-  cardNumberInput: function (e) {
+  companyNameInput: function (e) {
     this.setData({
-      cardNumber: e.detail.value
+      companyName: e.detail.value
     })
   },
-  cvnInput: function (e) {
+  emailInput: function (e) {
     this.setData({
-      cvn: e.detail.value
+      email: e.detail.value
     })
   },
-  dateInput: function (e) {
+  nameInput: function (e) {
     this.setData({
-      date: e.detail.value
+      name: e.detail.value
     })
   },
   /**
@@ -94,32 +96,22 @@ Page({
   },
 
   submit: function () {
-    var baseUrl = getApp().globalData.server;
-    wx.request({
-      url: baseUrl + '/mini/addCredit',
-      method: 'POST',
-      header: {
-        'Authorization': getApp().globalData.token
-      },
-      data: {
-        userPhone: getApp().globalData.userInfo.tel,
-        cardNumber: this.data.cardNumber,
-        tel: this.data.tel,
-        cvn: this.data.cvn,
-        date: this.data.date
-      },
-      success(res) {
-        if (res.data.isSuccess) {
-          wx.navigateTo({
-            url: '../pay/pay',
-          })
-        } else {
-          wx.showToast({
-            title: res.data.message,
-            icon: 'none'
-          })
+    Tools.fetch({
+        url: '/userApply',
+        method: 'POST',
+        data: {
+          "applyType": "MINI_APP_CHANNEL_USER_APPLY",
+          "companyName": this.data.companyName,
+          "email": this.data.email,
+          "name": this.data.name,
+          "tel": this.data.tel
+        },
+        callback(res) {
+            wx.showModal({
+              content: "提交成功",
+              showCancel: false
+            });
         }
-      }
     })
   }
   })

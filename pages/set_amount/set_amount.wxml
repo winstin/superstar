@@ -3,45 +3,20 @@
 <view class='container'>
 
   <view class='main'>
-    <view class='title'>
+    <view class='title' id="1" bindtap='changeRadios'>
       <image src='/img/onlinePay.png' class='icon'></image>
-      <text class='littletext'>服务费：*** 元</text>
+      <text class='littletext'>代理商服务费：600 元</text>
+
+      <radio class='radio' checked="{{checked1}}"/>
+    </view>
+    <view class='titles'>
+    </view>
+    <view class='title' id="2" bindtap='changeRadios'>
+      <image src='/img/onlinePay.png' class='icon'></image>
+      <text class='littletext'>O单商服务费：2000 元</text>
+      <radio class='radio' checked="{{checked2}}"/>
     </view>
 
-    <!-- <view class='amount'>
-      <text>￥</text>
-      <input type='number'  bindinput='amountInput' value='{{amount}}'></input>
-    </view> -->
-
-    <!-- <view class='card' bindtap='selectCredit'>
-      <view class='img'>
-        <image src='/img/my_card.png'></image>
-      </view>
-      <view class='name'>
-        <text>{{cardInfo}}</text>
-        <image src='/img/my_right.png'></image>
-        <view class='tips'>
-          <text>优先使用此方法付款</text>
-        </view>
-      </view>
-    </view> -->
-
-    <!-- <view class='card'>
-      <view class='img'>
-        <image src='/img/my_card.png'></image>
-      </view>
-      <view class='name'>
-        <picker bindchange="bindPickerChange" value="{{pickerindex}}" range="{{array}}">
-          <view class="picker">
-            交易通道选择：{{array[pickerindex]}}
-          </view>
-        </picker>
-      </view>
-    </view> -->
-
-    <!-- <view class="container" class="zn-uploadimg">  
-        <button type="primary" bindtap="modalinput">modal有输入框</button>   
-    </view>  -->
     <modal hidden="{{hiddenmodalput}}" title="请选择付款卡号" confirm-text="确认付款" cancel-text="取消" bindconfirm="submitPay" bindcancel="cancel">      
       <view id="{{item.id}}" class='info' wx:for="{{items}}" wx:key="{{item.id}}" bindtap='changeRadio'>
               <view class='card_text'>
@@ -85,9 +60,8 @@
               </view>
           </view>
     </modal>   -->
-    <view class='button'>
-      <button type='primary' bindtap='modalinput'>确认付款</button>
-    </view>
+
+
   </view>
 
 
@@ -129,6 +103,9 @@
                 </view>
             </view>
       </view>
+  </view>
+  <view class='button'>
+      <button type='primary' bindtap='modalinput'>确认付款</button>
   </view>
 
 </view>

@@ -1,4 +1,6 @@
-// pages/pay/pay.js
+
+//服务商缴费页面
+
 var baseUrl = getApp().globalData.server;
 var Tools = require('../../utils/util.js');
 
@@ -12,7 +14,7 @@ Page({
     settleBankCardId: '',
     mchId:'',
     cardInfo: '',
-    amount: '',
+    amount: 60000,
     index: 0,
     pickerindex: '0',
     array: [],
@@ -32,19 +34,24 @@ Page({
     agentOrderNo:'',
     smstel:'',
     fee0:'7',
-    d0fee:200
+    d0fee:200,
+    checked2:false,
+    checked1:true,
+    id:""
+
   },
 
-  amountInput: function (e) {
-    this.setData({
-      amount: e.detail.value
-    })
-  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+      if(options.id){
+          this.setData({
+            id:options.id,
+          })
+      }
+
   },
 
   /**
@@ -160,6 +167,24 @@ Page({
 
   },
 
+
+  changeRadios:function(e){
+    if(e.currentTarget.id == "1"){
+        this.setData({
+          amount:60000,
+          checked1:true,
+          checked2:false
+        })
+    }else if(e.currentTarget.id == "2"){
+        this.setData({
+          amount:200000,
+          checked1:false,
+          checked2:true
+        })
+    }
+
+  },
+
   /**
    * 生命周期函数--监听页面隐藏
    */
@@ -235,58 +260,42 @@ Page({
         mask:true
       })
 
+      let url = '/businessDebitNote/agreementPay';
+      if(this.data.id != ""){
+          url = '/userApply/'+this.data.id+'/businessDebitNote/agreementPay';
+      }
+      // console.log(url);
+      // console.log(this.data);
+      // return
       Tools.fetch({
-          url: '/businessDebitNote/agreementPay',
+          url: url,
           method: 'POST',
           data: {
             "creditBankCardId": this.data.cardId,
             "debitNoteEnum": "MINI_APP_AGENT_PAY",
-            "totalFee": '10000'
+            "totalFee": this.data.amount
           },
           callback(res) {
             wx.hideLoading();
-            if (res.data.isSuccess) {
-                if(res.data.code == '100029'){
-                    let agentOrderNo = res.data.data.debitNoteOrderNo;
-                    Tools.fetch({
-                        url: '/businessDebitNote/'+res.data.data.debitNoteOrderNo+'/agreementPay/sms',
-                        method: 'POST',
-                        data: {},
-                        callback(res) {
-                            that.setData({
-                              handle:false,
-                              agentOrderNo:agentOrderNo
-                            })
-                        }
-                    })
-                }else{
-                    wx.showModal({
-                      content: "缴纳成功",
-                      showCancel: false
-                    });
-                   
-                }
+            if(res.data.code == '100029'){
+                let agentOrderNo = res.data.data.debitNoteOrderNo;
+                Tools.fetch({
+                    url: '/businessDebitNote/'+res.data.data.debitNoteOrderNo+'/agreementPay/sms',
+                    method: 'POST',
+                    data: {},
+                    callback(res) {
+                        that.setData({
+                          handle:false,
+                          agentOrderNo:agentOrderNo
+                        })
+                    }
+                })
             }else{
-                if(res.data.code == '100029'){
-                    let agentOrderNo = res.data.data.debitNoteOrderNo;
-                    Tools.fetch({
-                        url: '/businessDebitNote/'+res.data.data.debitNoteOrderNo+'/agreementPay/sms',
-                        method: 'POST',
-                        data: {},
-                        callback(res) {
-                            that.setData({
-                              handle:false,
-                              agentOrderNo:agentOrderNo
-                            })
-                        }
-                    })
-                }else{
-                    wx.showModal({
-                      content: "缴纳失败",
-                      showCancel: false
-                    });
-                    return
-                }
+                wx.showModal({
+                  content: "缴纳成功",
+                  showCancel: false
+                });
+                return
             }
           }
       })
@@ -400,15 +409,14 @@ Page({
         method: 'POST',
         callback(res) {
             wx.hideLoading();
-            if (res.data.isSuccess) {
+            if (!res.data.isSuccess) {
                 wx.showModal({
-                  content: "缴纳成功",
+                  content: "缴纳失败",
                   showCancel: false
                 });
             } else {
-                
                 wx.showModal({
-                  content: "缴纳失败",
+                  content: "缴纳成功",
                   showCancel: false
                 });
             }

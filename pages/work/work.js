@@ -1,4 +1,7 @@
-// pages/credit_add/credit_add.js
+// 申请服务商页面
+
+var Tools = require('../../utils/util.js');
+
 Page({
 
   /**
@@ -7,6 +10,7 @@ Page({
   data: {
     name: '',
     email: '',
+    tel:''
   },
 
   nameInput: function (e) {
@@ -19,6 +23,14 @@ Page({
       email: e.detail.value
     })
   },
+
+  telInput: function (e) {
+    this.setData({
+      tel: e.detail.value
+    })
+  },
+
+  
   
   /**
    * 生命周期函数--监听页面加载
@@ -81,32 +93,27 @@ Page({
   },
 
   submit: function () {
-    var baseUrl = getApp().globalData.server;
-    wx.request({
-      url: baseUrl + '/mini/addCredit',
-      method: 'POST',
-      header: {
-        'Authorization': getApp().globalData.token
-      },
-      data: {
-        userPhone: getApp().globalData.userInfo.tel,
-        cardNumber: this.data.cardNumber,
-        tel: this.data.tel,
-        cvn: this.data.cvn,
-        date: this.data.date
-      },
-      success(res) {
-        if (res.data.isSuccess) {
-          wx.navigateTo({
-            url: '../pay/pay',
-          })
-        } else {
-          wx.showToast({
-            title: res.data.message,
-            icon: 'none'
-          })
+    Tools.fetch({
+        url: '/userApply',
+        method: 'POST',
+        data: {
+          "applyType": "MINI_APP_AGENT_USER_APPLY",
+          "companyName": "",
+          "email": this.data.email,
+          "name": this.data.name,
+          "tel": this.data.tel
+        },
+        callback(res) {
+            // wx.showModal({
+            //   content: "提交成功",
+            //   showCancel: false
+            // });
+            let id = res.data.id;
+            wx.navigateTo({
+              url: '../set_amount/set_amount?id=' + id,
+            })
         }
-      }
     })
+
   }
   })

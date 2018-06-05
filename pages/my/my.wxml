@@ -42,14 +42,16 @@
           <image src='/img/my_right.png' class='right'></image>
           <text class='num'>{{serviceCount}}条 </text>
         </navigator>
-        <navigator class='list_item' hover-class="none" url='/pages/authorize/authorize'>
-          <i class="iconfont icon-tubiao_zhongxinshouquan lefts" ></i>
-          <text class='title'>重新授权</text>
-          <image src='/img/my_right.png' class='right'></image>
-        </navigator>
+        
         <navigator class='list_item' hover-class="none" url='/pages/set_amount/set_amount'>
           <i class="iconfont icon-shoukuan leftss" ></i>
           <text class='title'>服务区</text>
+          <image src='/img/my_right.png' class='right'></image>
+        </navigator>
+
+        <navigator class='list_item' hover-class="none" url='/pages/authorize/authorize'>
+          <i class="iconfont icon-tubiao_zhongxinshouquan lefts" ></i>
+          <text class='title'>重新授权</text>
           <image src='/img/my_right.png' class='right'></image>
         </navigator>
       </view>

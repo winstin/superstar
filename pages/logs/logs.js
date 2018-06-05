@@ -28,6 +28,8 @@ Page({
         {name:'结算中',index:'D',checked:true},
         {name:'结算成功',index:'E',checked:true},
     ],
+
+
     arrayFalg: ['','A', 'B', 'C', 'D', 'E'],
     index: 5,
     dateFalg:true,
@@ -111,103 +113,26 @@ Page({
     this.serachStatus();
   },
 
-  checkState:function(e){
-      let state = "";
+  checkContent:function(e){
+      let content = "";
       switch(e){
-        case "A":
-          state = 1;
+        case "MINI_APP_AGENT_PAY":
+          content = "代理商服务费";
           break;
         case "B":
-          state = 2;
+          content = 2;
           break;
         case "C":
-          state = 3;
+          content = 3;
           break;
         case "D":
-          state = 4;
+          content = 4;
           break;
         case "E":
-          state = 5;
+          content = 5;
           break;
       }
-
-      if(this.data.index == 0 || state == this.data.index){
-        return true
-      }else{
-        return false
-      }
-  },
-
-  checkStatus:function(e){
-      let state = "";
-      switch(e.currentTarget.id){
-        case "A":
-          state = 1;
-          break;
-        case "B":
-          state = 2;
-          break;
-        case "C":
-          state = 3;
-          break;
-        case "D":
-          state = 4;
-          break;
-        case "E":
-          state = 5;
-          break;
-        default:
-          state = 0;break;
-      }
-      this.data.status[state].checked = !this.data.status[state].checked;
-      this.setData({status:this.data.status});
-
-      this.serachStatus();
-  },
-
-
-  checkDate:function(e,date1){
-      let newDate = e.split(" ")[0];
-      let sArr = date1.split("-");
-      let eArr = newDate.split("-");
-      let sRDate = new Date(sArr[0], sArr[1], sArr[2]);
-      let eRDate = new Date(eArr[0], eArr[1], eArr[2]);
-      let days = (sRDate-eRDate)/(24*60*60*1000);
-      return days;
-  },
-
-  serachData:function(){
-      let self = this;
-      wx.showLoading({
-        title:'加载中...'
-      })
-
-      Tools.fetch({
-          url: '/order',
-          method: 'GET',
-          data:{
-            orderStatus:this.data.arrayFalg[this.data.index],
-            startDate:this.data.date1,
-            endDate:this.data.date2,
-          },
-          callback(res) {
-              wx.hideLoading();
-              if(res.data.data){
-                  let itemData = res.data.data.data;
-                  for(let i in itemData){
-                      itemData[i].createTime = Tools.formatting((itemData[i].createTime+''))
-                  }
-
-
-                  self.setData({
-                    allMoney:res.data.data.totalMoney,
-                    items:itemData
-                  })
-              }
-          }
-
-      })
-      
+      return content;
   },
 
 
@@ -233,6 +158,8 @@ Page({
                   let cardImg = app.globalData.banklogo;
                   for(let i in cardData){
                       cardData[i].createTime = Tools.formatting((cardData[i].createTime+''));
+                      cardData[i].debitNoteEnum = self.checkContent(cardData[i].debitNoteEnum);
+
                       cardData[i].cardNum = cardData[i].cardNumber.substr(cardData[i].cardNumber.length-4,cardData[i].cardNumber.length-1)
                       for(let j in cardImg){
                           if(cardImg[j].name==cardData[i].bankName){
@@ -240,6 +167,7 @@ Page({
                               cardData[i].style = cardImg[j].style;
                           }
                       }
+
                       if(cardData[i].url == undefined){
                           cardData[i].url = "/img/logo/default.png";
                       }
@@ -248,17 +176,12 @@ Page({
                       }
                   }
                   self.setData({
-                    
                     items:cardData
                   })
               }
           }
 
       })
-
-
-
-      
   },
 
 

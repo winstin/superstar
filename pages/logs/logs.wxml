@@ -9,7 +9,7 @@
           <image src="{{item.url}}"></image>
         </view>
         <view class='log'>
-          <text>服务费缴纳-{{item.bankName}}</text>
+          <text>{{item.debitNoteEnum}}-{{item.bankName}}</text>
           <text class='amount'>￥{{filters.toFix(item.totalFee)}}</text>
         </view>
         <view class='time'>
