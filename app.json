@@ -2,7 +2,6 @@
   "pages": [
     "pages/main/main",
     "pages/my/my",
-    "pages/login/login",
     "pages/work/work",
     "pages/about/about",
     "pages/get/get",
@@ -14,6 +13,7 @@
     "pages/credit_update/credit_update",
     "pages/credit_add/credit_add",
     "pages/log/log",
+    "pages/logs/logs",
     "pages/bill/bill",
     "pages/buiness_register/buiness_register",
     "pages/register/register",

@@ -4,11 +4,11 @@
   <view class='info'>
     <view class='info_'>
       <label>姓名</label>
-      <input value='{{name}}' bindinput='nameInput' disabled='true'></input>
+      <input value='{{name}}' bindinput='nameInput' ></input>
     </view>
     <view class='info_'>
       <label>身份证</label>
-      <input type='idcard' maxlength='18' value='{{idCard}}' bindinput='idcardInput' disabled='true'></input>
+      <input type='idcard' maxlength='18' value='{{idCard}}' bindinput='idcardInput' ></input>
     </view>
     <view class='info_'>
       <label>手机号</label>

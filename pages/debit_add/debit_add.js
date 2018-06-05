@@ -54,11 +54,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (getApp().globalData.userInfo == null) {
-      wx.redirectTo({
-        url: '../login/login',
+      let name = wx.getStorageSync("name");
+      let idCard = wx.getStorageSync("idCard");
+
+      this.setData({
+          name:name,
+          idCard:idCard
       })
-    }
   },
 
   /**
@@ -107,19 +109,15 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+      let userInfo = wx.getStorageSync("userInfo");
+      return {
+        title: '千星钱包',
+        path: 'pages/main/main?userId='+userInfo.id
+      }
   },
 
   submit: function (e) {
     var baseUrl = getApp().globalData.server;
-    if (isIdcard.test(this.data.idCard) == false) {
-      wx.showToast({
-        title: '身份证格式不正确',
-        icon: 'none',
-        duration: 2000,
-      })
-      return
-    }
     Tools.fetch({
         url: '/settleBankCard',
         method: 'POST',
@@ -132,9 +130,10 @@ Page({
         callback(res) {
           // console.log(res)
           if (res.data.isSuccess) {
-              wx.navigateTo({
-                url: '../debit/debit',
-              })
+              // wx.navigateTo({
+              //   url: '../debit/debit',
+              // })
+              wx.navigateBack({ changed: true })
           }
         }
     })

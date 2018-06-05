@@ -1,5 +1,7 @@
 // pages/main/main.js
-var baseUrl = getApp().globalData.server
+var baseUrl = getApp().globalData.server;
+var Tools = require('../../utils/util.js');
+
 Page({
 
   /**
@@ -15,12 +17,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if(options.openId){//分享用户进首页处理
-        wx.showModal({
-          content: options.openId,
-          showCancel: false
-        })
-    }
+    
+
+    // wx.checkIsSupportSoterAuthentication({
+    //     success: res => {
+    //         wx.showModal({
+    //           content: JSON.stringify(res),
+    //           showCancel: false
+    //         })
+    //         console.log(res)
+    //         // res.supportMode = [] 不具备任何被SOTER支持的生物识别方式
+    //         // res.supportMode = ['fingerPrint'] 只支持指纹识别
+    //         // res.supportMode = ['fingerPrint', 'facial'] 支持指纹识别和人脸识别
+    //     },
+    //     fail:err =>{
+    //         console.log(err)
+    //     } 
+    // })
 
     let weixin_token = wx.getStorageSync("token");
     let userInfo = wx.getStorageSync("userInfo");
@@ -34,13 +47,29 @@ Page({
        getApp().globalData.userInfos = userInfo;
     }
 
-
+    if(options.userId){//分享用户进首页处理
+        wx.showModal({
+          content: options.userId,
+          showCancel: false
+        });
+        let JsonData= wx.getStorageSync("userInfo");
+        JsonData.parentId = '1';
+        Tools.request({
+            url: '/wxuser/auth',
+            method: 'POST',
+            data: JsonData,
+            isLogin:true,
+            callback:(res)=> {
+                wx.setStorageSync("token", res.data.token);
+                getApp().globalData.tokens = res.data.token;
+            }
+        })
+    }
     
 
     // 获取用户信息
     wx.getSetting({
       success: res => {
-        console.log(res);
         if (res.authSetting['scope.userInfo']) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           // wx.getUserInfo({
@@ -80,102 +109,27 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    // const that = this
-    // var username = wx.getStorageSync('username')
-    // var password = wx.getStorageSync('password')
-    // if (getApp().globalData.userInfo == null) {
-    //   if (username == '' || password == '') {
-    //     wx.redirectTo({
-    //       url: '../login/login',
-    //     })
-    //     return
-    //   } else {
-    //     wx.request({
-    //       url: baseUrl + '/login',
-    //       method: 'POST',
-    //       header: {
-    //         'content-type': 'application/x-www-form-urlencoded'
-    //       },
-    //       data: {
-    //         username: username,
-    //         password: password
-    //       },
-    //       success(res) {
-    //         if (res.data.isSuccess) {
-    //           getApp().globalData.token = res.header.Authorization
-    //           wx.request({
-    //             url: baseUrl + '/mini/getUserInfo',
-    //             header: {
-    //               'Authorization': getApp().globalData.token
-    //             },
-    //             data: { id: res.data.data },
-    //             success(res) {
-    //               getApp().globalData.userInfo = res.data.data;
-    //               wx.request({
-    //                 url: baseUrl + '/mini/hasBindCard',
-    //                 header: {
-    //                   'Authorization': getApp().globalData.token
-    //                 },
-    //                 data: {
-    //                   phoneNumber: getApp().globalData.userInfo.tel,
-    //                 },
-    //                 success(res) {
-    //                   var url = ''
-    //                   if (res.data.data == 'debit') {
-    //                     // url = '../debit_add/debit_add'
-    //                     url = '../pay/pay?type=debit'
-    //                   } else if (res.data.data == 'credit') {
-    //                     url = '../pay/pay?type=credit'
-    //                     // url = '../credit_add/credit_add'
-    //                   } else if (res.data.data == 'order') {
-    //                     url = '../pay/pay'
-    //                   }
-
-    //                   that.setData({
-    //                     payUrl: url
-    //                   })
-    //                 }
-    //               })
-    //             }
-    //           })
-    //         }
-    //       }
-    //     })
-    //   }
-    // }
+   
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // const that = this
-    // if (getApp().globalData.userInfo != null) {
-    //   wx.request({
-    //     url: baseUrl + '/mini/hasBindCard',
-    //     header: {
-    //       'Authorization': getApp().globalData.token
-    //     },
-    //     data: {
-    //       phoneNumber: getApp().globalData.userInfo.tel,
-    //     },
-    //     success(res) {
-    //       var url = ''
-    //       if (res.data.data == 'debit') {
-    //         // url = '../debit_add/debit_add'
-    //         url = '../pay/pay?type=debit'
-    //       } else if (res.data.data == 'credit') {
-    //         url = '../pay/pay?type=credit'
-    //         // url = '../credit_add/credit_add'
-    //       } else if (res.data.data == 'order') {
-    //         url = '../pay/pay'
-    //       }
-    //       that.setData({
-    //         payUrl: url
-    //       })
-    //     }
-    //   })
-    // }
+    const that = this
+    Tools.fetch({
+        url: '/creditBankCard',
+        method: 'GET',
+        isLogin:false,
+        callback(res) {
+          if (res.data.isSuccess) {
+              if(res.data.data && res.data.data.length>0){
+                  wx.setStorageSync("name",res.data.data[0].name);
+                  wx.setStorageSync("idCard",res.data.data[0].idCard);
+              }
+          }
+        }
+    })
   },
 
   /**
@@ -210,13 +164,10 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (res) {
-    if (res.from === 'button') {
-      // 来自页面内转发按钮
-      console.log(res.target)
-    }
+    let userInfo = wx.getStorageSync("userInfo");
     return {
       title: '千星钱包',
-      path: 'pages/main/main?openId=123'
+      path: 'pages/main/main?userId='+userInfo.id
     }
   },
 

@@ -61,6 +61,10 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+      let userInfo = wx.getStorageSync("userInfo");
+      return {
+        title: '千星钱包',
+        path: 'pages/main/main?userId='+userInfo.id
+      }
   }
 })

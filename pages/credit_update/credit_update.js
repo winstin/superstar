@@ -50,6 +50,22 @@ Page({
       btndisable: false
     })
   },
+  nameInput: function (e) {
+    this.setData({
+      name: e.detail.value,
+      btndisable: false
+    })
+    this.setData({
+      date: e.detail.value,
+      btndisable: false
+    })
+  },
+  idcardInput: function (e) {
+    this.setData({
+      idCard: e.detail.value,
+      btndisable: false
+    })
+  },
   swiperEvent: function (e) {
     this.findCredit(e.detail.current)
   },
@@ -82,7 +98,7 @@ Page({
           if (res.data.isSuccess) {
             let cardData = res.data.data;
             that.setData({
-              items: cardData
+              items: cardData,
             })
           }
           if (that.data.items == null || that.id == "") {
@@ -122,10 +138,7 @@ Page({
     //     }
     //   }
     // })
-    this.setData({
-      name: app.globalData.userInfo.name,
-      idCard: app.globalData.userInfo.idCard,
-    })
+
   },
 
   /**
@@ -160,7 +173,11 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+      let userInfo = wx.getStorageSync("userInfo");
+      return {
+        title: '千星钱包',
+        path: 'pages/main/main?userId='+userInfo.id
+      }
   },
 
   findCredit: function (index) {
@@ -174,7 +191,9 @@ Page({
             cvn: this.data.items[index].cvn,
             date: this.data.items[index].date,
             tel: this.data.items[index].tel,
-            originCardNumber: this.data.items[index].cardNumber
+            originCardNumber: this.data.items[index].cardNumber,
+            name:this.data.items[index].name,
+            idCard:this.data.items[index].idCard
           })
       }
     }
@@ -193,7 +212,9 @@ Page({
           "cardNumber": this.data.cardNumber,
           "cvn": this.data.cvn,
           "date": this.data.date,
-          "tel": this.data.tel
+          "tel": this.data.tel,
+          "idCard": this.data.idCard,
+          "name": this.data.name
         },
         isLogin:false,
         callback:(res)=> {

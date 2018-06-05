@@ -22,6 +22,7 @@ App({
             },
             isLogin:true,
             callback:(res)=> {
+                // console.log(res)
                 wx.checkSession({
                     success: function(e){
                         if(res.data){
@@ -61,7 +62,7 @@ App({
   },
 
   globalData: {
-    version:'00004',//小程序版本号
+    version:'00007',//小程序版本号
     userInfo: {},//用户信息
     userInfos:{},
     server: "https://www.51xjbuy.com",

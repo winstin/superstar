@@ -29,7 +29,10 @@ Page({
     isNoCard:false,
     isNoCards:true,
     flag: true,
-    agentOrderNo:''
+    agentOrderNo:'',
+    smstel:'',
+    fee0:'7',
+    d0fee:200
   },
 
   amountInput: function (e) {
@@ -90,32 +93,36 @@ Page({
         isLogin:false,
         callback:(res)=> {
             if (res.data.isSuccess) {
-              var card = res.data.data[that.data.index];
-              let  last4 = card.cardNumber.substr(card.cardNumber.length-4,card.cardNumber.length-1);
-              var info = card.bankName + card.bankCardType + '(' + last4 + ')';
-              let cardImg = getApp().globalData.banklogo;
-              let cardData = res.data.data;
-              for(let i in cardData){
-                  cardData[i].cardNumberLast4 = cardData[i].cardNumber.substr(cardData[i].cardNumber.length-4,cardData[i].cardNumber.length-1);
-                  for(let j in cardImg){
-                      if(cardImg[j].name==cardData[i].bankName){
-                          cardData[i].url = cardImg[j].url;
-                          cardData[i].style = cardImg[j].style;
+              if(res.data.data.length>0){
+                  wx.setStorageSync("name",res.data.data[0].name);
+                  wx.setStorageSync("idCard",res.data.data[0].idCard);
+                  var card = res.data.data[that.data.index];
+                  let  last4 = card.cardNumber.substr(card.cardNumber.length-4,card.cardNumber.length-1);
+                  var info = card.bankName + card.bankCardType + '(' + last4 + ')';
+                  let cardImg = getApp().globalData.banklogo;
+                  let cardData = res.data.data;
+                  for(let i in cardData){
+                      cardData[i].cardNumberLast4 = cardData[i].cardNumber.substr(cardData[i].cardNumber.length-4,cardData[i].cardNumber.length-1);
+                      for(let j in cardImg){
+                          if(cardImg[j].name==cardData[i].bankName){
+                              cardData[i].url = cardImg[j].url;
+                              cardData[i].style = cardImg[j].style;
+                          }
+                      }
+                      if(cardData[i].url == undefined){
+                          cardData[i].url = "/img/logo/default.png";
+                      }
+                      if(cardData[i].style == undefined){
+                          cardData[i].style = 'card_info2';
                       }
                   }
-                  if(cardData[i].url == undefined){
-                      cardData[i].url = "/img/logo/default.png";
-                  }
-                  if(cardData[i].style == undefined){
-                      cardData[i].style = 'card_info2';
-                  }
+                  cardData[that.data.index].checked = true;
+                  that.setData({
+                    cardId: card.id,
+                    cardInfo: info,
+                    items:cardData
+                  })
               }
-              cardData[that.data.index].checked = true;
-              that.setData({
-                cardId: card.id,
-                cardInfo: info,
-                items:cardData
-              })
             } else {
               that.setData({isNoCard:true})
             }
@@ -129,12 +136,14 @@ Page({
         callback(res) {
             console.log(res)
             if (res.data.isSuccess && res.data.data.length>0) {
-                let cardData = res.data.data[0];
-                that.setData({
-                    settleBankCardId: cardData.id,
-                    mchId:cardData.merchants[0].mchId,
-                    pointsType:cardData.merchants[0].pointsType || 3,
-                })
+                if(res.data.data.length>0){
+                    let cardData = res.data.data[0];
+                    that.setData({
+                        settleBankCardId: cardData.id,
+                        mchId:cardData.merchants[0].mchId,
+                        pointsType:cardData.merchants[0].pointsType || 3,
+                    })
+                }
             } else {
               
             }
@@ -169,21 +178,53 @@ Page({
   },
 
   changeRadio:function(e){
-    var info = "";
+    let self = this;
+    let info = "";
     let cardData = this.data.items;
+    let cardNumber = "";
     for(let i in cardData){
         if(cardData[i].id == e.currentTarget.id){
           cardData[i].checked = true;
-          info = cardData[i].bankName + cardData[i].bankCardType + '(' + cardData[i].cardNumberLast4 + ')';
+          info = cardData[i].tel;
+          cardNumber = cardData[i].cardNumber;
         }else{
           cardData[i].checked = false;
         }
     }
-    this.setData({
-        cardId: e.currentTarget.id,
-        flag:true
+
+    let openId = wx.getStorageSync("openid");
+    if(openId == undefined || openId == ""){
+      openId = wx.getStorageSync("userInfo").openId
+    }
+
+    Tools.request({
+        url: '/wxuser/rates/'+openId+'/'+cardNumber,
+        method: 'GET',
+        callback(res) {
+          if(res.data.isSuccess){
+              info = "正在和您签约协议支付"
+              self.setData({
+                  cardId: e.currentTarget.id,
+                  flag:true,
+                  smstel:info,
+                  fee0:res.data.data.fee0
+              })
+              console.log(self.data)
+              self.submitPay();
+          }else{
+              wx.showToast({
+                title: '费率获取失败！',
+                icon:'none'
+              })
+              return
+          }
+        }
     })
-    this.submitPay();
+
+
+
+
+   
   },
 
   /**
@@ -218,13 +259,17 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+      let userInfo = wx.getStorageSync("userInfo");
+      return {
+        title: '千星钱包',
+        path: 'pages/main/main?userId='+userInfo.id
+      }
   },
 
   selectCredit: function () {
-    wx.navigateTo({
-      url: '../pay_type/pay_type?amount=' + this.data.amount + '&index=' + this.data.index,
-    })
+      wx.navigateTo({
+        url: '../pay_type/pay_type?amount=' + this.data.amount + '&index=' + this.data.index,
+      })
   },
 
 
@@ -238,19 +283,56 @@ Page({
         })
         return
       }
-      that.setData({flag:true})
+      that.setData({flag:true});
+      if(this.data.settleBankCardId == "" || this.data.settleBankCardId == undefined){
+          that.setData({isNoCards:false})
+          return;
+      }
+
+
+      wx.showModal({
+        title: '温馨提示',
+        content: '是否确定付款？',
+        success: function(res) {
+          if (res.confirm) {
+              that.goPay();
+          } else if (res.cancel) {
+              console.log('用户点击取消')
+          }
+        }
+      })
+      
+  },
+
+
+  goPay:function(){
+      const that = this;
+      // let newData =  {
+      //       "creditBankCardId": this.data.cardId,
+      //       "d0fee": this.data.d0fee,
+      //       "fee0": this.data.fee0,
+      //       "mchId": this.data.mchId,
+      //       "settleBankCardId": this.data.settleBankCardId,
+      //       "totalFee": this.data.amount*100
+      //     };
+      // console.log(newData);
+      wx.showLoading({
+        title: '正在支付，请稍候',
+        mask:true
+      })
       Tools.fetch({
           url: '/order',
           method: 'POST',
           data: {
             "creditBankCardId": this.data.cardId,
-            "d0fee": 100,
-            "fee0": "6",
+            "d0fee": this.data.d0fee,
+            "fee0": this.data.fee0,
             "mchId": this.data.mchId,
             "settleBankCardId": this.data.settleBankCardId,
             "totalFee": this.data.amount*100
           },
           callback(res) {
+            wx.hideLoading();
             if (res.data.isSuccess) {
                 if(res.data.code == '100029'){
                     let agentOrderNo = res.data.data.agentOrderNo;
@@ -272,20 +354,42 @@ Page({
                     })
                 }
             }else{
-                wx.showToast({
-                  title: res.data.message,
-                  icon: 'none',
-                })
-                return
+                if(res.data.code == '100029'){
+                    let agentOrderNo = res.data.data.agentOrderNo;
+                    Tools.fetch({
+                        url: '/order/'+res.data.data.agentOrderNo+'/agreementSms',
+                        method: 'POST',
+                        data: {},
+                        callback(res) {
+                            that.setData({
+                              handle:false,
+                              agentOrderNo:agentOrderNo
+                            })
+                        }
+                    })
+                }else{
+                    wx.showToast({
+                      title: res.data.message,
+                      icon: 'none',
+                    })
+                    return
+                }
             }
           }
-
       })
-     
+  },
+
+
+  addDebit:function(){
+      wx.navigateTo({
+        url: '../debit_add/debit_add',
+      })
+      this.setData({  
+         isNoCards: true 
+      })  
   },
   //点击按钮弹出指定的hiddenmodalput弹出框  
   modalinput:function(){  
-
     if (this.data.amount == '') {
       wx.showToast({
         title: '请输入金额',
@@ -317,7 +421,10 @@ Page({
   cancel:function(){
       this.setData({  
           hiddenmodalput: true,
-          isNoCards:true
+          isNoCards:true,
+          handle:true,
+          isNoCards:true,
+          flag:true
       })  
   },
 
@@ -325,9 +432,9 @@ Page({
       this.setData({  
           isNoCards:true
       });
-      wx.switchTab({
-        url: '../my/my',
-      }) 
+      wx.redirectTo({
+        url: '../debit_add/debit_add',
+      })
   },
 
   handle:function(){
@@ -355,8 +462,16 @@ Page({
       isFocus:true,  
     })  
   },  
-  formSubmit(){  
-    console.log(this.data.Value);
+  formSubmit(){ 
+    if (this.data.Value == '') {
+      wx.showToast({
+        title: '请输入短信验证码',
+        icon: 'none',
+        duration: 1500,
+        mask: true,
+      })
+      return;
+    } 
     this.setData({  
         handle: true,
     });
@@ -367,19 +482,11 @@ Page({
   submitCode: function () {
     var baseUrl = getApp().globalData.server;
     const that = this
-    if (this.data.Value == '') {
-      wx.showToast({
-        title: '请输入短信验证码',
-        icon: 'none',
-        duration: 1500,
-        mask: true,
-      })
-    }
+    
     wx.showLoading({
       title: '正在支付，请稍候',
       mask:true
     })
-
 
     Tools.fetch({
         url: '/order/'+this.data.agentOrderNo+'/agreementSms/'+this.data.Value,

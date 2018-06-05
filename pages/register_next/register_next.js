@@ -86,7 +86,11 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+      let openid = wx.getStorageSync("openid");
+      return {
+        title: '千星钱包',
+        path: 'pages/main/main?openId='+openid
+      }
   },
 
   registerEvent: function (e) {

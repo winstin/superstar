@@ -52,7 +52,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let name = wx.getStorageSync("name");
+    let idCard = wx.getStorageSync("idCard");
 
+    this.setData({
+        name:name,
+        idCard:idCard
+    })
   },
 
   /**
@@ -101,7 +107,11 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+      let userInfo = wx.getStorageSync("userInfo");
+      return {
+        title: '千星钱包',
+        path: 'pages/main/main?userId='+userInfo.id
+      }
   },
 
   submit: function () {

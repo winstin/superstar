@@ -52,6 +52,21 @@
   float: left;
 }
 
+.lefts{
+  float:left;
+  font-size:40rpx;
+  padding-left:5rpx;
+  padding-right:5rpx;
+  color: #4984d9
+}
+
+.leftss{
+  float:left;
+  font-size:50rpx;
+  color: #4984d9
+}
+
+
 .right {
   width: 25rpx;
   height: 45rpx;

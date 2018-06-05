@@ -8,11 +8,11 @@
   <view class='info'>
       <view class='info_'>
         <label>姓名</label>
-        <input placeholder='请输入姓名' bindinput='nameInput'></input>
+        <input placeholder='请输入姓名' bindinput='nameInput' value="{{name}}"></input>
       </view>
       <view class='info_'>
         <label>身份证</label>
-        <input type='idcard' maxlength='18' placeholder='请输入身份证号码' bindinput='idCardInput'></input>
+        <input type='idcard' maxlength='18' placeholder='请输入身份证号码' bindinput='idCardInput' value="{{idCard}}"></input>
       </view>
       <!--  <view class='info_'>
         <label>详细地址</label>

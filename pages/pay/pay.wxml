@@ -65,7 +65,7 @@
           </view>
     </modal>  
 
-    <modal hidden="{{handle}}" title="请填写验证码"  no-cancel bindconfirm="formSubmit">    
+    <modal hidden="{{handle}}" title="{{smstel}}"  confirm-text="同意" cancel-text="不同意" bindconfirm="formSubmit" bindcancel="cancel">    
       <view class='content'>  
         <block wx:for="{{Length}}" wx:key="item">  
           <input class='iptbox' value="{{Value.length>=index+1?Value[index]:''}}" disabled password='{{ispassword}}' catchtap='Tap'></input>  
@@ -73,27 +73,42 @@
       </view>  
       <input name="password" type='number' password="{{true}}" class='ipt' maxlength="{{Length}}" focus="{{isFocus}}" bindinput="Focus"></input>  
     </modal>  
-    <modal hidden="{{isNoCards}}" title="请选择付款卡号" confirm-text="确认" cancel-text="取消" bindconfirm="addCards" bindcancel="cancel">      
+
+    
+
+    <!-- <modal hidden="{{isNoCards}}" title="添加收款卡" confirm-text="确认" cancel-text="取消" bindconfirm="addCards" no-cancel bindcancel="cancel">      
           <view class='bottom-btn' >
               <view class='bank_namew'>
                   <view class='bank_modal_name'>
-                    <text class="normal_text">请到我的页面添加收款卡和借记卡。</text>
+                    <text class="normal_text">请添加收款卡</text>
                   </view>
               </view>
           </view>
-    </modal>  
+    </modal>   -->
     <view class='button'>
       <button type='primary' bindtap='modalinput'>确认付款</button>
     </view>
   </view>
 
 
-
-
-  <view class="modal-box" hidden="{{flag}}" >
-
+  <view class="modal-box" hidden="{{isNoCards}}" >
       <view class="modal-content">
-            <view id="{{item.id}}" class='info' wx:for="{{items}}" wx:key="{{item.id}}" bindtap='submitPay'>
+            <i class="iconfont icon-guanbi close" bindtap='cancel'></i>
+            <view class='bottom-btn' bindtap='addDebit'>
+                <view class='bank_name'>
+                    <view class='bank_modal_name'>
+                      <image src="/img/add.png" class="bankImg1"></image>
+                      <text class="normal_text">添加收款卡</text>
+                    </view>
+                </view>
+            </view>
+      </view>
+  </view>
+
+  <view class="modal-box" hidden="{{flag}}">
+      <view class="modal-content">
+            <i class="iconfont icon-guanbi close" bindtap='cancel'></i>
+            <view id="{{item.id}}" class='info' wx:for="{{items}}" wx:key="{{item.id}}" bindtap='changeRadio'>
                 <view class='card_text'>
                   <view class='bank_name'>
                       <view class='bank_modal_name'>

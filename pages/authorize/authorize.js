@@ -79,7 +79,11 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+      let userInfo = wx.getStorageSync("userInfo");
+      return {
+        title: '千星钱包',
+        path: 'pages/main/main?userId='+userInfo.id
+      }
   },
 
   toRegister: function (e) {
@@ -89,11 +93,11 @@ Page({
   },
 
   bindGetUserInfo:function(e){
+
     let jsonData = e.detail;
     let self = this;
     jsonData.sessionKey = wx.getStorageSync("sessionKey");
     jsonData.agentAppId = getApp().globalData.appId;
-
     wx.showLoading({
       title:'登录中'
     })
@@ -107,6 +111,7 @@ Page({
               getApp().globalData.userInfo = res.data.data;
               wx.setStorageSync("userInfo",res.data);
           }
+
           Tools.request({
               url: '/wxuser/auth',
               method: 'POST',
@@ -114,7 +119,7 @@ Page({
               isLogin:true,
               callback:(res)=> {
                   wx.hideLoading();
-                  wx.setStorageSync("token", res.data);
+                  wx.setStorageSync("token", res.data.token);
                   getApp().globalData.tokens = res.data;
                   // 获取用户信息
                   wx.switchTab({

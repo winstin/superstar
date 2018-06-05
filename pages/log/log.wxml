@@ -7,18 +7,40 @@
         <text class="ok">{{allMoney}}</text>
     </view>
   </view>
+  <view class='statusStyle'>
+      <view id="{{item.index}}" class='tops' wx:for="{{status}}" wx:key="{{item.index}}" bindtap='checkStatus'>
+          <view wx:if="{{item.checked}}">
+              <view class="choosed">{{item.name}}</view>
+              <image src='/img/choosed.png' class='icons'></image>
+          </view>
+          <view wx:else>
+              <view class="choose">{{item.name}}</view>
+          </view>
+      </view>
+  </view>
+
   <view class='top'>
     <view class="topleft">
-        <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+        <!-- <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
           <view class="normaltext">当前状态：{{array[index]}}</view>
-        </picker>
+        </picker> -->
+        <view class="topimg">
+        <picker mode="date" value="{{date1}}"  bindchange="bindDateChange1" bindcancel="bindCancel1">
+              <view class="normal-text">开始：{{date1}}</view>
+            </picker>
+        </view>
+        <view class="topimg">
+          <picker mode="date" value="{{date2}}"  bindchange="bindDateChange2" bindcancel="bindCancel2">
+            <view class="normal-text">结束：{{date2}}</view>
+          </picker>
+        </view>
     </view>
-    <view class='topimg' bindtap="serachData">
+    <view class='topimg' bindtap="serachStatus">
       <button type="primary" size="mini"
         > 查询 </button>
     </view>
   </view>
-  <view class='topgery'>
+  <!-- <view class='topgery'>
     <view class="topleft">
         <picker mode="date" value="{{date1}}"  bindchange="bindDateChange1" bindcancel="bindCancel1">
           <view class="normaltext">开始时间：{{date1}}</view>
@@ -28,16 +50,16 @@
       <picker mode="date" value="{{date2}}"  bindchange="bindDateChange2" bindcancel="bindCancel2">
         <view class="normaltext">结束时间：{{date2}}</view>
       </picker>
-    </view>
+    </view> -->
     <!-- <view class='topimg'> -->
       <!-- <image src='/img/my_card.png'></image> -->
       
    <!--  </view> -->
-  </view>
-  <view wx:if="{{items.length > 0}}">
+  <!-- </view> -->
+  <view wx:if="{{items.length > 0}}" class='marginTop'>
       <view id="{{item.agentOrderNo}}" class='info' wx:for="{{items}}" wx:key="{{item.agentOrderNo}}" bindtap='orderDetail'>
         <view class='headimg'>
-          <image src='/img/my_card.png'></image>
+          <image src="{{item.url}}"></image>
         </view>
         <view class='log'>
           <text>快捷支付-{{item.bankName}}</text>

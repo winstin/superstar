@@ -12,6 +12,7 @@ Page({
     name: '',
     creditCount: 0,
     orderCount: 0,
+    serviceCount:0,
     orderData: [],
     version:getApp().globalData.version
   },
@@ -66,20 +67,43 @@ Page({
                   if (res.data.isSuccess){
                     resolve(res.data.data.total);
                   }else{
+                    resolve(0);
                   }
               }
 
           })
     })
 
+    let c = new Promise(function(resolve,reject){
+          Tools.fetch({
+              url: '/businessDebitNote',
+              method: 'GET',
+              data:{},
+              callback(res) {
+                  if(res.data){
+                    if (res.data.length>0){
+                      resolve(res.data.length);
+                    }else{
+                      resolve(0);
+                    }
+                  }else{
+                    resolve(0);
+                  }
+              }
+
+          })
+    })
+
+
     Promise
-    .all([a,b])
+    .all([a,b,c])
     .then(function(results){
         // console.log(results)
         that.setData({
           name: getApp().globalData.userInfos.nickName,
           creditCount: results[0],
-          orderCount: results[1]
+          orderCount: results[1],
+          serviceCount:results[2]
         })
     });
     
@@ -120,7 +144,11 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+      let userInfo = wx.getStorageSync("userInfo");
+      return {
+        title: '千星钱包',
+        path: 'pages/main/main?userId='+userInfo.id
+      }
   },
   exit: function () {
     wx.clearStorage()

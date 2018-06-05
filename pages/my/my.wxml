@@ -13,28 +13,47 @@
       <text class="little">版本号：{{version}}</text>
     </view>
   </view>
-
-  <view class='list'>
-    <navigator class='list_item' hover-class="none" url='/pages/debit/debit'>
-      <image src='/img/my_card.png' class='left'></image>
-      <text class='title'>我的收款卡</text>
-      <image src='/img/my_right.png' class='right'></image>
-    </navigator>
-
-    <navigator class='list_item' hover-class="none" url='/pages/credit/credit'>
-      <image src='/img/my_visa.png' class='left'></image>
-      <text class='title'>我的信用卡</text>
-      <image src='/img/my_right.png' class='right'></image>
-      <text class='num'>{{creditCount}}张</text>
-    </navigator>
-
-    <navigator class='list_item' hover-class="none" url='/pages/log/log'>
-      <image src='/img/my_log.png' class='left'></image>
-      <text class='title'>我的交易记录</text>
-      <image src='/img/my_right.png' class='right'></image>
-      <text class='num'>{{orderCount}}条 </text>
-    </navigator>
-  </view>
+  <scroll-view scroll-y  >
+      <view class='list'>
+        <navigator class='list_item' hover-class="none" url='/pages/debit/debit'>
+          <!-- <image src='/img/my_card.png' class='left'></image> -->
+          <i class="iconfont icon-jiejiqia leftss" ></i>
+          <text class='title'>我的收款卡</text>
+          <image src='/img/my_right.png' class='right'></image>
+        </navigator>
+        <navigator class='list_item' hover-class="none" url='/pages/credit/credit'>
+          <!-- <image src='/img/my_visa.png' class='left'></image> -->
+          <i class="iconfont icon-xinyongqia2 leftss" ></i>
+          <text class='title'>我的信用卡</text>
+          <image src='/img/my_right.png' class='right'></image>
+          <text class='num'>{{creditCount}}张</text>
+        </navigator>
+        <navigator class='list_item' hover-class="none" url='/pages/log/log'>
+          <!-- <image src='/img/my_log.png' class='left'></image> -->
+          <i class="iconfont icon-jiaoyijilu2 lefts" ></i>
+          <text class='title'>我的交易记录</text>
+          <image src='/img/my_right.png' class='right'></image>
+          <text class='num'>{{orderCount}}条 </text>
+        </navigator>
+        <navigator class='list_item' hover-class="none" url='/pages/logs/logs'>
+          <!-- <image src='/img/my_log.png' class='left'></image> -->
+          <i class="iconfont icon-jiaoyijilu1 lefts" ></i>
+          <text class='title'>我的缴费记录</text>
+          <image src='/img/my_right.png' class='right'></image>
+          <text class='num'>{{serviceCount}}条 </text>
+        </navigator>
+        <navigator class='list_item' hover-class="none" url='/pages/authorize/authorize'>
+          <i class="iconfont icon-tubiao_zhongxinshouquan lefts" ></i>
+          <text class='title'>重新授权</text>
+          <image src='/img/my_right.png' class='right'></image>
+        </navigator>
+        <navigator class='list_item' hover-class="none" url='/pages/set_amount/set_amount'>
+          <i class="iconfont icon-shoukuan leftss" ></i>
+          <text class='title'>服务区</text>
+          <image src='/img/my_right.png' class='right'></image>
+        </navigator>
+      </view>
+  </scroll-view>
   <!-- <view class='button'>
     <button class='exit' bindtap='exit'>退出登录</button>
   </view> -->

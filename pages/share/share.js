@@ -71,10 +71,10 @@ Page({
       // 来自页面内转发按钮
       console.log(res.target)
     }
-    let openid = wx.getStorageSync("openid");
+    let userInfo = wx.getStorageSync("userInfo");
     return {
-      title: this.data.textInput,
-      path: 'pages/main/main?openId='+openid
+      title: '千星钱包',
+      path: 'pages/main/main?userId='+userInfo.id
     }
   },
 
