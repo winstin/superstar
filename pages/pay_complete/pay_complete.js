@@ -52,27 +52,27 @@ Page({
                 data:{},
                 callback(res) {
                     if (res.data.isSuccess) {
-                        if(res.data.data.orderState == "A"){
+                        if(res.data.data.orderStatus == "A"){
                             that.setData({
                                 iconType: 'waiting',
                                 message: '支付中',
                             })
-                        }else if(res.data.data.orderState == "B"){
+                        }else if(res.data.data.orderStatus == "B"){
                             that.setData({
                                 iconType: 'cancel',
                                 message: '支付失败',
                             })
-                        }else if(res.data.data.orderState == "C"){
+                        }else if(res.data.data.orderStatus == "C"){
                             that.setData({
                                 iconType: 'success',
                                 message: '已支付',
                             })
-                        }else if(res.data.data.orderState == "D"){
+                        }else if(res.data.data.orderStatus == "D"){
                             that.setData({
                                 iconType: 'success',
                                 message: '结算中',
                             })
-                        }else if(res.data.data.orderState == "E"){
+                        }else if(res.data.data.orderStatus == "E"){
                             that.setData({
                                 iconType: 'success',
                                 message: '结算成功',

@@ -65,7 +65,7 @@ Page({
               data:{},
               callback(res) {
                   if (res.data.isSuccess){
-                    resolve(res.data.data.total);
+                    resolve(res.data.data.length);
                   }else{
                     resolve(0);
                   }

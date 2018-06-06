@@ -14,7 +14,7 @@ Page({
     settleBankCardId: '',
     mchId:'',
     cardInfo: '',
-    amount: 60000,
+    amount: 10000,
     index: 0,
     pickerindex: '0',
     array: [],

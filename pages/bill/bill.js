@@ -63,7 +63,7 @@ Page({
                 }
 
                 that.setData({
-                    status: res.data.data.orderState,
+                    status: res.data.data.orderStatus,
                     amount: res.data.data.totalFee,
                     createTime: Tools.formatting(res.data.data.createTime+''),
                     bankName: res.data.data.bankName,

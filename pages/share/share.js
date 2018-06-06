@@ -84,5 +84,8 @@ Page({
     })
   },
 
+  textFocus:function(){
+    console.log("1")
+  }
  
 })

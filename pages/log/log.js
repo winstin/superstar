@@ -234,8 +234,8 @@ Page({
               },
               callback(res) {
                   wx.hideLoading();
-                  if(res.data.data){
-                      let cardData = res.data.data.data;
+                  if(res.data){
+                      let cardData = res.data.data;
                       let cardImg = app.globalData.banklogo;
                       for(let i in cardData){
                           cardData[i].createTime = Tools.formatting((cardData[i].createTime+''));
@@ -252,10 +252,11 @@ Page({
                           if(cardData[i].style == undefined){
                               cardData[i].style = 'card_info2';
                           }
+                          allMoney = allMoney + Number(cardData[i].totalFee/100);
                       }
                       self.setData({
-                        allMoney:res.data.data.totalMoney,
-                        items:cardData
+                        allMoney:allMoney.toFixed(2),
+                        items:cardData,
                       })
                   }
               }
@@ -275,8 +276,8 @@ Page({
                     },
                     callback(res) {
                         wx.hideLoading();
-                        if(res.data.data){
-                            let cardData = res.data.data.data;
+                        if(res.data){
+                            let cardData = res.data.data;
                             let cardImg = app.globalData.banklogo;
                             for(let i in cardData){
                                 cardData[i].createTime = Tools.formatting((cardData[i].createTime+''));
@@ -293,12 +294,10 @@ Page({
                                 if(cardData[i].style == undefined){
                                     cardData[i].style = 'card_info2';
                                 }
+                                allMoney = allMoney + Number(cardData[i].totalFee/100);
+
                             }
 
-                      
-                            if(res.data.data.totalMoney){
-                                allMoney = allMoney + Number(res.data.data.totalMoney.replace(/\,/g,""));
-                            }
                             allData = allData.concat(cardData);
                             // console.log(allData)
                         }

@@ -19,9 +19,31 @@
 
   <view class='tips'>
     <text class="little custom">自定义标题：</text>
-    <input value='' placeholder="请输入分享标题" class="little" bindinput='textInput'></input>
+    <input value='' placeholder="请输入分享标题" class="little" bindinput='textInput' bindfocus="textFocus"></input>
   </view>
-  
-  <button class="share-btn" type="primary" open-type="share">转 发</button>
 
+  <button class="share-btn" type="primary" open-type="share">转 发</button>
+  <!-- <view class="modal-box" hidden="{{flag}}">
+      <view class="modal-content">
+            <i class="iconfont icon-guanbi close" bindtap='cancel'></i>
+            <view id="{{item.id}}" class='info' wx:for="{{items}}" wx:key="{{item.id}}" bindtap='changeRadio'>
+                <view class='card_text'>
+                  <view class='bank_name'>
+                      <view class='bank_modal_name'>
+                        <image src="{{item.url}}" class="bankImg"></image>
+                        <text class="normal_text">{{item.bankName}}信用卡</text>
+                      </view>
+                  </view>
+                </view>
+            </view>
+            <view class='bottom-btn' bindtap='addCard'>
+                <view class='bank_name'>
+                    <view class='bank_modal_name'>
+                      <image src="/img/add.png" class="bankImg1"></image>
+                      <text class="normal_text">添加信用卡</text>
+                    </view>
+                </view>
+            </view>
+      </view>
+  </view> -->
 </view>

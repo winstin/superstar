@@ -69,23 +69,23 @@
           <text>{{item.createTime}}</text>
         </view>
         <view class="status">
-          <view wx:if="{{item.orderState == 'A'}}">
+          <view wx:if="{{item.orderStatus == 'A'}}">
             <icon class='icon' type="info" size="14"></icon>
             <text class="ok">支付中</text>
           </view>
-          <view wx:elif="{{item.orderState == 'B'}}">
+          <view wx:elif="{{item.orderStatus == 'B'}}">
             <icon class='icon' type="warn" size="14"></icon>
             <text class="no">支付失败</text>
           </view>
-          <view wx:if="{{item.orderState == 'C'}}">
+          <view wx:if="{{item.orderStatus == 'C'}}">
             <icon class='icon' type="success" size="14"></icon>
             <text class="ok">已支付</text>
           </view>
-          <view wx:elif="{{item.orderState == 'D'}}">
+          <view wx:elif="{{item.orderStatus == 'D'}}">
             <icon class='icon' type="success" size="14"></icon>
             <text class="ok">结算中</text>
           </view>
-          <view wx:elif="{{item.orderState == 'E'}}">
+          <view wx:elif="{{item.orderStatus == 'E'}}">
             <icon class='icon' type="success" size="14"></icon>
             <text class="ok">结算成功</text>
           </view>
