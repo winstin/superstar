@@ -59,7 +59,7 @@
     </view>
     <view class='info_' wx:if="{{status == 'D'}}">
       <text class='key'>结算失败原因</text>
-      <text class='warnvalue '>{{settleStatusMsg}}</text>
+      <text class='warnvalue '>{{stateMsg}}</text>
     </view>
   </view>
 </view>

@@ -9,13 +9,13 @@
 
       <radio class='radio' checked="{{checked1}}"/>
     </view>
-    <view class='titles'>
+    <!-- <view class='titles'>
     </view>
     <view class='title' id="2" bindtap='changeRadios'>
       <image src='/img/onlinePay.png' class='icon'></image>
       <text class='littletext'>O单商服务费：2000 元</text>
       <radio class='radio' checked="{{checked2}}"/>
-    </view>
+    </view> -->
 
     <modal hidden="{{hiddenmodalput}}" title="请选择付款卡号" confirm-text="确认付款" cancel-text="取消" bindconfirm="submitPay" bindcancel="cancel">      
       <view id="{{item.id}}" class='info' wx:for="{{items}}" wx:key="{{item.id}}" bindtap='changeRadio'>
