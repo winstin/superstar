@@ -32,7 +32,8 @@ Page({
     agentOrderNo:'',
     smstel:'',
     fee0:'7',
-    d0fee:200
+    d0fee:200,
+    
   },
 
   amountInput: function (e) {
@@ -207,7 +208,8 @@ Page({
                   cardId: e.currentTarget.id,
                   flag:true,
                   smstel:info,
-                  fee0:res.data.data.fee0
+                  fee0:res.data.data.fee0,
+                  d0fee:res.data.data.d0fee
               })
               console.log(self.data)
               self.submitPay();

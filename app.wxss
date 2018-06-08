@@ -93,3 +93,41 @@ page{
   margin-left: auto;
   margin-right: auto;
 }
+
+.bluetext{
+  font-size:30rpx;
+  color: #4984d9
+}
+
+.hides{
+  opacity: 0;
+  border-radius: 0px;
+  padding: 0px;
+  margin: 0px;
+  position: absolute;
+  height: 50rpx;
+  width: 100%;
+  top:0px;
+}
+
+.relative{
+  position: relative;
+}
+
+.contact-icon{
+  font-size:40rpx;
+  color: #4984d9;
+  float:left
+}
+
+.marginTop20{
+  padding-top: 40rpx;
+}
+
+.kf-btn{
+  border:1px solid #4984d9;
+  border-radius:5px;
+  display:flex;
+  padding-left: 5rpx;
+  padding-right: 5rpx
+}

@@ -67,7 +67,7 @@
       </view>
     </view>
     <view class='button'>
-      <button class='edit' disabled='{{btndisable}}' bindtap='updateDebit'>修改信息</button>
+      <button class='edit'  bindtap='updateDebit'>修改信息</button>
     </view>
 </view>
 <view wx:else>

@@ -14,7 +14,9 @@ Page({
     orderCount: 0,
     serviceCount:0,
     orderData: [],
-    version:getApp().globalData.version
+    version:getApp().globalData.version,
+    roleName:'',
+    count:0
   },
 
   /**
@@ -40,7 +42,17 @@ Page({
     const that = this
     var count = 0;
 
-    
+    let roleName = wx.getStorageSync("roleName");
+
+    if(roleName == "省钱宝典"){
+        roleName = "代理商"
+    }else if(roleName == "赚钱宝典"){
+        roleName = "服务商"
+    }else{
+        roleName = "普通用户"
+    }
+
+    let openId = wx.getStorageSync("openid");
     let a = new Promise(function(resolve,reject){
           Tools.fetch({
               url: '/creditBankCard',
@@ -95,15 +107,34 @@ Page({
     })
 
 
+    let d = new Promise(function(resolve,reject){
+          Tools.request({
+              url: '/wxuser/wxUsers/share/'+openId,
+              method: 'GET',
+              data:{},
+              callback(res) {
+                  if(res.data.data){
+                    resolve(res.data.data.count);
+                  }else{
+                    resolve(0);
+                  }
+              }
+
+          })
+    })
+
+
     Promise
-    .all([a,b,c])
+    .all([a,b,c,d])
     .then(function(results){
-        // console.log(results)
+
         that.setData({
           name: getApp().globalData.userInfos.nickName,
           creditCount: results[0],
           orderCount: results[1],
-          serviceCount:results[2]
+          serviceCount:results[2],
+          roleName:roleName||"普通用户",
+          count:results[3]
         })
     });
     

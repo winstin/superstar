@@ -1,4 +1,5 @@
 <!--pages/pay/pay.wxml-->
+<import src="../../common/template.wxml"/>
 
 <view class='container'>
 
@@ -88,9 +89,13 @@
     <view class='button'>
       <button type='primary' bindtap='modalinput'>确认付款</button>
     </view>
+
   </view>
 
-
+  <view class="marginTop20">
+  </view>
+    
+  <template is="concat"  />
   <view class="modal-box" hidden="{{isNoCards}}" >
       <view class="modal-content">
             <i class="iconfont icon-guanbi close" bindtap='cancel'></i>

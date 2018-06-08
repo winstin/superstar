@@ -1,3 +1,4 @@
+
 <view class='container'>
     <image src='/img/banner.png' class='banner'></image>
     <view class='box'>
@@ -29,6 +30,6 @@
         </navigator>
         <button class="hide" open-type="contact">1111</button>
     </view>
-
-    
+    <!-- <web-view src="https://mp.weixin.qq.com/"></web-view> -->
+    <!-- <template is="loadings" data="{{loading,loadtxt}}" /> -->
 </view>

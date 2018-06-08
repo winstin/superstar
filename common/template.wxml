@@ -1,0 +1,10 @@
+<!-- <button open-type="contact">联系客服</button> -->
+<template name="concat" >
+	<view class="relative">
+		<view class="kf-btn">
+			<i class="iconfont icon-kefu contact-icon" ></i>
+			<text class="bluetext"> 联系客服</text>
+		</view>
+	   	<button open-type="contact" class="hides">联系客服</button>
+   	</view>
+</template>

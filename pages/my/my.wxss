@@ -96,3 +96,8 @@
   color: #fff;
   font-size: 12px
 }
+
+.littles{
+  color: #fff;
+  font-size: 20rpx
+}

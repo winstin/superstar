@@ -125,11 +125,11 @@ Page({
           wx.showToast({
             title: '注册成功请登录',
           })
-          setTimeout(function () {
-            wx.redirectTo({
-              url: '../login/login',
-            })
-          }, 2000)
+          // setTimeout(function () {
+          //   wx.redirectTo({
+          //     url: '../login/login',
+          //   })
+          // }, 2000)
          
         } else {
           wx.showToast({

@@ -11,7 +11,8 @@ Page({
     telNumber: '',
     password: '',
     hidden: true,
-    isPhoneNum:true
+    isPhoneNum:true,
+    isShareId:''
   },
   
   //用户名和密码输入框事件
@@ -30,7 +31,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-     
+    if(options.userId){//分享用户进首页处理
+        this.setData({
+            isShareId:options.userId
+        })   
+    }
   },
 
   /**
@@ -108,23 +113,42 @@ Page({
         isLogin:true,
         callback:(res)=> {
           if(res.data){
-              getApp().globalData.userInfo = res.data.data;
-              wx.setStorageSync("userInfo",res.data);
+              if(res.data.id){
+                  getApp().globalData.userInfo = res.data;
+                  wx.setStorageSync("userInfo",res.data);
+              }else{
+                  wx.showModal({
+                    content: "用户信息获取失败!",
+                    showCancel: false
+                  })
+                  return
+              }
           }
-
+          let jsonDatas =  res.data;
+          if(self.data.isShareId!=''){
+            jsonDatas.parentId = self.data.isShareId;
+          }
           Tools.request({
               url: '/wxuser/auth',
               method: 'POST',
-              data: res.data,
+              data:jsonDatas,
               isLogin:true,
               callback:(res)=> {
                   wx.hideLoading();
-                  wx.setStorageSync("token", res.data.token);
-                  getApp().globalData.tokens = res.data.token;
-                  // 获取用户信息
-                  wx.switchTab({
-                    url: '../main/main',
-                  })
+                  if(res.data.token){
+                      wx.setStorageSync("token", res.data.token);
+                      wx.setStorageSync("roleName", res.data.roleName);
+                      getApp().globalData.tokens = res.data.token;
+                      // 获取用户信息
+                      wx.switchTab({
+                        url: '../main/main',
+                      })
+                  }else{
+                      wx.showModal({
+                        content: "授权失败，可以联系客服! ",
+                        showCancel: false
+                      })
+                  }
                                                     
               }
           })

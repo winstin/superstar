@@ -1,5 +1,8 @@
+<import src="../../common/template.wxml"/>
+
 <!--pages/log/log.wxml-->
 <wxs module="filters" src="../../calc.wxs"></wxs>
+<!-- <template is="loadings" data="{{loading,loadtxt}}" /> -->
 <view class='container'>
   <view class='topheader'>
     <view class='normaltext1'>
@@ -76,6 +79,7 @@
           <view wx:elif="{{item.orderStatus == 'B'}}">
             <icon class='icon' type="warn" size="14"></icon>
             <text class="no">支付失败</text>
+
           </view>
           <view wx:if="{{item.orderStatus == 'C'}}">
             <icon class='icon' type="success" size="14"></icon>
@@ -90,6 +94,8 @@
             <text class="ok">结算成功</text>
           </view>
         </view>
+
+        <!-- <button open-type="contact">联系客服</button> -->
       </view>
   </view>
   <view wx:else class="norecord"> 

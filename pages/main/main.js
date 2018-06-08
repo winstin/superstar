@@ -32,37 +32,27 @@ Page({
     //         console.log(err)
     //     } 
     // })
-
+    
     let weixin_token = wx.getStorageSync("token");
     let userInfo = wx.getStorageSync("userInfo");
     if(weixin_token == undefined || weixin_token == "" ||userInfo == undefined || userInfo == "" ){
-        wx.redirectTo({
-          url: '../authorize/authorize',
-        })
+        if(options.userId){
+            wx.redirectTo({
+              url: '../authorize/authorize?userId='+options.userId,
+            })
+        }else{
+            wx.redirectTo({
+              url: '../authorize/authorize',
+            })
+        }
+        
         return
     }else{
        getApp().globalData.tokens = weixin_token;
        getApp().globalData.userInfos = userInfo;
     }
 
-    if(options.userId){//分享用户进首页处理
-        // wx.showModal({
-        //   content: options.userId,
-        //   showCancel: false
-        // });
-        let JsonData= wx.getStorageSync("userInfo");
-        JsonData.parentId = '1';
-        Tools.request({
-            url: '/wxuser/auth',
-            method: 'POST',
-            data: JsonData,
-            isLogin:true,
-            callback:(res)=> {
-                wx.setStorageSync("token", res.data.token);
-                getApp().globalData.tokens = res.data.token;
-            }
-        })
-    }
+   
     
 
     // 获取用户信息
@@ -83,9 +73,16 @@ Page({
           //   }
           // })
         }else{
-          wx.redirectTo({
-            url: '../authorize/authorize',
-          })
+          if(options.userId){
+              wx.redirectTo({
+                url: '../authorize/authorize?userId='+options.userId,
+              })
+          }else{
+              wx.redirectTo({
+                url: '../authorize/authorize',
+              })
+          }
+          
           return
         }
       }

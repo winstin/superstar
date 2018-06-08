@@ -30,7 +30,7 @@
 </view>
 
 <view class='button'>
-  <button class='edit' disabled='{{btndisable}}' bindtap='updateCredit'>修改信息</button>
+  <button class='edit'  bindtap='updateCredit'>修改信息</button>
   <button class='del' bindtap='addCredit'>添加信用卡</button>
 
   <button type="warn" bindtap='delCredit'>删除信用卡</button>
