@@ -135,7 +135,7 @@ Page({
         url: '/settleBankCard',
         method: 'GET',
         callback(res) {
-            console.log(res)
+            // console.log(res)
             if (res.data.isSuccess && res.data.data.length>0) {
                 if(res.data.data.length>0){
                     let cardData = res.data.data[0];
