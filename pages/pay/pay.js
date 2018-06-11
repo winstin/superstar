@@ -198,6 +198,15 @@ Page({
       openId = wx.getStorageSync("userInfo").openId
     }
 
+    // info = "正在和您签约协议支付"
+    // self.setData({
+    //     cardId: e.currentTarget.id,
+    //     flag:true,
+    //     smstel:info,
+    //     fee0:7,
+    //     d0fee:200
+    // })
+    // self.submitPay();
     Tools.request({
         url: '/wxuser/rates/'+openId+'/'+cardNumber,
         method: 'GET',
@@ -212,7 +221,7 @@ Page({
                   d0fee:res.data.data.d0fee
               })
               console.log(self.data)
-              self.submitPay();
+              
           }else{
               wx.showToast({
                 title: '费率获取失败！',

@@ -112,17 +112,9 @@ Page({
         data: jsonData,
         isLogin:true,
         callback:(res)=> {
+          let userInfo = {};
           if(res.data){
-              if(res.data.id){
-                  getApp().globalData.userInfo = res.data;
-                  wx.setStorageSync("userInfo",res.data);
-              }else{
-                  wx.showModal({
-                    content: "用户信息获取失败!",
-                    showCancel: false
-                  })
-                  return
-              }
+              userInfo = res.data;
           }
           let jsonDatas =  res.data;
           if(self.data.isShareId!=''){
@@ -138,7 +130,9 @@ Page({
                   if(res.data.token){
                       wx.setStorageSync("token", res.data.token);
                       wx.setStorageSync("roleName", res.data.roleName);
-                      getApp().globalData.tokens = res.data.token;
+                      userInfo.id = res.data.userId;
+                      getApp().globalData.userInfo = userInfo;
+                      wx.setStorageSync("userInfo",userInfo);
                       // 获取用户信息
                       wx.switchTab({
                         url: '../main/main',
