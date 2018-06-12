@@ -15,7 +15,7 @@ Page({
     amount: '',
     index: 0,
     pickerindex: '0',
-    array: [],
+    array: ['新无卡','商旅类'],
     objectArray: [],
     pointsType:3,
     hiddenmodalput:true,
@@ -53,32 +53,6 @@ Page({
    */
   onReady: function () {
     const that = this
-    // wx.request({
-    //   url: baseUrl + '/mini/getChantAgentRate',
-    //   header: {
-    //     'Authorization': getApp().globalData.token
-    //   },
-    //   data: { appId: getApp().globalData.appId },
-    //   success(res) {
-    //     if (res.data.isSuccess) {
-    //       var a = [];
-    //       var oa = [];
-    //       var pt = res.data.data[0].pointsType
-    //       for (var i = 0; i < res.data.data.length; i++) {
-    //         var o = { 'id': res.data.data[i].pointsType, name: res.data.data[i].name }
-    //         a[i] = res.data.data[i].name
-    //         oa[i] = o
-    //       }
-    //       that.setData({
-    //         array: a,
-    //         objectArray: oa,
-    //         pointsType: pt
-    //       })
-    //       console.log(that.data.pointsType)
-    //     }
-        
-    //   }
-    // })
   },
 
   /**
@@ -130,19 +104,31 @@ Page({
         }
     })
 
+    this.choose();
+    
+  },
 
+
+  choose:function(){
+    let that = this;
     Tools.fetch({
         url: '/settleBankCard',
         method: 'GET',
         callback(res) {
-            // console.log(res)
             if (res.data.isSuccess && res.data.data.length>0) {
                 if(res.data.data.length>0){
                     let cardData = res.data.data[0];
+                    let mchId = "";
+                    let merchants = cardData.merchants;
+                    for(let i in merchants){
+                        if(merchants[i].pointsType == that.data.pointsType){
+                            mchId = merchants[i].mchId
+                        }
+                    }
                     that.setData({
                         settleBankCardId: cardData.id,
-                        mchId:cardData.merchants[0].mchId,
-                        pointsType:cardData.merchants[0].pointsType || 3,
+                        mchId:mchId,
+                        pointsType: that.data.pointsType,
                     })
                 }
             } else {
@@ -151,7 +137,6 @@ Page({
         }
     })
   },
-
   /**
    * 弹出层函数
    */
@@ -170,12 +155,19 @@ Page({
   },
 
   bindPickerChange: function (e) {
-      // console.log(e.detail.value)
-      this.setData({
-        pointsType: this.data.objectArray[e.detail.value].id,
-        pickerindex: e.detail.value
-      })
-      // console.log('pointsType:' + this.data.pointsType)
+      // console.log(e.detail.value);
+      if(e.detail.value == "0"){
+          this.setData({
+            pointsType: 3,
+            pickerindex:e.detail.value
+          })
+      }else if(e.detail.value == "1"){
+          this.setData({
+            pointsType: 0,
+            pickerindex:e.detail.value
+          })
+      }
+      this.choose();
   },
 
   changeRadio:function(e){
@@ -207,33 +199,39 @@ Page({
     //     d0fee:200
     // })
     // self.submitPay();
-    Tools.request({
-        url: '/wxuser/rates/'+openId+'/'+cardNumber,
-        method: 'GET',
-        callback(res) {
-          if(res.data.isSuccess){
-              info = "正在和您签约协议支付"
-              self.setData({
-                  cardId: e.currentTarget.id,
-                  flag:true,
-                  smstel:info,
-                  fee0:res.data.data.fee0,
-                  d0fee:res.data.data.d0fee
-              })
-              console.log(self.data)
-              
-          }else{
-              wx.showToast({
-                title: '费率获取失败！',
-                icon:'none'
-              })
-              return
-          }
-        }
-    })
-
-
-
+    if(this.data.pointsType == 0){
+        info = "请输入短信验证码"
+        self.setData({
+            cardId: e.currentTarget.id,
+            flag:true,
+            smstel:info,
+        })
+        self.submitPay();
+    }else{
+        Tools.request({
+            url: '/wxuser/rates/'+openId+'/'+cardNumber,
+            method: 'GET',
+            callback(res) {
+              if(res.data.isSuccess){
+                  info = "正在和您签约协议支付"
+                  self.setData({
+                      cardId: e.currentTarget.id,
+                      flag:true,
+                      smstel:info,
+                      fee0:res.data.data.fee0,
+                      d0fee:res.data.data.d0fee
+                  })
+                  self.submitPay();
+              }else{
+                  wx.showToast({
+                    title: '费率获取失败！',
+                    icon:'none'
+                  })
+                  return
+              }
+            }
+        })
+    }
 
    
   },
@@ -272,7 +270,7 @@ Page({
   onShareAppMessage: function () {
       let userInfo = wx.getStorageSync("userInfo");
       return {
-        title: '千星钱包',
+        title: getApp().globalData.title,
         path: 'pages/main/main?userId='+userInfo.id
       }
   },
@@ -306,7 +304,11 @@ Page({
         content: '是否确定付款？',
         success: function(res) {
           if (res.confirm) {
+            if(that.data.pointsType == '3' || that.data.pointsType == 3){
               that.goPay();
+            }else if(that.data.pointsType == '0'|| that.data.pointsType == 0){
+              that.goPay2();
+            }
           } else if (res.cancel) {
               console.log('用户点击取消')
           }
@@ -390,6 +392,51 @@ Page({
       })
   },
 
+
+  goPay2:function(){
+      const that = this;
+      // let newData =  {
+      //       "creditBankCardId": this.data.cardId,
+      //       "d0fee": this.data.d0fee,
+      //       "fee0": this.data.fee0,
+      //       "mchId": this.data.mchId,
+      //       "settleBankCardId": this.data.settleBankCardId,
+      //       "totalFee": this.data.amount*100
+      //     };
+      // console.log(newData);
+      wx.showLoading({
+        title: '正在支付，请稍候',
+        mask:true
+      })
+      Tools.fetch({
+          url: '/order',
+          method: 'POST',
+          data: {
+            "creditBankCardId": this.data.cardId,
+            "d0fee": 200,
+            "fee0": 6,
+            "mchId": this.data.mchId,
+            "settleBankCardId": this.data.settleBankCardId,
+            "totalFee": this.data.amount*100
+          },
+          callback(res) {
+            wx.hideLoading();
+            if (res.data.isSuccess) {
+                  let agentOrderNo = res.data.data.agentOrderNo;
+                  that.setData({
+                    handle:false,
+                    agentOrderNo:agentOrderNo
+                  })
+            }else{
+                let agentOrderNo = res.data.data.agentOrderNo;
+                that.setData({
+                  handle:false,
+                  agentOrderNo:agentOrderNo
+                })
+            }
+          }
+      })
+  },
 
   addDebit:function(){
       wx.navigateTo({
@@ -498,83 +545,78 @@ Page({
       title: '正在支付，请稍候',
       mask:true
     })
-
-    Tools.fetch({
-        url: '/order/'+this.data.agentOrderNo+'/agreementSms/'+this.data.Value,
-        method: 'POST',
-        callback(res) {
-            setTimeout(function () {
-              wx.hideLoading()
-            }, 500)
-            if (res.data.isSuccess) {
-                wx.navigateTo({
-                  url: '../pay_complete/pay_complete?success=true&amount=' + that.data.amount,
-                })
-            } else {
-                if (res.data.code == 77) {
-                  wx.showModal({
-                    content: '此卡尚未开通快捷支付，是否前往开通',
-                    success: function (re) {
-                      if (re.confirm) {
-                        wx.navigateTo({
-                          url: '../openquick/openquick?bankCardId=' + that.data.cardId + '&pointsType=' + that.data.ponitsType,
-                        })
-                      } else if (re.cancel) {
-                        return
-                      }
-                    }
+    if(that.data.pointsType == 3){
+      Tools.fetch({
+          url: '/order/'+this.data.agentOrderNo+'/agreementSms/'+this.data.Value,
+          method: 'POST',
+          callback(res) {
+              setTimeout(function () {
+                wx.hideLoading()
+              }, 500)
+              if (res.data.isSuccess) {
+                  wx.navigateTo({
+                    url: '../pay_complete/pay_complete?success=true&amount=' + that.data.amount,
                   })
-                  return
-                }
-                wx.navigateTo({
-                  url: '../pay_complete/pay_complete?success=false&amount=' + that.data.amount,
-                })
-            }
-        }
+              } else {
+                  if (res.data.code == 77) {
+                    wx.showModal({
+                      content: '此卡尚未开通快捷支付，是否前往开通',
+                      success: function (re) {
+                        if (re.confirm) {
+                          wx.navigateTo({
+                            url: '../openquick/openquick?bankCardId=' + that.data.cardId + '&pointsType=' + that.data.ponitsType,
+                          })
+                        } else if (re.cancel) {
+                          return
+                        }
+                      }
+                    })
+                    return
+                  }
+                  wx.navigateTo({
+                    url: '../pay_complete/pay_complete?success=false&amount=' + that.data.amount,
+                  })
+              }
+          }
 
-    })
-    // wx.request({
-    //   url: baseUrl + '/api/pay',
-    //   method: 'POST',
-    //   header: {
-    //     'Authorization': getApp().globalData.token
-    //   },
-    //   data: {
-    //     appId: getApp().globalData.appId,
-    //     outTradeNo: this.data.data,
-    //     smsCode: this.data.Value
-    //   },
-    //   success(res) {
-    //     setTimeout(function () {
-    //       wx.hideLoading()
-    //     }, 500)
-    //     if (res.data.isSuccess) {
-          
-    //       wx.navigateTo({
-    //         url: '../pay_complete/pay_complete?success=true&amount=' + that.data.amount,
-    //       })
-    //     } else {
-    //       if (res.data.code == 77) {
-    //         wx.showModal({
-    //           content: '此卡尚未开通快捷支付，是否前往开通',
-    //           success: function (re) {
-    //             if (re.confirm) {
-    //               wx.navigateTo({
-    //                 url: '../openquick/openquick?bankCardId=' + that.data.cardId + '&pointsType=' + that.data.ponitsType,
-    //               })
-    //             } else if (re.cancel) {
-    //               return
-    //             }
-    //           }
-    //         })
-    //         return
-    //       }
-    //       wx.navigateTo({
-    //         url: '../pay_complete/pay_complete?success=false&amount=' + that.data.amount,
-    //       })
-    //     }
-    //   }
-    // })
+      })
+    }else if (that.data.pointsType == 0){
+      Tools.fetch({
+          url: '/order/'+this.data.agentOrderNo+'/sms/'+this.data.Value,
+          method: 'POST',
+          callback(res) {
+              setTimeout(function () {
+                wx.hideLoading()
+              }, 500)
+              if (res.data.isSuccess) {
+                  wx.navigateTo({
+                    url: '../pay_complete/pay_complete?success=true&amount=' + that.data.amount,
+                  })
+              } else {
+                  if (res.data.code == 77) {
+                    wx.showModal({
+                      content: '此卡尚未开通快捷支付，是否前往开通',
+                      success: function (re) {
+                        if (re.confirm) {
+                          wx.navigateTo({
+                            url: '../openquick/openquick?bankCardId=' + that.data.cardId + '&pointsType=' + that.data.ponitsType,
+                          })
+                        } else if (re.cancel) {
+                          return
+                        }
+                      }
+                    })
+                    return
+                  }
+                  wx.navigateTo({
+                    url: '../pay_complete/pay_complete?success=false&amount=' + that.data.amount,
+                  })
+              }
+          }
+
+      })
+    }
+    
   }  
 
 

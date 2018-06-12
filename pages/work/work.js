@@ -87,7 +87,7 @@ Page({
   onShareAppMessage: function () {
       let userInfo = wx.getStorageSync("userInfo");
       return {
-        title: '千星钱包',
+        title: getApp().globalData.title,
         path: 'pages/main/main?userId='+userInfo.id
       }
   },

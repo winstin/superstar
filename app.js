@@ -62,7 +62,7 @@ App({
   },
 
   globalData: {
-    version:'10021',//小程序版本号
+    version:'10022',//小程序版本号
     userInfo: {},//用户信息
     userInfos:{},
     server: "https://www.51xjbuy.com",
@@ -70,6 +70,7 @@ App({
     token:'',
     appId:'11058973',
     tokens:'',
+    title:'千星钱包',
     banklogo:[
       {
         name:"招商银行",

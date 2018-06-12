@@ -83,7 +83,7 @@ Page({
   onShareAppMessage: function () {
       let openid = wx.getStorageSync("openid");
       return {
-        title: '千星钱包',
+        title: getApp().globalData.title,
         path: 'pages/main/main?openId='+openid
       }
   },

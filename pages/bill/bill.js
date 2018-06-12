@@ -21,6 +21,8 @@ Page({
     cardNumber:"",
     tel:"",
     d0fee:'',
+    settleCardNumber:'',
+    pointsType:''
   },
 
   /**
@@ -54,12 +56,17 @@ Page({
               if (res.data.isSuccess) {
                 let cardNumber="";
                 let tel="";
+                let settleCardNumber="";
                 if(res.data.data.cardNumber){
                     cardNumber = res.data.data.cardNumber.substr(0,5)+"*******"+res.data.data.cardNumber.substr(res.data.data.cardNumber.length-5,res.data.data.cardNumber.length-1)
                 }
 
                 if(res.data.data.tel){
                     tel = res.data.data.tel.substr(0,3)+"*******"+res.data.data.tel.substr(res.data.data.tel.length-4,res.data.data.tel.length-1)
+                }
+
+                if(res.data.data.settleCardNumber){
+                    settleCardNumber = res.data.data.settleCardNumber.substr(0,5)+"*******"+res.data.data.settleCardNumber.substr(res.data.data.settleCardNumber.length-5,res.data.data.settleCardNumber.length-1)
                 }
 
                 that.setData({
@@ -72,7 +79,9 @@ Page({
                     tel:tel,
                     cardNumber:cardNumber,
                     orderData: res.data.data,
-                    d0fee:(res.data.data.d0fee/100).toFixed(2)
+                    d0fee:(res.data.data.d0fee/100).toFixed(2),
+                    settleCardNumber:settleCardNumber,
+                    pointsType:res.data.data.pointsType
                 })
               }
           }
@@ -127,7 +136,7 @@ Page({
   onShareAppMessage: function () {
       let userInfo = wx.getStorageSync("userInfo");
       return {
-        title: '千星钱包',
+        title: getApp().globalData.title,
         path: 'pages/main/main?userId='+userInfo.id
       }
   }

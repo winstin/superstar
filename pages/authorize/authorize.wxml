@@ -7,7 +7,7 @@
   <view class='logoDiv'>
       <image class='logo' src='/img/logo.png'></image>
       <view class="tips">
-        <text class="little">千星钱包</text>
+        <text class="little">{{title}}</text>
       </view>
   </view>
   

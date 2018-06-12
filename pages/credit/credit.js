@@ -146,7 +146,7 @@ Page({
   onShareAppMessage: function () {
       let userInfo = wx.getStorageSync("userInfo");
       return {
-        title: '千星钱包',
+        title: getApp().globalData.title,
         path: 'pages/main/main?userId='+userInfo.id
       }
   },
@@ -173,7 +173,7 @@ Page({
 
   orderDetail: function(e){
       let id = e.currentTarget.id;
-      console.log(id)
+      // console.log(id)
       wx.navigateTo({
         url: '../credit_update/credit_update?id=' + id,
       })

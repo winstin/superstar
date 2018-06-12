@@ -12,7 +12,8 @@ Page({
     password: '',
     hidden: true,
     isPhoneNum:true,
-    isShareId:''
+    isShareId:'',
+    title:getApp().globalData.title
   },
   
   //用户名和密码输入框事件
@@ -86,7 +87,7 @@ Page({
   onShareAppMessage: function () {
       let userInfo = wx.getStorageSync("userInfo");
       return {
-        title: '千星钱包',
+        title: getApp().globalData.title,
         path: 'pages/main/main?userId='+userInfo.id
       }
   },
@@ -120,6 +121,7 @@ Page({
           if(self.data.isShareId!=''){
             jsonDatas.parentId = self.data.isShareId;
           }
+          // jsonDatas = {"id":null,"createTime":1528712292217,"updateTime":1528712292217,"agentAppId":"12059023","openId":"osNGG5FaZI0FuZb-caGHVW6orDNc","nickName":"老虎狗🐶","gender":"1","language":"zh_CN","city":"Los Angeles City","province":"California","country":"US","avatarUrl":"https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTK1DYjl04EduvRtG3oNzh0m1o7AZ3UD2EibMdNTyGDWyicH2EM2FYaQW8uAmqNaM1m0rh1pNMcib5q0Q/132","unionId":null,"wxAppId":"wx6f8a41209a8e13b3"}
           Tools.request({
               url: '/wxuser/auth',
               method: 'POST',

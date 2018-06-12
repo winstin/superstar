@@ -20,11 +20,11 @@
     </view>
     <view class='info_'>
       <label>安全码后三位</label>
-      <input type='number' maxlength='3' value='{{cvn}}' bindinput='cvnInput'></input>
+      <input type='number' maxlength='3' value='***' bindinput='cvnInput'></input>
     </view>
     <view class='info_'>
       <label>卡有效期</label>
-      <input type='number' maxlength='4' value='{{date}}' bindinput='dateInput'></input>
+      <input type='number' maxlength='4' value='***' bindinput='dateInput'></input>
     </view>
   </view>
 </view>

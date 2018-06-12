@@ -27,7 +27,7 @@
       </view>
     </view> -->
 
-    <!-- <view class='card'>
+    <view class='card'>
       <view class='img'>
         <image src='/img/my_card.png'></image>
       </view>
@@ -38,7 +38,7 @@
           </view>
         </picker>
       </view>
-    </view> -->
+    </view>
 
     <!-- <view class="container" class="zn-uploadimg">  
         <button type="primary" bindtap="modalinput">modal有输入框</button>   

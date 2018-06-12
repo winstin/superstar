@@ -15,10 +15,10 @@
   </view>
   <view class='info'>
 
-    <view class='info_'>
+    <!-- <view class='info_'>
       <text class='key'>创建时间</text>
       <text class='value'>{{createTime}}</text>
-    </view>
+    </view> -->
 
     <view class='info_' bindtap='copyOrderNo'>
       <text class='key'>订单号</text>
@@ -53,6 +53,16 @@
       <text class='key'>收款方式</text>
       <text class='value'>{{bankName}}</text>
     </view>
+
+    <view class='info_' wx:if="{{pointsType == '0'}}">
+      <text class='key'>交易类型</text>
+      <text class='value '>商旅类</text>
+    </view>
+    <view class='info_' wx:if="{{pointsType == '3'}}">
+      <text class='key'>交易类型</text>
+      <text class='value '>新无卡</text>
+    </view>
+
     <view class='info_' wx:if="{{status == 'B'}}">
       <text class='key'>交易失败原因</text>
       <text class='warnvalue '>{{stateMsg}}</text>

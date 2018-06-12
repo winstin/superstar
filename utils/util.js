@@ -158,7 +158,7 @@ const fetch = function({url,method='GET',data='',isLogin=false,callback,errCallb
               callback(res);
           }else{
               wx.hideLoading();
-              if(url=='/order' || url == "/businessDebitNote/agreementPay"){
+              if(url=='/order' || url == "/businessDebitNote/agreementPay" || url.indexOf('sms')>-1){
                 callback(res);
                 return
               }

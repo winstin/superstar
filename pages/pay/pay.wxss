@@ -43,7 +43,7 @@
 .button{
   width: 610rpx;
   margin: 0 auto;
-  margin-top: 60rpx;
+  margin-top: 30rpx;
 }
 
 .card{
