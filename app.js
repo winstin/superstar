@@ -62,7 +62,7 @@ App({
   },
 
   globalData: {
-    version:'10026',//小程序版本号
+    version:'10031',//小程序版本号
     userInfo: {},//用户信息
     userInfos:{},
     server: "https://www.51xjbuy.com",
@@ -78,7 +78,7 @@ App({
         style:"card_info3"
       },
       {
-        name:"浦发银行",
+        name:"浦东发展银行",
         url:"/img/logo/pfyh.png",
         style:"card_info2"
       },

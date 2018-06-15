@@ -14,7 +14,7 @@ Page({
     settleBankCardId: '',
     mchId:'',
     cardInfo: '',
-    amount: 10000,
+    amount: 60000,
     index: 0,
     pickerindex: '0',
     array: [],
@@ -171,7 +171,7 @@ Page({
   changeRadios:function(e){
     if(e.currentTarget.id == "1"){
         this.setData({
-          amount:10000,
+          amount:60000,
           checked1:true,
           checked2:false
         })
@@ -298,7 +298,7 @@ Page({
                     });
                 }else{
                     wx.showModal({
-                      content: res.data.message,
+                      content: res.data.message || "缴纳成功",
                       showCancel: false
                     });
                 }
