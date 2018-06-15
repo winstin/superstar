@@ -95,7 +95,8 @@ Page({
       }
   },
 
-  submit: function () {
+  submit: function (e) {
+    var formId = e.detail.formId;
     Tools.fetch({
         url: '/userApply',
         method: 'POST',

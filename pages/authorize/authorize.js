@@ -99,14 +99,40 @@ Page({
   },
 
   bindGetUserInfo:function(e){
+      wx.showLoading({
+        title:'登录中'
+      })
+      let self = this;
+      wx.login({
+        success: result => {
+          // 发送 res.code 到后台换取 openId, sessionKey, unionId 
+          var code = result.code; //返回code
+          Tools.request({
+              url: '/wx-mini-app/api/v1.0/wechat/user/login',
+              method: 'GET',
+              data: {
+                agentAppId: getApp().globalData.appId,
+                code: code
+              },
+              isLogin:true,
+              callback:(res)=> {
+                  if(res.data){
+                      wx.setStorageSync("openid", res.data.openid);
+                      wx.setStorageSync("sessionKey", res.data.sessionKey);
+                      self.Authorization(e);
+                  }
+              }
+          })
+        }
+      })
+  },
 
+
+  Authorization:function(e){
     let jsonData = e.detail;
     let self = this;
     jsonData.sessionKey = wx.getStorageSync("sessionKey");
     jsonData.agentAppId = getApp().globalData.appId;
-    wx.showLoading({
-      title:'登录中'
-    })
     Tools.request({
         url: '/wx-mini-app/api/v1.0/wechat/user/info',
         method: 'GET',
@@ -150,8 +176,6 @@ Page({
           })
         }
     })
-              
-   
   },
 
 

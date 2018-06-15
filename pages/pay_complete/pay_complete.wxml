@@ -4,6 +4,7 @@
     <icon class='icon' type="{{iconType}}" size='100'></icon>
     <text class='result'>{{message}}</text>
     <text class='money'>￥{{amount}}</text>
+    <text class='fee0'>费率: {{fee0}} (‰)</text>
   </view>
   <view class="button-sp-area">
     <button type="primary" plain="true" bindtap='complete'>完成</button>

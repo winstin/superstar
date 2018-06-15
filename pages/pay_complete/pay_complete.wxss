@@ -20,6 +20,11 @@ page {
   font-size: 80rpx;
 }
 
+.fee0{
+  margin-top: 10rpx;
+  font-size: 30rpx;
+}
+
 .button-sp-area{
   margin: 0 auto;
   width: 60%;

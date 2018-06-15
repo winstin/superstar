@@ -10,7 +10,8 @@ Page({
     iconType: 'success',
     message: '支付成功',
     amount: '',
-    agentOrderNo:''
+    agentOrderNo:'',
+    fee0:''
   },
 
   /**
@@ -20,6 +21,7 @@ Page({
     this.setData({
       amount: options.amount,
       agentOrderNo: options.agentOrderNo,
+      fee0:options.fee0
     })
     if (options.success == 'false') {
         this.setData({

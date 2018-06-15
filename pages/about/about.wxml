@@ -46,7 +46,11 @@
     </view>
 </scroll-view>
 <view class='button'>
-  <button bindtap='submit'>提 交</button>
+  <form bindsubmit="submit" bindreset="formReset" report-submit="{{true}}">
+      <button formType="submit">提 交</button>
+      <!-- <button >确认付款</button> -->
+      <!-- <button  bindtap='modalinput'>确认付款</button> -->
+  </form>
 </view>
 </view>
 

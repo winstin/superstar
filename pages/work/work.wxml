@@ -1,38 +1,40 @@
 <!--pages/work/work.wxml-->
 
 <view class='container'>
-<image src='/img/Service.jpeg' class='banner'></image>
-<scroll-view scroll-y style="height: 400px;" >
+    <image src='/img/Service.jpeg' class='banner'></image>
+    <scroll-view scroll-y style="height: 400px;" >
 
-    <view class='container'>
-      <view class='title'>
-         <text>申请服务商</text>
-      </view>
-      <view class='info'>
-          <view class='info_'>
-            <label>姓名</label>
-            <input placeholder='请输入姓名' bindinput='nameInput'></input>
+        <view class='container'>
+          <view class='title'>
+             <text>申请服务商</text>
           </view>
-          <view class='info_'>
-            <label>手机号</label>
-            <input type="number" maxlength='18' placeholder='请输入手机号' bindinput='telInput'></input>
+          <view class='info'>
+              <view class='info_'>
+                <label>姓名</label>
+                <input placeholder='请输入姓名' bindinput='nameInput'></input>
+              </view>
+              <view class='info_'>
+                <label>手机号</label>
+                <input type="number" maxlength='18' placeholder='请输入手机号' bindinput='telInput'></input>
+              </view>
+              <view class='info_'>
+                <label>邮箱</label>
+                <input placeholder='请输入邮箱地址' bindinput='emailInput'></input>
+              </view>
           </view>
-          <view class='info_'>
-            <label>邮箱</label>
-            <input placeholder='请输入邮箱地址' bindinput='emailInput'></input>
-          </view>
-      </view>
+        </view>
+        <view class="tips">
+          <text class="content">1.50万年薪，等你来挑战</text>
+        </view>
+        <view class="tips">
+          <text class="content">2.适用对象：个人，兼职，支付爱好者，团队，公司</text>
+        </view>
+    </scroll-view>
+    <view class='button'>
+        <form bindsubmit="submit" bindreset="formReset" report-submit="{{true}}">
+            <button formType="submit">提 交</button>
+        </form>
     </view>
-    <view class="tips">
-      <text class="content">1.50万年薪，等你来挑战</text>
-    </view>
-    <view class="tips">
-      <text class="content">2.适用对象：个人，兼职，支付爱好者，团队，公司</text>
-    </view>
-</scroll-view>
-<view class='button'>
-  <button bindtap='submit'>提 交</button>
-</view>
 </view>
 
 

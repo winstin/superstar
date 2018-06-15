@@ -171,7 +171,7 @@ Page({
   changeRadios:function(e){
     if(e.currentTarget.id == "1"){
         this.setData({
-          amount:60000,
+          amount:10000,
           checked1:true,
           checked2:false
         })
@@ -291,11 +291,18 @@ Page({
                     }
                 })
             }else{
-                wx.showModal({
-                  content: "缴纳成功",
-                  showCancel: false
-                });
-                return
+                if(res.data.isSuccess){
+                    wx.showModal({
+                      content: "缴纳成功",
+                      showCancel: false
+                    });
+                }else{
+                    wx.showModal({
+                      content: res.data.message,
+                      showCancel: false
+                    });
+                }
+                
             }
           }
       })

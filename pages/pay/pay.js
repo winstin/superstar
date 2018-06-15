@@ -52,7 +52,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    const that = this
   },
 
   /**
@@ -109,7 +108,7 @@ Page({
   },
 
 
-  choose:function(){
+  choose:function(type = ''){
     let that = this;
     Tools.fetch({
         url: '/settleBankCard',
@@ -129,7 +128,12 @@ Page({
                         settleBankCardId: cardData.id,
                         mchId:mchId,
                         pointsType: that.data.pointsType,
-                    })
+                    });
+                    if(type == "0"){
+                      that.goPay2();
+                    }else if(type == "3"){
+                      that.goPay();
+                    }
                 }
             } else {
               
@@ -155,7 +159,6 @@ Page({
   },
 
   bindPickerChange: function (e) {
-      // console.log(e.detail.value);
       if(e.detail.value == "0"){
           this.setData({
             pointsType: 3,
@@ -199,15 +202,15 @@ Page({
     //     d0fee:200
     // })
     // self.submitPay();
-    if(this.data.pointsType == 0){
-        info = "请输入短信验证码"
-        self.setData({
-            cardId: e.currentTarget.id,
-            flag:true,
-            smstel:info,
-        })
-        self.submitPay();
-    }else{
+    // if(this.data.pointsType == 0){
+    //     info = "请输入短信验证码"
+    //     self.setData({
+    //         cardId: e.currentTarget.id,
+    //         flag:true,
+    //         smstel:info,
+    //     })
+    //     self.submitPay();
+    // }else{
         Tools.request({
             url: '/wxuser/rates/'+openId+'/'+cardNumber,
             method: 'GET',
@@ -231,7 +234,7 @@ Page({
               }
             }
         })
-    }
+    // }
 
    
   },
@@ -301,15 +304,22 @@ Page({
 
       wx.showModal({
         title: '温馨提示',
-        content: '是否确定付款？',
+        content: '请选择交易通道',
+        confirmText:'商旅类',
+        cancelText:'新无卡',
         success: function(res) {
           if (res.confirm) {
-            if(that.data.pointsType == '3' || that.data.pointsType == 3){
-              that.goPay();
-            }else if(that.data.pointsType == '0'|| that.data.pointsType == 0){
-              that.goPay2();
-            }
+              that.setData({
+                pointsType: 0,
+              })
+              that.choose('0');
+              // that.goPay2();
           } else if (res.cancel) {
+              that.setData({
+                pointsType: 3,
+              })
+              that.choose('3');
+              // that.goPay();
               console.log('用户点击取消')
           }
         }
@@ -320,15 +330,6 @@ Page({
 
   goPay:function(){
       const that = this;
-      // let newData =  {
-      //       "creditBankCardId": this.data.cardId,
-      //       "d0fee": this.data.d0fee,
-      //       "fee0": this.data.fee0,
-      //       "mchId": this.data.mchId,
-      //       "settleBankCardId": this.data.settleBankCardId,
-      //       "totalFee": this.data.amount*100
-      //     };
-      // console.log(newData);
       wx.showLoading({
         title: '正在支付，请稍候',
         mask:true
@@ -363,7 +364,7 @@ Page({
                 }else{
                     let agentOrderNo = res.data.data.agentOrderNo;
                     wx.navigateTo({
-                      url: '../pay_complete/pay_complete?success=waiting&amount=' + that.data.amount+'&agentOrderNo=' + agentOrderNo,
+                      url: '../pay_complete/pay_complete?success=waiting&amount=' + that.data.amount+'&agentOrderNo=' + agentOrderNo+'&fee0=' + that.data.fee0,
                     })
                 }
             }else{
@@ -413,8 +414,8 @@ Page({
           method: 'POST',
           data: {
             "creditBankCardId": this.data.cardId,
-            "d0fee": 200,
-            "fee0": 6,
+            "d0fee": 100,
+            "fee0": 4.5,
             "mchId": this.data.mchId,
             "settleBankCardId": this.data.settleBankCardId,
             "totalFee": this.data.amount*100
@@ -425,14 +426,26 @@ Page({
                   let agentOrderNo = res.data.data.agentOrderNo;
                   that.setData({
                     handle:false,
-                    agentOrderNo:agentOrderNo
+                    agentOrderNo:agentOrderNo,
+                    smstel:'请输入短信验证码',
+                    fee0:4.5
                   })
             }else{
-                let agentOrderNo = res.data.data.agentOrderNo;
-                that.setData({
-                  handle:false,
-                  agentOrderNo:agentOrderNo
+
+                wx.showModal({
+                  title: '温馨提示',
+                  content: res.data.message,
+                  showCancel: false,
+                  success: function(res) {
+                    
+                  }
                 })
+                // let agentOrderNo = res.data.data.agentOrderNo;
+                // that.setData({
+                //   handle:false,
+                //   agentOrderNo:agentOrderNo,
+                //   smstel:'请输入短信验证码'
+                // })
             }
           }
       })
@@ -447,7 +460,13 @@ Page({
       })  
   },
   //点击按钮弹出指定的hiddenmodalput弹出框  
-  modalinput:function(){  
+  modalinput:function(e){  
+    var formId = e.detail.formId;
+
+    wx.showModal({
+      title: formId,
+      icon:'none'
+    })
     if (this.data.amount == '') {
       wx.showToast({
         title: '请输入金额',
@@ -555,7 +574,7 @@ Page({
               }, 500)
               if (res.data.isSuccess) {
                   wx.navigateTo({
-                    url: '../pay_complete/pay_complete?success=true&amount=' + that.data.amount,
+                    url: '../pay_complete/pay_complete?success=true&amount=' + that.data.amount+'&fee0=' + that.data.fee0,
                   })
               } else {
                   if (res.data.code == 77) {
@@ -574,7 +593,7 @@ Page({
                     return
                   }
                   wx.navigateTo({
-                    url: '../pay_complete/pay_complete?success=false&amount=' + that.data.amount,
+                    url: '../pay_complete/pay_complete?success=false&amount=' + that.data.amount+'&fee0=' + that.data.fee0,
                   })
               }
           }
@@ -590,7 +609,7 @@ Page({
               }, 500)
               if (res.data.isSuccess) {
                   wx.navigateTo({
-                    url: '../pay_complete/pay_complete?success=true&amount=' + that.data.amount,
+                    url: '../pay_complete/pay_complete?success=true&amount=' + that.data.amount+'&fee0=' + that.data.fee0,
                   })
               } else {
                   if (res.data.code == 77) {
@@ -599,7 +618,7 @@ Page({
                       success: function (re) {
                         if (re.confirm) {
                           wx.navigateTo({
-                            url: '../openquick/openquick?bankCardId=' + that.data.cardId + '&pointsType=' + that.data.ponitsType,
+                            url: '../openquick/openquick?bankCardId=' + that.data.cardId + '&pointsType=' + that.data.ponitsType+'&fee0=' + that.data.fee0,
                           })
                         } else if (re.cancel) {
                           return
@@ -609,7 +628,7 @@ Page({
                     return
                   }
                   wx.navigateTo({
-                    url: '../pay_complete/pay_complete?success=false&amount=' + that.data.amount,
+                    url: '../pay_complete/pay_complete?success=false&amount=' + that.data.amount+'&fee0=' + that.data.fee0,
                   })
               }
           }

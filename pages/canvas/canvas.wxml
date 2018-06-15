@@ -1,0 +1,92 @@
+<view class="container">
+    <view class="content">
+        <view class="top">
+            <image class='logo' src='/img/logo.png'></image>
+            <text class='title'>云商城</text>
+        </view>
+        <view class="body">
+            <view class="body-content1">
+                <text class='content-title'>订单支付通知</text>
+            </view>
+            <view class="body-content">
+                <text class='content-title1'>2018年5月</text>
+            </view>
+
+            <view class="body-content1">
+                <text class='content-title1'>单号</text>
+                <text class='content-title2'>10001000539499</text>
+            </view>
+
+
+
+            <view class="body-content">
+                <text class='content-title1'>姓名</text>
+                <text class='content-title2'>谢敏</text>
+            </view>
+
+            <view class="body-content">
+                <text class='content-title1'>服务名称</text>
+                <text class='content-title2'>(特约)湖南三和航空服务(互联网)</text>
+            </view>
+
+            
+            <!-- <view class="body-content">
+                <text class='content-title1'>金额</text>
+                <text class='content-title2'>4998.00</text>
+            </view> -->
+
+            <!-- <view class="body-content">
+                <text class='content-title1'>下单时间</text>
+                <text class='content-title2'>2018-05-08 08:45:02</text>
+            </view> -->
+            <view class="body-content">
+                <text class='content-title1'>支付时间</text>
+                <text class='content-title2'>2018-05-08 08:46:02</text>
+            </view>
+
+            <view class="body-content">
+                <text class='content-title1'>订单金额</text>
+                <text class='content-title2'>4998.00</text>
+            </view>
+
+            <!-- <view class="body-content">
+                <text class='content-title1'>费率</text>
+                <text class='content-title2'>6 (‰)</text>
+            </view>
+
+            <view class="body-content">
+                <text class='content-title1'>代付费</text>
+                <text class='content-title2'>2.00</text>
+            </view> -->
+
+           <!--  <view class="body-content">
+                <text class='content-title1'>订单金额</text>
+                <text class='content-title2'>4998.00</text>
+            </view> -->
+
+
+            <view class="body-content">
+                <text class='content-title1'>订单状态</text>
+                <text class='content-title2'>支付成功</text>
+            </view>
+
+            <view class="body-content">
+                <text class='content-title1'>支付方式</text>
+                <text class='content-title2'>快捷支付</text>
+            </view>
+
+            <!-- <view class="body-content">
+                <text class='content-title1'>温馨提示</text>
+                <text class='content-title2'></text>
+            </view> -->
+
+            
+            
+
+        </view>
+        <view class="foot">
+            <text class='title'>查看详情</text>
+            <image src='/img/my_right.png' class='right'></image>
+        </view>
+    </view>
+</view>

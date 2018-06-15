@@ -200,10 +200,10 @@
 
 .close{
   position:absolute;
-  color: #eee;
-  left:656rpx;
-  margin-top:-14rpx;
-
+  color:#eee;
+  left:650rpx;
+  margin-top:-22rpx;
+  font-size:25px;
 }
 
 

@@ -27,7 +27,7 @@
       </view>
     </view> -->
 
-    <view class='card'>
+    <!-- <view class='card'>
       <view class='img'>
         <image src='/img/my_card.png'></image>
       </view>
@@ -38,7 +38,7 @@
           </view>
         </picker>
       </view>
-    </view>
+    </view> -->
 
     <!-- <view class="container" class="zn-uploadimg">  
         <button type="primary" bindtap="modalinput">modal有输入框</button>   
@@ -86,9 +86,15 @@
               </view>
           </view>
     </modal>   -->
-    <view class='button'>
+    <form bindsubmit="modalinput" bindreset="formReset" report-submit="{{true}}">
+      <view class='button'>
+        <button formType="submit" type='primary'>确认付款</button>
+        <!-- <button  bindtap='modalinput'>确认付款</button> -->
+      </view>
+    </form>
+    <!-- <view class='button'>
       <button type='primary' bindtap='modalinput'>确认付款</button>
-    </view>
+    </view> -->
 
   </view>
 
@@ -137,3 +143,4 @@
   </view>
 
 </view>
+
