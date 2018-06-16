@@ -97,6 +97,18 @@ Page({
 
   submit: function (e) {
     var formId = e.detail.formId;
+    if(formId!= "the formId is a mock one"){
+        Tools.request({
+            url: '/wx-mini-app/api/v1.0/user/click/'+formId,
+            method: 'POST',
+            data: {
+              formId:formId
+            },
+            callback(res) {
+              
+            }
+        })
+    }
     Tools.fetch({
         url: '/userApply',
         method: 'POST',

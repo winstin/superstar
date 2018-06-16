@@ -308,6 +308,7 @@ Page({
         confirmText:'商旅类',
         cancelText:'新无卡',
         success: function(res) {
+          console.log(res)
           if (res.confirm) {
               that.setData({
                 pointsType: 0,
@@ -462,17 +463,26 @@ Page({
   //点击按钮弹出指定的hiddenmodalput弹出框  
   modalinput:function(e){  
     var formId = e.detail.formId;
-
-    wx.showModal({
-      title: formId,
-      icon:'none'
-    })
+    
+    
     if (this.data.amount == '') {
       wx.showToast({
         title: '请输入金额',
         icon:'none'
       })
       return
+    }
+    if(formId!= "the formId is a mock one"){
+        Tools.request({
+            url: '/wx-mini-app/api/v1.0/user/click/'+formId,
+            method: 'POST',
+            data: {
+              formId:formId
+            },
+            callback(res) {
+              
+            }
+        })
     }
     if(this.data.isNoCard){
       this.setData({  

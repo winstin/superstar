@@ -130,6 +130,7 @@ Page({
 
   Authorization:function(e){
     let jsonData = e.detail;
+    // console.log(jsonData)
     let self = this;
     jsonData.sessionKey = wx.getStorageSync("sessionKey");
     jsonData.agentAppId = getApp().globalData.appId;
