@@ -62,13 +62,14 @@ App({
   },
 
   globalData: {
-    version:'10032',//小程序版本号
+    version:'10037',//小程序版本号
     userInfo: {},//用户信息
     userInfos:{},
     server: "https://www.51xjbuy.com",
     newserver:"https://api.xjpay.cc",
     token:'',
     appId:'11058973',
+    wxAppId:'wx8c6f42443cd0a870',
     tokens:'',
     title:'千星钱包',
     banklogo:[

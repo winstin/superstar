@@ -32,11 +32,13 @@ Page({
     //         console.log(err)
     //     } 
     // })
-    
     let weixin_token = wx.getStorageSync("token");
     let userInfo = wx.getStorageSync("userInfo");
+    if(options.userId!="" && options.userId != undefined){
+        wx.setStorageSync("userId", options.userId);
+    }
     if(weixin_token == undefined || weixin_token == "" ||userInfo == undefined || userInfo == "" ){
-        if(options.userId){
+        if(options.userId!="" && options.userId != undefined){
             wx.redirectTo({
               url: '../authorize/authorize?userId='+options.userId,
             })

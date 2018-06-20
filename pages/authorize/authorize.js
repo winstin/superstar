@@ -13,6 +13,7 @@ Page({
     hidden: true,
     isPhoneNum:true,
     isShareId:'',
+    isFirst:true,
     title:getApp().globalData.title
   },
   
@@ -32,11 +33,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if(options.userId){//分享用户进首页处理
+    
+    if(options.userId!= undefined && options.userId!= ""){//分享用户进首页处理
         this.setData({
             isShareId:options.userId
         })   
     }
+
+    let userId = wx.getStorageSync("userId");
+
+    if(userId!=undefined && userId!=""){
+        this.setData({
+            isShareId:userId
+        })   
+    }
+    
   },
 
   /**
@@ -116,6 +127,7 @@ Page({
               },
               isLogin:true,
               callback:(res)=> {
+                  
                   if(res.data){
                       wx.setStorageSync("openid", res.data.openid);
                       wx.setStorageSync("sessionKey", res.data.sessionKey);
@@ -127,32 +139,55 @@ Page({
       })
   },
 
-
   Authorization:function(e){
-    let jsonData = e.detail;
-    // console.log(jsonData)
+    // console.log(e.detail)
+    let jsonData = {};
+    // jsonData = e.detail;
+    // jsonData.signature = e.detail.signature;
+    // jsonData.encryptedData = e.detail.encryptedData;
+    // jsonData.errMsg = e.detail.errMsg;
+    
+    // jsonData.rawData = e.detail.rawData;
+    // jsonData.iv = e.detail.iv;
+     
     let self = this;
-    jsonData.sessionKey = wx.getStorageSync("sessionKey");
+    jsonData.openId = wx.getStorageSync("openid");
     jsonData.agentAppId = getApp().globalData.appId;
-    Tools.request({
-        url: '/wx-mini-app/api/v1.0/wechat/user/info',
-        method: 'GET',
-        data: jsonData,
-        isLogin:true,
-        callback:(res)=> {
-          let userInfo = {};
-          if(res.data){
-              userInfo = res.data;
-          }
-          let jsonDatas =  res.data;
-          if(self.data.isShareId!=''){
-            jsonDatas.parentId = self.data.isShareId;
-          }
+    jsonData.avatarUrl = e.detail.userInfo.avatarUrl;
+    jsonData.city = e.detail.userInfo.city;
+
+    jsonData.country = e.detail.userInfo.country;
+
+    jsonData.gender = e.detail.userInfo.gender;
+    jsonData.language = e.detail.userInfo.language;
+
+    jsonData.nickName = e.detail.userInfo.nickName;
+    jsonData.language = e.detail.userInfo.language;
+    jsonData.province = e.detail.userInfo.province;
+    jsonData.wxAppId = getApp().globalData.wxAppId;
+    if(self.data.isShareId!=''){
+      jsonData.parentId = self.data.isShareId;
+    }
+
+    let userInfo = jsonData;
+
+    // Tools.request({
+    //     url: '/wx-mini-app/api/v1.0/wechat/user/info',
+    //     method: 'GET',
+    //     data: jsonData,
+    //     isLogin:true,
+    //     callback:(res)=> {
+    //       let userInfo = {};
+    //       if(res.data){
+    //           userInfo = res.data;
+    //       }
+    //       let jsonDatas =  res.data;
+          
           // jsonDatas = {"id":null,"createTime":1528712292217,"updateTime":1528712292217,"agentAppId":"12059023","openId":"osNGG5FaZI0FuZb-caGHVW6orDNc","nickName":"老虎狗🐶","gender":"1","language":"zh_CN","city":"Los Angeles City","province":"California","country":"US","avatarUrl":"https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTK1DYjl04EduvRtG3oNzh0m1o7AZ3UD2EibMdNTyGDWyicH2EM2FYaQW8uAmqNaM1m0rh1pNMcib5q0Q/132","unionId":null,"wxAppId":"wx6f8a41209a8e13b3"}
           Tools.request({
               url: '/wxuser/auth',
               method: 'POST',
-              data:jsonDatas,
+              data:jsonData,
               isLogin:true,
               callback:(res)=> {
                   wx.hideLoading();
@@ -171,12 +206,13 @@ Page({
                         content: "授权失败，可以联系客服! ",
                         showCancel: false
                       })
+                      
                   }
                                                     
               }
           })
-        }
-    })
+    //     }
+    // })
   },
 
 

@@ -44,9 +44,9 @@ Page({
 
     let roleName = wx.getStorageSync("roleName");
 
-    if(roleName == "省钱宝典"){
+    if(roleName == "赚钱宝典"){
         roleName = "代理商"
-    }else if(roleName == "赚钱宝典"){
+    }else if(roleName == "省钱宝典"){
         roleName = "服务商"
     }else{
         roleName = "普通用户"

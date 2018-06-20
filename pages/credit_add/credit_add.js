@@ -27,11 +27,13 @@ Page({
     })
   },
   cvnInput: function (e) {
+    
     this.setData({
       cvn: e.detail.value
     })
   },
   dateInput: function (e) {
+    
     this.setData({
       date: e.detail.value
     })
@@ -116,6 +118,31 @@ Page({
 
   submit: function () {
     var baseUrl = getApp().globalData.server;
+
+    if(this.data.cvn.length != 3){
+        wx.showToast({
+          title: '请输入3位cvn',
+          icon: 'none',
+        });
+        return
+    }
+
+    if(this.data.date.length != 4){
+        wx.showToast({
+          title: '请输入4位有效期',
+          icon: 'none',
+        });
+        return
+    }
+
+    let date = Number(this.data.date)
+    if(date >1300){
+        wx.showToast({
+          title: '请输入月月日日格式有效期',
+          icon: 'none',
+        });
+        return
+    }
     Tools.request({
         url: '/mini-api/api/v1.0/creditBankCard',
         method: 'POST',
