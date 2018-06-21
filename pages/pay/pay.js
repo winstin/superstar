@@ -318,8 +318,8 @@ Page({
       }
       let info = "";
       Tools.request({
-          // url: '/wxuser/rates/'+openId+'/'+this.data.cardNumber,
-          url: '/wxuser/rates/oznaZ5f5QqWAZ1xwgaBcgcwlcJrs/6253624080305962',
+          url: '/wxuser/rates/'+openId+'/'+this.data.cardNumber,
+          // url: '/wxuser/rates/oznaZ5f5QqWAZ1xwgaBcgcwlcJrs/6253624080305962',
           
           method: 'GET',
           callback(res) {
@@ -412,62 +412,56 @@ Page({
 
 
   goPay2:function(){
+      
+      
+      const self = this;
+      let openId = wx.getStorageSync("openid");
+      if(openId == undefined || openId == ""){
+        openId = wx.getStorageSync("userInfo").openId
+      }
+      let info = "";
+      Tools.request({
+          url: '/wxuser/rates/'+openId+'/'+this.data.cardNumber,
+          data:{
+            pointsType :'POINTSTYPE_JF',
+            upstream:'KFT_SERVICE'
+          },          
+          method: 'GET',
+          callback(res) {
+            if(res.data.isSuccess){
+                info = "正在和您签约协议支付"
+                self.setData({
+                    flag:true,
+                    smstel:info,
+                    fee0:res.data.data.fee0,
+                    d0fee:res.data.data.d0fee
+                })
+                self.newPay2();
+            }else{
+                wx.showToast({
+                  title: '费率获取失败！',
+                  icon:'none'
+                })
+                return
+            }
+          }
+      })
+      
+  },
+
+  newPay2:function(){
       const that = this;
-      // let newData =  {
-      //       "creditBankCardId": this.data.cardId,
-      //       "d0fee": this.data.d0fee,
-      //       "fee0": this.data.fee0,
-      //       "mchId": this.data.mchId,
-      //       "settleBankCardId": this.data.settleBankCardId,
-      //       "totalFee": this.data.amount*100
-      //     };
-      // console.log(newData);
       wx.showLoading({
         title: '正在支付，请稍候',
         mask:true
       })
-      // let openId = wx.getStorageSync("openid");
-      // Tools.request({
-      //     url: '/wxuser/rates/'+openId+'/'+this.data.cardNumber,
-      //     method: 'GET',
-      //     data:{
-      //         pointsType:"POINTSTYPE_JF",
-      //         upstream:'KFT'
-      //     },
-      //     callback(res) {
-      //       if(res.data.isSuccess){
-      //           self.setData({
-      //               cardId: e.currentTarget.id,
-      //               flag:true,
-      //               smstel:info,
-      //               fee0:res.data.data.fee0,
-      //               d0fee:res.data.data.d0fee
-      //           })
-      //           self.submitPay();
-      //       }else{
-      //           wx.showToast({
-      //             title: '费率获取失败！',
-      //             icon:'none'
-      //           })
-      //           return
-      //       }
-      //     }
-      // })
-      
-      let roleName = wx.getStorageSync("roleName");
-      let fee0 = 4.5;
-      if(roleName == "赚钱宝典"){
-          fee0 = 4.2;
-      }else if(roleName == "省钱宝典"){
-          fee0 = 4.3;
-      }
       Tools.fetch({
           url: '/order',
           method: 'POST',
           data: {
             "creditBankCardId": this.data.cardId,
-            "d0fee": 100,
-            "fee0": fee0,
+            "d0fee": this.data.d0fee,
+            "fee0": this.data.fee0,
             "mchId": this.data.mchId,
             "settleBankCardId": this.data.settleBankCardId,
             "totalFee": this.data.amount*100
@@ -480,7 +474,7 @@ Page({
                     handle:false,
                     agentOrderNo:agentOrderNo,
                     smstel:'请输入短信验证码',
-                    fee0:fee0
+                    fee0:that.data.fee0
                   })
             }else{
 
@@ -492,12 +486,6 @@ Page({
                     
                   }
                 })
-                // let agentOrderNo = res.data.data.agentOrderNo;
-                // that.setData({
-                //   handle:false,
-                //   agentOrderNo:agentOrderNo,
-                //   smstel:'请输入短信验证码'
-                // })
             }
           }
       })
