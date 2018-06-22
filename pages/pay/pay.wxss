@@ -123,8 +123,10 @@
 }
 
 .normal_text{
-  color:#444;
-  font-weight: 600
+  color:#1c2438;
+  /*font-weight: 600;*/
+  font-size:15px;
+
 }
 
 .bank_name{
@@ -213,7 +215,64 @@
 
 .modal-content{
   background: #fff;
-  width: 80%
+  width: 80%;
+  border-radius: 7px;
+}
+.bank_name {
+  font-size: 36rpx;
 }
 
+.debit {
+  margin-top: 5rpx;
+  font-size: 26rpx;
+}
+
+.card_num {
+  font-size: 40rpx;
+  margin-top: 10rpx;
+  display: flex;
+  align-content: center;
+}
+.card_text_1{
+  padding-top: 10rpx;
+  margin-right: 30rpx;
+}
+
+.card_icon {
+
+  margin-top: 30rpx;
+  margin-left: 60rpx;
+  width: 95rpx;
+  height: 95rpx;
+  float: left;
+  border-radius: 100rpx;
+  border: 1px solid #e5e5e5;
+  background: #fff 
+}
+
+.card_img {
+  width: 70rpx;
+  height: 70rpx;
+  margin-top: 13rpx;
+  margin-left: 13rpx;
+}
+
+.card_texts {
+ 
+  float: left;
+  margin-top: 30rpx;
+  color: #eee;
+  margin-left:8px;
+}
+
+.close-btn{
+  position:absolute;
+  top:20rpx;
+  right:0rpx;
+  width:110rpx;
+  font-size:12px;
+  background:#fff;
+
+
+}
 

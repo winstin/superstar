@@ -61,7 +61,7 @@
           <text class='title'>重新授权</text>
           <image src='/img/my_right.png' class='right'></image>
         </navigator>
-        
+
         <!--<view class='list_item' hover-class="none" >
           <i class="iconfont icon-kefu leftss" ></i>
           <text class='title'>联系客服</text>

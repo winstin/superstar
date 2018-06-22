@@ -14,35 +14,6 @@
       <input type='number'  bindinput='amountInput' value='{{amount}}'></input>
     </view>
 
-    <!-- <view class='card' bindtap='selectCredit'>
-      <view class='img'>
-        <image src='/img/my_card.png'></image>
-      </view>
-      <view class='name'>
-        <text>{{cardInfo}}</text>
-        <image src='/img/my_right.png'></image>
-        <view class='tips'>
-          <text>优先使用此方法付款</text>
-        </view>
-      </view>
-    </view> -->
-
-    <!-- <view class='card'>
-      <view class='img'>
-        <image src='/img/my_card.png'></image>
-      </view>
-      <view class='name'>
-        <picker bindchange="bindPickerChange" value="{{pickerindex}}" range="{{array}}">
-          <view class="picker">
-            交易通道选择：{{array[pickerindex]}}
-          </view>
-        </picker>
-      </view>
-    </view> -->
-
-    <!-- <view class="container" class="zn-uploadimg">  
-        <button type="primary" bindtap="modalinput">modal有输入框</button>   
-    </view>  -->
     <modal hidden="{{hiddenmodalput}}" title="请选择付款卡号" confirm-text="确认付款" cancel-text="取消" bindconfirm="submitPay" bindcancel="cancel">      
       <view id="{{item.id}}" class='info' wx:for="{{items}}" wx:key="{{item.id}}" bindtap='changeRadio'>
               <view class='card_text'>
@@ -75,26 +46,11 @@
       <input name="password" type='number' password="{{true}}" class='ipt' maxlength="{{Length}}" focus="{{isFocus}}" bindinput="Focus"></input>  
     </modal>  
 
-    
-
-    <!-- <modal hidden="{{isNoCards}}" title="添加收款卡" confirm-text="确认" cancel-text="取消" bindconfirm="addCards" no-cancel bindcancel="cancel">      
-          <view class='bottom-btn' >
-              <view class='bank_namew'>
-                  <view class='bank_modal_name'>
-                    <text class="normal_text">请添加收款卡</text>
-                  </view>
-              </view>
-          </view>
-    </modal>   -->
     <form bindsubmit="modalinput" bindreset="formReset" report-submit="{{true}}">
       <view class='button'>
         <button formType="submit" type='primary'>确认付款</button>
-        <!-- <button  bindtap='modalinput'>确认付款</button> -->
       </view>
     </form>
-    <!-- <view class='button'>
-      <button type='primary' bindtap='modalinput'>确认付款</button>
-    </view> -->
 
   </view>
 
@@ -118,7 +74,7 @@
 
   <view class="modal-box" hidden="{{flag}}">
       <view class="modal-content">
-            <i class="iconfont icon-guanbi close" bindtap='cancel'></i>
+            <!-- <i class="iconfont icon-guanbi close" bindtap='cancel'></i> -->
             <view id="{{item.id}}" class='info' wx:for="{{items}}" wx:key="{{item.id}}" bindtap='changeRadio'>
                 <view class='card_text'>
                   <view class='bank_name'>
@@ -127,7 +83,6 @@
                         <text class="normal_text">{{item.bankName}}信用卡</text>
                         <text class="normal_text"> ({{item.cardNumberLast4}})</text>
                       </view>
-                      <!-- <radio value="{{item.value}}" checked='{{item.checked}}'/> -->
                   </view>
                 </view>
             </view>
@@ -142,5 +97,33 @@
       </view>
   </view>
 
+
+  <i-modal title="温馨提示" visible="{{ visible3 }}" actions="{{ actions3 }}" bind:click="handleClick3">
+    <view>请选择交易通道</view>
+    <view class="close-btn" bindtap='cancel'>关闭</view>
+  </i-modal>
+
+
+  <i-modal  visible="{{ visible1 }}" bind:ok="handleClose1" bind:cancel="handleClose1">
+     <view class="{{choosedCard.style}}" >
+        <view class='card_icon'>
+          <image class='card_img' src="{{choosedCard.url}}"></image>
+        </view>
+        <view class='card_texts'>
+          <view class='bank_name'>
+            <text>{{item.bankName}}</text>
+          </view>
+          <view class='debit'>
+            <text>信用卡</text>
+          </view>
+          <view class='card_num'>
+            <text class='card_text_1'>****</text>
+            <text class='card_text_1'>****</text>
+            <text class='card_text_1'>****</text>
+            <text> {{choosedCard.cardNum}}</text>
+          </view>
+        </view>
+      </view>
+  </i-modal>
 </view>
 

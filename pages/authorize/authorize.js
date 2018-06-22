@@ -110,6 +110,7 @@ Page({
   },
 
   bindGetUserInfo:function(e){
+      // console.log(e)
       wx.showLoading({
         title:'登录中'
       })

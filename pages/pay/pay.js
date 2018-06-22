@@ -33,7 +33,19 @@ Page({
     smstel:'',
     fee0:'7',
     d0fee:200,
-    
+    visible3:false,
+    visible1:false,
+    actions3: [
+            {
+                name: '新无卡',
+                color: '#2d8cf0',
+            },
+            {
+                name: '商旅类',
+                color: '#19be6b'
+            }
+        ],
+    choosedCard:{}
   },
 
   amountInput: function (e) {
@@ -183,6 +195,12 @@ Page({
           cardData[i].checked = true;
           info = cardData[i].tel;
           cardNumber = cardData[i].cardNumber;
+          // let choosedCard={
+          //   url:cardData[i].url,
+          //   style:cardData[i].style,
+          //   cardNum:'2345'
+          // }
+          // this.setData({visible1:true,choosedCard:choosedCard})
         }else{
           cardData[i].checked = false;
         }
@@ -282,30 +300,30 @@ Page({
           return;
       }
 
-
-      wx.showModal({
-        title: '温馨提示',
-        content: '请选择交易通道',
-        confirmText:'商旅类',
-        cancelText:'新无卡',
-        success: function(res) {
-          console.log(res)
-          if (res.confirm) {
-              that.setData({
-                pointsType: 0,
-              })
-              that.choose('0');
-              // that.goPay2();
-          } else if (res.cancel) {
-              that.setData({
-                pointsType: 3,
-              })
-              that.choose('3');
-              // that.goPay();
-              console.log('用户点击取消')
-          }
-        }
-      })
+      that.setData({visible3:true})
+      // wx.showModal({
+      //   title: '温馨提示',
+      //   content: '请选择交易通道',
+      //   confirmText:'商旅类',
+      //   cancelText:'新无卡',
+      //   success: function(res) {
+      //     console.log(res)
+      //     if (res.confirm) {
+      //         that.setData({
+      //           pointsType: 0,
+      //         })
+      //         that.choose('0');
+      //         // that.goPay2();
+      //     } else if (res.cancel) {
+      //         that.setData({
+      //           pointsType: 3,
+      //         })
+      //         that.choose('3');
+      //         // that.goPay();
+      //         console.log('用户点击取消')
+      //     }
+      //   }
+      // })
       
   },
 
@@ -550,7 +568,8 @@ Page({
           isNoCards:true,
           handle:true,
           isNoCards:true,
-          flag:true
+          flag:true,
+          visible3:false
       })  
   },
 
@@ -618,9 +637,7 @@ Page({
           url: '/order/'+this.data.agentOrderNo+'/agreementSms/'+this.data.Value,
           method: 'POST',
           callback(res) {
-              setTimeout(function () {
-                wx.hideLoading()
-              }, 500)
+              wx.hideLoading();
               if (res.data.isSuccess) {
                   wx.navigateTo({
                     url: '../pay_complete/pay_complete?success=waiting&amount=' + that.data.amount+'&fee0=' + that.data.fee0+'&agentOrderNo=' + that.data.agentOrderNo,
@@ -653,9 +670,7 @@ Page({
           url: '/order/'+this.data.agentOrderNo+'/sms/'+this.data.Value,
           method: 'POST',
           callback(res) {
-              setTimeout(function () {
-                wx.hideLoading()
-              }, 500)
+              wx.hideLoading();
               if (res.data.isSuccess) {
                   wx.navigateTo({
                     url: '../pay_complete/pay_complete?success=waiting&amount=' + that.data.amount+'&fee0=' + that.data.fee0+'&agentOrderNo=' + that.data.agentOrderNo,
@@ -685,7 +700,30 @@ Page({
       })
     }
     
-  }  
+  },
+  handleClick3 ({ detail }) {
+        const index = detail.index;
+        const that = this;
+        if (index === 0) {
+            // console.log('点击了现金支付')
+            that.setData({
+              pointsType: 3,
+            })
+            that.choose('3');
+
+        } else if (index === 1) {
+            // console.log('点击了微信支付')
+            
+            that.setData({
+              pointsType: 0,
+            })
+            that.choose('0');
+        }
+
+        this.setData({
+            visible3: false
+        });
+    }, 
 
 
 })

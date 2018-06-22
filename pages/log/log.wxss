@@ -206,7 +206,7 @@
   padding:2px;
   padding-left:10px;
   padding-right:10px;
-  background:#e5e5e5;
+  background:#dddee1;
   width:120rpx;
   text-align:center;
 

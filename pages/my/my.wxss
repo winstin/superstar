@@ -37,12 +37,14 @@
 .title {
   margin-left: 30rpx;
   float: left;
+  font-size: 16px
 }
 
 .num {
   margin-right: 10rpx;
   float: right;
   color: #888;
+  font-size: 15px
 }
 
 .left {

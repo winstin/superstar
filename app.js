@@ -130,7 +130,7 @@ App({
         style:"card_info6"
       },
       {
-        name:"广发银行",
+        name:"广发银行股份有限公司",
         url:"/img/logo/gfyh.png",
         style:"card_info3"
       },
